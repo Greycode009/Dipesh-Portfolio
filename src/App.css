@@ -1,38 +1,193 @@
-.App {
-  text-align: center;
+/* App.css - Main application styles */
+
+:root {
+  --primary-color: #bb86fc;
+  --background-color: #121212;
+  --surface-color: #1e1e1e;
+  --light-text: #e1e1e1;
+  --dim-text: #a0a0a0;
+  --accent-glow: rgba(187, 134, 252, 0.3);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Base Styles */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--light-text);
+  font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app-container {
+  display: flex;
   min-height: 100vh;
+  position: relative;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 250px;
+  background-color: var(--surface-color);
+  padding: 1.5rem;
+  z-index: 50;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin: 0 0 0.5rem 0;
+}
+
+.sidebar-subtitle {
+  font-size: 0.9rem;
+  color: var(--dim-text);
+  margin: 0;
+}
+
+.sidebar-nav {
+  margin: 2rem 0;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-list li {
+  margin-bottom: 0.75rem;
+}
+
+.nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: var(--light-text);
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  background-color: rgba(187, 134, 252, 0.1);
+  color: var(--primary-color);
+}
+
+.nav-link.active {
+  background-color: rgba(187, 134, 252, 0.1);
+  color: var(--primary-color);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 1rem;
+  margin-left: 250px; /* Match sidebar width */
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 60;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: var(--surface-color);
+  border: none;
+  border-radius: 0.375rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  transition: transform 0.3s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.menu-toggle.active {
+  transform: rotate(90deg);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.bar {
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: all 0.3s ease;
 }
+
+.bar:not(:last-child) {
+  margin-bottom: 0.4rem;
+}
+
+.bar.rotate-top {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.bar.hidden {
+  opacity: 0;
+}
+
+.bar.rotate-bottom {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 40;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .menu-toggle {
+    display: flex;
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+} 
