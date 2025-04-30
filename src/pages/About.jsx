@@ -105,9 +105,13 @@ function About() {
           transition={{ delay: 0.4, duration: 0.8 }}
         >
           <span>Developer</span>
-          <span className="dot"></span>
+          <svg className="separator-dot" width="5" height="5" viewBox="0 0 5 5" aria-hidden="true">
+            <circle cx="2.5" cy="2.5" r="2.5" fill="currentColor" />
+          </svg>
           <span>Designer</span>
-          <span className="dot"></span>
+          <svg className="separator-dot" width="5" height="5" viewBox="0 0 5 5" aria-hidden="true">
+            <circle cx="2.5" cy="2.5" r="2.5" fill="currentColor" />
+          </svg>
           <span>Frontend Specialist</span>
         </motion.div>
       </motion.section>

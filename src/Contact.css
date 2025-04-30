@@ -208,7 +208,7 @@
   gap: 10px;
   margin-bottom: 8px;
   font-weight: 500;
-  color: #bbbbbb;
+  color: var(--color-dimText);
   transition: all 0.3s ease;
 }
 

@@ -7,6 +7,22 @@
   .about-container {
     padding: 0;
   }
+  .separator-dot {
+    margin: 0 10px;
+    transform: scale(0.9);
+  }
+  
+  .about-tagline {
+    font-size: 1.1rem;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .separator-dot {
+    margin: 0 8px;
+    transform: scale(0.8);
+  }
 }
 
 .about-hero {
@@ -53,12 +69,62 @@
   z-index: 1;
 }
 
-.dot {
-  width: 6px;
-  height: 6px;
-  background-color: var(--color-primary);
-  border-radius: 50%;
-  margin: 0 15px;
+.about-tagline span {
+  display: inline-block;
+}
+
+.separator-dot {
+  margin: 0 20px;
+  color: var(--color-primary);
+  opacity: 0.8;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  /* Add a subtle drop shadow to enhance visibility */
+  filter: drop-shadow(0 0 1px rgba(var(--color-primary-rgb), 0.5));
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+.about-tagline:hover .separator-dot {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Theme-specific dot styling */
+.theme-light .separator-dot {
+  opacity: 0.7;
+  filter: drop-shadow(0 0 1px rgba(var(--color-primary-rgb), 0.3));
+}
+
+.theme-purple .separator-dot, 
+.theme-blue .separator-dot {
+  opacity: 0.9;
+  filter: drop-shadow(0 0 2px rgba(var(--color-primary-rgb), 0.7));
+}
+
+.highlight {
+  color: var(--color-primary);
+  font-weight: 500;
+  position: relative;
+  padding: 0 2px;
+}
+
+/* Add a subtle background to the highlighted text */
+.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background-color: var(--color-primary-10);
+  z-index: -1;
+  border-radius: 2px;
+}
+
+/* Theme-specific highlight adjustments */
+.theme-light .highlight::after {
+  opacity: 0.7;
 }
 
 .about-content {
@@ -98,7 +164,7 @@
   bottom: 0;
   width: 60px;
   height: 3px;
-  background-color: #bb86fc;
+  background-color: var(--color-primary);
 }
 
 .bio-container {
@@ -136,7 +202,7 @@
   left: -15px;
   width: calc(100% + 30px);
   height: calc(100% + 30px);
-  background: linear-gradient(135deg, #bb86fc, transparent);
+  background: linear-gradient(135deg, var(--color-primary), transparent);
   z-index: -1;
   border-radius: 50%;
   opacity: 0.7;
@@ -155,11 +221,6 @@
   line-height: 1.7;
   
   font-size: 1.05rem;
-}
-
-.highlight {
-  color: var(--primary);
-  font-weight: 500;
 }
 
 .skills-container {
@@ -265,12 +326,12 @@
 }
 
 .skill-card.development .skill-icon {
-  color: #4caf50;
-  background-color: rgba(76, 175, 80, 0.1);
+  color: var(--color-success, #4caf50);
+  background-color: rgba(var(--color-success-rgb, 76, 175, 80), 0.1);
 }
 
 .skill-card.development:hover .skill-icon {
-  background-color: rgba(76, 175, 80, 0.2);
+  background-color: rgba(var(--color-success-rgb, 76, 175, 80), 0.2);
 }
 
 .skill-card:nth-child(2) .skill-icon {
@@ -315,7 +376,14 @@
   transform: translateX(-50%);
   width: 3px;
   height: 100%;
-  background-color: var(--color-border);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-primary) 15%,
+    var(--color-primary) 85%,
+    transparent 100%
+  );
+  opacity: 0.4;
 }
 
 .timeline-item {
@@ -340,6 +408,13 @@
   padding: 20px;
   border-radius: 8px;
   position: relative;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--color-border);
+  /* Add subtle gradient overlay to create depth */
+  background-image: linear-gradient(to bottom, 
+    rgba(var(--color-primary-rgb), 0.03), 
+    rgba(var(--color-primary-rgb), 0.01)
+  );
 }
 
 .timeline-item:hover .timeline-content {
@@ -362,6 +437,12 @@
   width: 20px;
   height: 20px;
   background-color: var(--color-surface);
+  background-image: linear-gradient(to bottom, 
+    rgba(var(--color-primary-rgb), 0.03), 
+    rgba(var(--color-primary-rgb), 0.01)
+  );
+  border-right: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border);
   transform: rotate(45deg);
 }
 
@@ -373,6 +454,12 @@
   width: 20px;
   height: 20px;
   background-color: var(--color-surface);
+  background-image: linear-gradient(to bottom, 
+    rgba(var(--color-primary-rgb), 0.03), 
+    rgba(var(--color-primary-rgb), 0.01)
+  );
+  border-left: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border);
   transform: rotate(45deg);
 }
 
@@ -466,11 +553,6 @@ blockquote::after {
     font-size: 2.5rem;
   }
   
-  .about-tagline {
-    font-size: 1.1rem;
-    flex-wrap: wrap;
-  }
-  
   .about-content {
     padding: 0 20px 20px;
   }
@@ -506,6 +588,14 @@ blockquote::after {
   
   .timeline-line {
     left: 40px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--color-primary) 15%,
+      var(--color-primary) 85%,
+      transparent 100%
+    );
+    opacity: 0.4;
   }
   
   .timeline-item:nth-child(even) .timeline-content::after,
@@ -519,7 +609,6 @@ blockquote::after {
     font-size: 1.1rem;
   }
 }
-
 
 @media (max-width: 480px) {
   .category-tag {
@@ -624,6 +713,10 @@ blockquote::after {
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border-left: 3px solid var(--color-primary);
   transform-origin: center;
+  background-image: linear-gradient(to bottom, 
+    rgba(var(--color-primary-rgb), 0.07), 
+    rgba(var(--color-primary-rgb), 0.03)
+  );
 }
 
 .highlight-journey:hover .timeline-content {
@@ -631,6 +724,10 @@ blockquote::after {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
   z-index: 10;
   background-color: var(--color-surface);
+  background-image: linear-gradient(to bottom, 
+    rgba(var(--color-primary-rgb), 0.1), 
+    rgba(var(--color-primary-rgb), 0.05)
+  );
 }
 
 /* Even and odd items need different borders and animations */
@@ -670,5 +767,15 @@ blockquote::after {
 .highlight-journey:nth-child(even):hover .timeline-content::after {
   left: -10px;
   transform: rotate(45deg) scale(1);
+}
+
+/* Also improve the specific themes compatibility */
+.theme-light .timeline-content {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.theme-purple .timeline-content,
+.theme-blue .timeline-content {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 } 
 
