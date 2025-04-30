@@ -82,7 +82,7 @@ function Home() {
           >
             {/* Using logo.png as Dipesh Malla's image */}
             <img
-              src="/logo.png"
+              src="https://i.postimg.cc/j5SB8L1m/logo.png"
               alt="Dipesh Malla"
               className="w-full h-auto block"
             />

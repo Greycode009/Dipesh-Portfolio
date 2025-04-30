@@ -2,7 +2,7 @@
 
 A modern, responsive portfolio website showcasing my web development skills, projects, and professional journey.
 
-![Portfolio Preview](/public/logo.png)
+![Portfolio Preview](https://i.postimg.cc/qMKntQ7D/Untitled-design-2.png)
 
 ## 🚀 Features
 

@@ -137,7 +137,7 @@ function About() {
             <div className="bio-image">
               <div className="image-frame">
                 {/* Using logo.png from public folder */}
-                <img src="/bio-logo.png" alt="Dipesh Malla" />
+                <img src="https://i.postimg.cc/Pq4BzmS1/bio-logo.png" alt="Dipesh Malla" />
               </div>
             </div>
           </div>
