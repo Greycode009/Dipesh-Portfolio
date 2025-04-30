@@ -2,11 +2,10 @@
 
 A modern, responsive portfolio website showcasing my web development skills, projects, and professional journey.
 ## Live Link
-```bash
- Link -(https://dipeshmalla.vercel.app/).
+
+ Link - (https://dipeshmalla.vercel.app/)
 
 
-```
 
 ![Portfolio Preview](https://i.postimg.cc/5yszB9Gx/prev.png)
 
