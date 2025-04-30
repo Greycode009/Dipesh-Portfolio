@@ -1,50 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-
-// Sample project data - you can easily add more projects here
-const projectsData = [
-  {
-    id: 1,
-    title: "E-Commerce Website",
-    description: "A fully responsive e-commerce platform built with React and Node.js. Features include user authentication, product filtering, cart functionality, and payment processing.",
-    technologies: ["React", "Node.js", "Express", "MongoDB", "Stripe API"],
-    image: "https://via.placeholder.com/600x400",
-    githubLink: "https://github.com/username/ecommerce-project",
-    liveLink: "https://ecommerce-project.netlify.app",
-    featured: true
-  },
-  {
-    id: 2,
-    title: "Task Management App",
-    description: "A collaborative task management application with real-time updates. Users can create projects, assign tasks, track progress, and receive notifications.",
-    technologies: ["React", "Firebase", "Material UI", "Redux"],
-    image: "https://via.placeholder.com/600x400",
-    githubLink: "https://github.com/username/task-manager",
-    liveLink: "https://task-manager-app.netlify.app",
-    featured: true
-  },
-  {
-    id: 3,
-    title: "Weather Dashboard",
-    description: "A weather application that displays current conditions and forecasts for any location. Includes interactive maps, charts for historical data, and severe weather alerts.",
-    technologies: ["JavaScript", "OpenWeather API", "Chart.js", "HTML/CSS"],
-    image: "https://via.placeholder.com/600x400",
-    githubLink: "https://github.com/username/weather-dashboard",
-    liveLink: "https://weather-dashboard-app.netlify.app",
-    featured: false
-  }
-];
+import projectsData from '../data/projects.json';
 
 function Projects() {
   const [filter, setFilter] = useState('all');
+  const [projects, setProjects] = useState([]);
+  
+  useEffect(() => {
+    // Load projects data
+    setProjects(projectsData);
+  }, []);
   
   // Filter projects based on the selected filter
   const filteredProjects = filter === 'all' 
-    ? projectsData 
-    : projectsData.filter(project => project.technologies.includes(filter));
+    ? projects 
+    : projects.filter(project => project.technologies.includes(filter));
   
   // Get unique technologies for filter buttons
-  const allTechnologies = [...new Set(projectsData.flatMap(project => project.technologies))];
+  const allTechnologies = [...new Set(projects.flatMap(project => project.technologies))];
   
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -115,14 +88,14 @@ function Projects() {
             <div className="relative">
               <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
               {project.featured && (
-                <span className="absolute top-3 right-3 bg-primary text-darktext text-xs px-3 py-1 rounded-full font-semibold">
+                <span className="absolute top-3 right-3 bg-indigo-700 hover:bg-indigo-800 transition duration-200 shadow-lg text-white  text-xs px-3 py-1 rounded-full font-semibold">
                   Featured
                 </span>
               )}
             </div>
             
             <div className="p-6">
-              <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
+              <h3 className="text-xl font-semibold  mb-2">{project.title}</h3>
               <p className="text-dimtext mb-4 line-clamp-3">{project.description}</p>
               
               <div className="flex flex-wrap gap-2 mb-4">

@@ -1,0 +1,100 @@
+[
+  {
+    "id": 1,
+    "title": "Portfolio Website",
+    "description": "A modern and responsive portfolio website built with React. Features include dark/light theme, smooth animations, and a contact form.",
+    "technologies": ["React", "Tailwind CSS", "Framer Motion", "EmailJS"],
+    "image": "https://i.ibb.co/ZpRvMYyv/Screenshot-2025-04-24-183655.png",
+    "githubLink": "https://github.com/greycode009",
+    "liveLink": "https://dipesh-malla.vercel.app/",
+    "featured": true,
+    "category": "frontend",
+    "date": "2025-04-22"
+  },
+
+  {
+    "id": 2,
+    "title": "Task Management App",
+    "description": "A collaborative task management application with real-time updates. Users can create projects, assign tasks, track progress, and receive notifications.",
+    "technologies": ["React", "Firebase", "Material UI", "Redux"],
+    "image": "https://plus.unsplash.com/premium_photo-1720551256983-445d23d516b2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHRhc2slMjBtYW5hZ2VtZW50JTIwYXBwfGVufDB8fDB8fHww",
+    "githubLink": "https://github.com/username/task-manager",
+    "liveLink": "https://task-manager-app.netlify.app",
+    "featured": false,
+    "category": "frontend",
+    "date": "2023-05-20"
+  },
+  {
+    "id": 3,
+    "title": "Weather Dashboard",
+    "description": "A weather application that displays current conditions and forecasts for any location. Includes interactive maps, charts for historical data, and severe weather alerts.",
+    "technologies": ["JavaScript", "OpenWeather API", "Chart.js", "HTML/CSS"],
+    "image": "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+    "githubLink": "https://github.com/username/weather-dashboard",
+    "liveLink": "https://weather-dashboard-app.netlify.app",
+    "featured": false,
+    "category": "frontend",
+    "date": "2023-02-10"
+  },
+  {
+    "id": 4,
+    "title": "E-Commerce Website",
+    "description": "A fully responsive e-commerce platform built with React and Node.js. Features include user authentication, product filtering, cart functionality, and payment processing.",
+    "technologies": ["React", "Node.js", "Express", "MongoDB", "Stripe API"],
+    "image": "https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+    "githubLink": "https://github.com/username/ecommerce-project",
+    "liveLink": "https://ecommerce-project.netlify.app",
+    "featured": false,
+    "category": "fullstack",
+    "date": "2023-08-15"
+  },
+
+  {
+    "id": 5,
+    "title": "Travel Blog API",
+    "description": "A RESTful API for a travel blog application. Features include user authentication, CRUD operations for blog posts, and image upload management.",
+    "technologies": ["Node.js", "MongoDB", "Express", "JWT", "Multer"],
+    "image": "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+    "githubLink": "https://github.com/username/travel-blog-api",
+    "liveLink": "https://travel-blog-api.herokuapp.com",
+    "featured": false,
+    "category": "backend",
+    "date": "2023-11-15"
+  },
+  {
+    "id": 6,
+    "title": "Recipe Finder",
+    "description": "An application that helps users find recipes based on ingredients they have. Features include filtering by dietary restrictions, saving favorites, and meal planning.",
+    "technologies": ["React", "Recipe API", "CSS", "LocalStorage"],
+    "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+    "githubLink": "https://github.com/username/recipe-finder",
+    "liveLink": "https://recipe-finder-app.netlify.app",
+    "featured": false,
+    "category": "frontend",
+    "date": "2023-07-25"
+  },
+  {
+    "id": 7,
+    "title": "Chat Application",
+    "description": "Real-time chat application with private messaging, group chats, and file sharing capabilities.",
+    "technologies": ["React", "Socket.io", "Node.js", "Express", "MongoDB"],
+    "image": "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+    "githubLink": "https://github.com/username/chat-app",
+    "liveLink": "https://chat-application.netlify.app",
+    "featured": true,
+    "category": "fullstack",
+    "date": "2023-09-30"
+  },
+  {
+    "id": 8,
+    "title": "Content Management System",
+    "description": "A custom CMS for managing website content, users, and analytics. Built with a focus on performance and security.",
+    "technologies": ["PHP", "MySQL", "Laravel", "Vue.js", "Bootstrap"],
+    "image": "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+    "githubLink": "https://github.com/username/custom-cms",
+    "liveLink": "https://custom-cms-demo.com",
+    "featured": false,
+    "category": "fullstack",
+    "date": "2023-12-05"
+  }
+]

@@ -31,7 +31,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover;
+  background: linear-gradient(135deg, rgba(18, 18, 18, 0.9), rgba(31, 31, 31, 0.9));
   opacity: 0.1;
 }
 
@@ -56,7 +56,7 @@
 .dot {
   width: 6px;
   height: 6px;
-  background-color: #bb86fc;
+  background-color: var(--primary);
   border-radius: 50%;
   margin: 0 15px;
 }
@@ -158,7 +158,7 @@
 }
 
 .highlight {
-  color: #bb86fc;
+  color: var(--primary);
   font-weight: 500;
 }
 
@@ -342,6 +342,18 @@
   position: relative;
 }
 
+.timeline-item:hover .timeline-content {
+  transform: none;
+  box-shadow: none;
+  z-index: auto;
+}
+
+.timeline-item:hover .year-badge {
+  transform: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: auto;
+}
+
 .timeline-item:nth-child(odd) .timeline-content::after {
   content: '';
   position: absolute;
@@ -376,6 +388,12 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+.year-badge:hover {
+  transform: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: auto;
+}
+
 .timeline-content h3 {
   margin-top: 15px;
   margin-bottom: 10px;
@@ -398,7 +416,7 @@
 blockquote {
   font-size: 1.3rem;
   line-height: 1.8;
-  color: #e0e0e0;
+  
   font-style: italic;
   position: relative;
   padding: 0 40px;
@@ -502,6 +520,7 @@ blockquote::after {
   }
 }
 
+
 @media (max-width: 480px) {
   .category-tag {
     padding: 6px 12px;
@@ -589,4 +608,58 @@ blockquote::after {
 
 .skill-card.design:hover .skill-icon {
   background-color: rgba(255, 152, 0, 0.2);
+}
+
+/* Add special styling for highlighted journey item */
+.highlight-journey .timeline-content {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-left: 3px solid var(--primary);
+  transform-origin: center;
+}
+
+.highlight-journey:hover .timeline-content {
+  transform: scale(1.08);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  background-color: #2d2d2d;
+}
+
+/* Even and odd items need different borders and animations */
+.highlight-journey:nth-child(odd) .timeline-content {
+  border-left: 3px solid var(--primary);
+  border-right: none;
+}
+
+.highlight-journey:nth-child(even) .timeline-content {
+  border-right: 3px solid var(--primary);
+  border-left: none;
+}
+@media (max-width: 768px) {
+  .highlight-journey:nth-child(odd) .timeline-content,
+  .highlight-journey:nth-child(even) .timeline-content {
+    border-right: 3px solid var(--primary);
+    border-left: none;
+  }
+}
+
+
+.highlight-journey .year-badge {
+  transition: all 0.3s ease;
+}
+
+.highlight-journey:hover .year-badge {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 10px 20px rgba(187, 134, 252, 0.5);
+}
+
+/* Fix for arrows when timeline items scale */
+.highlight-journey:nth-child(odd):hover .timeline-content::after {
+  right: -10px;
+  transform: rotate(45deg) scale(1);
+}
+
+.highlight-journey:nth-child(even):hover .timeline-content::after {
+  left: -10px;
+  transform: rotate(45deg) scale(1);
 } 
+

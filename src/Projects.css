@@ -7,12 +7,12 @@
 .projects-title {
   font-size: 2.5rem;
   margin-bottom: 10px;
-  color: #ffffff;
+  color: var(--color-text);
   text-align: center;
 }
 
 .projects-subtitle {
-  color: #bbbbbb;
+  color: var(--color-text-muted);
   text-align: center;
   margin-bottom: 40px;
   font-size: 1.1rem;
@@ -27,8 +27,8 @@
 }
 
 .filter-btn {
-  background-color: #2d2d2d;
-  color: #ffffff;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text);
   border: none;
   padding: 8px 16px;
   border-radius: 20px;
@@ -38,12 +38,12 @@
 }
 
 .filter-btn:hover {
-  background-color: #3d3d3d;
+  background-color: var(--color-bg-tertiary);
 }
 
 .filter-btn.active {
-  background-color: #bb86fc;
-  color: #000000;
+  background-color: var(--color-primary);
+  color: var(--color-darktext);
 }
 
 .projects-grid {
@@ -53,7 +53,7 @@
 }
 
 .project-card {
-  background-color: #1f1f1f;
+  background-color: var(--color-bg-secondary);
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -80,8 +80,8 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: #bb86fc;
-  color: #000000;
+  background-color: var(--color-primary);
+  color: var(--color-darktext);
   padding: 5px 10px;
   border-radius: 4px;
   font-size: 0.8rem;
@@ -95,11 +95,11 @@
 .project-content h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
-  color: #ffffff;
+  color: var(--color-text);
 }
 
 .project-content p {
-  color: #bbbbbb;
+  color: var(--color-text-muted);
   margin-bottom: 20px;
   line-height: 1.5;
 }
@@ -112,8 +112,8 @@
 }
 
 .tech-tag {
-  background-color: rgba(187, 134, 252, 0.1);
-  color: #bb86fc;
+  background-color: var(--color-primary-10);
+  color: var(--color-primary);
   padding: 4px 10px;
   border-radius: 4px;
   font-size: 0.8rem;
@@ -135,32 +135,32 @@
 
 .github-link {
   background-color: transparent;
-  color: #ffffff;
-  border: 1px solid #ffffff;
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
 }
 
 .live-link {
-  background-color: #bb86fc;
-  color: #000000;
+  background-color: var(--color-primary);
+  color: var(--color-darktext);
 }
 
 .github-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--color-bg-tertiary);
 }
 
 .live-link:hover {
-  background-color: #a359f9;
+  background-color: var(--color-secondary);
 }
 
 .no-projects {
   text-align: center;
   margin-top: 40px;
-  color: #bbbbbb;
+  color: var(--color-text-muted);
 }
 
 .reset-filter {
-  background-color: #bb86fc;
-  color: #000000;
+  background-color: var(--color-primary);
+  color: var(--color-darktext);
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
@@ -170,7 +170,7 @@
 }
 
 .reset-filter:hover {
-  background-color: #a359f9;
+  background-color: var(--color-secondary);
 }
 
 @media (max-width: 768px) {

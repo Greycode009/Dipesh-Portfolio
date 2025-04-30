@@ -1,3 +1,4 @@
+/* Contact Page Styles */
 .contact-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -26,7 +27,7 @@
 }
 
 .contact-info::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -150px;
   right: -150px;
@@ -46,7 +47,7 @@
 }
 
 .contact-info h1::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: -10px;
@@ -84,19 +85,6 @@
   background-color: #333333;
 }
 
-.icon-wrapper {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #bb86fc, #8a53ef);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-
 .info-content h3 {
   font-size: 1rem;
   margin-bottom: 5px;
@@ -132,7 +120,7 @@
 }
 
 .status-dot::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -3px;
   left: -3px;
@@ -175,7 +163,7 @@
 }
 
 .contact-form-container::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -150px;
   left: -150px;
@@ -223,9 +211,13 @@
   transition: all 0.3s ease;
 }
 
-.form-group label i {
-  color: #bb86fc;
-  font-size: 1rem;
+/* Updated the placeholder and label text color for the 'name' field to use the primary color */
+.form-group input::placeholder {
+  color: var(--color-primary);
+}
+
+.form-group.focused label {
+  color: var(--color-primary);
 }
 
 .form-group input,
@@ -241,7 +233,7 @@
 }
 
 .form-group.focused label {
-  color: #bb86fc;
+  color: var(--color-primary);
 }
 
 .form-group input:focus,
@@ -256,7 +248,7 @@
   bottom: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #bb86fc, #8a53ef);
+  background: var( --color-primary);
   transition: width 0.4s ease;
 }
 
@@ -275,11 +267,12 @@
   justify-content: flex-end;
 }
 
+/* Updated the background color of the Hire Me button to use theme-based colors */
 .submit-btn {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(135deg, #bb86fc, #8a53ef);
+  background: var(--color-primary);
   color: #fff;
   border: none;
   padding: 12px 30px;
@@ -354,7 +347,11 @@
 .bg-element {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(187, 134, 252, 0.2) 0%, rgba(187, 134, 252, 0) 70%);
+  background: radial-gradient(
+    circle,
+    rgba(187, 134, 252, 0.2) 0%,
+    rgba(187, 134, 252, 0) 70%
+  );
   animation: float 15s infinite ease-in-out;
 }
 
@@ -399,7 +396,7 @@
   .contact-wrapper {
     flex-direction: column;
   }
-  
+
   .contact-info,
   .contact-form-container {
     width: 100%;
@@ -410,17 +407,17 @@
   .contact-container {
     padding: 30px 20px;
   }
-  
+
   .contact-info,
   .contact-form-container {
     padding: 30px 20px;
   }
-  
+
   .contact-info h1 {
     font-size: 2rem;
   }
-  
+
   .form-header h2 {
     font-size: 1.5rem;
   }
-} 
+}

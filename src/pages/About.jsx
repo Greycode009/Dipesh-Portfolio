@@ -57,24 +57,28 @@ function About() {
   
   const timeline = [
     {
-      year: "2023",
+      year: "2025",
       title: "Full Stack Developer",
-      description: "Started working on more complex full-stack applications and AI integrations."
+      description: "Started working on more complex full-stack applications and AI integrations.",
+      highlight: true
+    },
+    {
+      year: "2024",
+      title: "Frontend Specialist",
+      description: "Specialized in React and modern frontend frameworks.",
+      highlight: true
+    },
+    {
+      year: "2023",
+      title: "Web Development Journey",
+      description: "Began learning web development through online courses and personal projects.",
+      highlight: true
     },
     {
       year: "2022",
-      title: "Frontend Specialist",
-      description: "Specialized in React and modern frontend frameworks."
-    },
-    {
-      year: "2021",
-      title: "Web Development Journey",
-      description: "Began learning web development through online courses and personal projects."
-    },
-    {
-      year: "2020",
       title: "Programming Foundations",
-      description: "Started exploring the world of programming and computer science."
+      description: "Started exploring the world of programming and computer science.",
+      highlight: true
     }
   ];
 
@@ -215,7 +219,7 @@ function About() {
           <div className="timeline">
             {timeline.map((item, index) => (
               <motion.div 
-                className="timeline-item"
+                className={`timeline-item ${item.highlight ? "highlight-journey" : ""}`}
                 key={index}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 animate={{ opacity: 1, x: 0 }}

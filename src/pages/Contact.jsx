@@ -99,32 +99,32 @@ function Contact() {
           
           <div className="info-cards">
             <div className="info-card">
-              <div className="icon-wrapper">
-                <i className="fas fa-map-marker-alt"></i>
+              <div className="h-12 w-12 bg-[var(--color-primary)] rounded-xl flex items-center justify-center text-white">
+                <i className="fa-solid fa-location-dot"></i>
               </div>
               <div className="info-content">
                 <h3>Location</h3>
-                <p>Kathmandu, Nepal</p>
+                <p>Nepalgunj, Nepal</p>
               </div>
             </div>
             
             <div className="info-card">
-              <div className="icon-wrapper">
-                <i className="fas fa-envelope"></i>
+              <div className="h-12 w-12 bg-[var(--color-primary)]  rounded-xl flex items-center justify-center text-white">
+                <i className="fa-solid fa-envelope"></i>
               </div>
               <div className="info-content">
                 <h3>Email</h3>
-                <p>gamerdipesh002@gmail.com</p>
+                <p>dipeshmalla000@gmail.com</p>
               </div>
             </div>
             
             <div className="info-card">
-              <div className="icon-wrapper">
-                <i className="fas fa-phone-alt"></i>
+              <div className="h-12 w-12 bg-[var(--color-primary)]   rounded-xl flex items-center justify-center text-white">
+                <i className="fa-solid fa-phone"></i>
               </div>
               <div className="info-content">
                 <h3>Phone</h3>
-                <p>+977 9812345678</p>
+                <p>+977 9869705507</p>
               </div>
             </div>
           </div>
@@ -147,7 +147,7 @@ function Contact() {
           <form className="contact-form" ref={form} onSubmit={handleSubmit}>
             <div className={`form-group ${currentField === 'name' ? 'focused' : ''}`}>
               <label htmlFor="name">
-                <i className="fas fa-user"></i>
+                <i className="fa-solid fa-user text-[var(--color-primary)]"></i>
                 <span>Name</span>
               </label>
               <input
@@ -165,7 +165,7 @@ function Contact() {
             
             <div className={`form-group ${currentField === 'email' ? 'focused' : ''}`}>
               <label htmlFor="email">
-                <i className="fas fa-envelope"></i>
+                <i className="fa-solid fa-envelope text-[var(--color-primary)]"></i>
                 <span>Email</span>
               </label>
               <input
@@ -183,7 +183,7 @@ function Contact() {
             
             <div className={`form-group ${currentField === 'subject' ? 'focused' : ''}`}>
               <label htmlFor="subject">
-                <i className="fas fa-dollar-sign"></i>
+                <i className="fa-solid fa-tag text-[var(--color-primary)]"></i>
                 <span>Subject & Budget</span>
               </label>
               <input
@@ -201,7 +201,7 @@ function Contact() {
             
             <div className={`form-group ${currentField === 'message' ? 'focused' : ''}`}>
               <label htmlFor="message">
-                <i className="fas fa-comment-alt"></i>
+                <i className="fa-solid fa-message text-[var(--color-primary)]"></i>
                 <span>Message</span>
               </label>
               <textarea
@@ -223,19 +223,19 @@ function Contact() {
             <div className="form-footer">
               <motion.button 
                 type="submit" 
-                className="submit-btn" 
+                className="submit-btn " 
                 disabled={status === 'sending'}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 {status === 'sending' ? (
                   <>
-                    <i className="fas fa-spinner fa-spin"></i>
+                    <i className="fa-solid fa-spinner fa-spin"></i>
                     <span>Sending...</span>
                   </>
                 ) : (
                   <>
-                    <i className="fas fa-briefcase"></i>
+                    <i className="fa-solid fa-paper-plane "></i>
                     <span>Hire Me</span>
                   </>
                 )}
@@ -250,7 +250,7 @@ function Contact() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <i className="fas fa-check-circle"></i>
+              <i className="fa-solid fa-circle-check"></i>
               <p>Thanks for reaching out! I'll review your project request and get back to you soon.</p>
             </motion.div>
           )}
@@ -262,7 +262,7 @@ function Contact() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <i className="fas fa-exclamation-circle"></i>
+              <i className="fa-solid fa-circle-exclamation"></i>
               <p>Failed to send message. Please try again later.</p>
             </motion.div>
           )}

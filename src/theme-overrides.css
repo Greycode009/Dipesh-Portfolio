@@ -1,0 +1,584 @@
+/* Theme overrides for consistent coloring */
+
+/* General theme variables */
+:root {
+  --color-primary-10: rgba(187, 134, 252, 0.1);
+  --color-primary-20: rgba(187, 134, 252, 0.2);
+  --color-primary-30: rgba(187, 134, 252, 0.3);
+  --color-primary-rgb: 187, 134, 252;
+}
+
+/* Global overrides for all pages */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text);
+}
+
+h1 .text-primary, 
+h2 .text-primary, 
+h3 .text-primary, 
+h4 .text-primary,
+a.text-primary,
+.text-primary {
+  color: var(--color-primary) !important;
+}
+
+button.bg-primary,
+a.bg-primary {
+  background-color: var(--color-primary) !important;
+  color: var(--color-darktext) !important;
+}
+
+button:hover.bg-secondary,
+a:hover.bg-secondary {
+  background-color: var(--color-secondary) !important;
+}
+
+.border-primary {
+  border-color: var(--color-primary) !important;
+}
+
+/* Projects page specific fixes */
+.project-card .card-header {
+  background-color: var(--color-primary) !important;
+}
+
+.project-category-tag {
+  background-color: var(--color-primary-10) !important;
+  color: var(--color-primary) !important;
+}
+
+.project-link-button {
+  color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.project-link-button:hover {
+  background-color: var(--color-primary) !important;
+  color: var(--color-darktext) !important;
+}
+
+.filter-button.active {
+  background-color: var(--color-primary) !important;
+  color: var(--color-darktext) !important;
+}
+
+/* From Projects.css - additional fixes */
+.filter-btn.active {
+  background-color: var(--color-primary) !important;
+  color: var(--color-darktext) !important;
+}
+
+.featured-badge {
+  background-color: var(--color-primary) !important;
+  color: var(--color-darktext) !important;
+}
+
+.tech-tag {
+  background-color: var(--color-primary-10) !important;
+  color: var(--color-primary) !important;
+}
+
+.live-link {
+  background-color: var(--color-primary) !important;
+  color: var(--color-darktext) !important;
+}
+
+.live-link:hover {
+  background-color: var(--color-secondary) !important;
+}
+
+.reset-filter {
+  background-color: var(--color-primary) !important;
+  color: var(--color-darktext) !important;
+}
+
+.reset-filter:hover {
+  background-color: var(--color-secondary) !important;
+}
+
+/* Contact page fixes */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px var(--color-primary-20) !important;
+}
+
+.submit-button {
+  background-color: var(--color-primary) !important;
+  color: var(--color-darktext) !important;
+}
+
+.social-icon {
+  color: var(--color-primary) !important;
+}
+
+.social-icon:hover {
+  color: var(--color-secondary) !important;
+}
+
+.contact-heading::after {
+  background-color: var(--color-primary) !important;
+}
+
+/* From Contact.css - additional fixes */
+.contact-info h1 {
+  color: var(--color-primary) !important;
+}
+
+.contact-info h1::after {
+  background-color: var(--color-primary) !important;
+}
+
+.contact-info::before,
+.contact-form-container::before {
+  background: radial-gradient(circle, rgba(var(--color-primary-rgb), 0.2) 0%, rgba(var(--color-primary-rgb), 0) 70%) !important;
+}
+
+.icon-wrapper {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)) !important;
+}
+
+.contact-availability {
+  background-color: var(--color-primary-10) !important;
+  border-left: 3px solid var(--color-primary) !important;
+}
+
+.form-header h2 {
+  color: var(--color-primary) !important;
+}
+
+/* Home page fixes */
+.home-banner h1 .highlight {
+  color: var(--color-primary) !important;
+}
+
+.skill-icon,
+.expertise-icon {
+  color: var(--color-primary) !important;
+  background-color: var(--color-primary-10) !important;
+}
+
+.skill-title,
+.expertise-title {
+  color: var(--color-primary) !important;
+}
+
+.progress-bar-fill {
+  background-color: var(--color-primary) !important;
+}
+
+.cta-button {
+  background-color: var(--color-primary) !important;
+  color: var(--color-darktext) !important;
+}
+
+.cta-button-outline {
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+
+.cta-button-outline:hover {
+  background-color: var(--color-primary-10) !important;
+}
+
+/* Theme-specific colors for common elements */
+
+/* Dark Theme (Default) */
+.theme-dark .dot,
+.theme-dark .highlight,
+.theme-dark h2,
+.theme-dark .category-tag:hover,
+.theme-dark .category-tag.active,
+.theme-dark .year-badge,
+.theme-dark blockquote::before,
+.theme-dark blockquote::after {
+  color: var(--color-primary);
+}
+
+.theme-dark .category-tag.active,
+.theme-dark .year-badge {
+  background-color: var(--color-primary);
+  color: var(--color-darktext);
+}
+
+.theme-dark .bio-section h2::after,
+.theme-dark .skills-section h2::after,
+.theme-dark .journey-section h2::after,
+.theme-dark .connect-section h2::after,
+.theme-dark .dot,
+.theme-dark .timeline-line {
+  background-color: var(--color-primary);
+}
+
+.theme-dark .image-frame::before {
+  background: linear-gradient(135deg, var(--color-primary), transparent);
+}
+
+.theme-dark .category-tag:hover {
+  background-color: var(--color-primary-20);
+}
+
+/* Light Theme */
+.theme-light .dot,
+.theme-light .highlight,
+.theme-light h2,
+.theme-light .category-tag:hover,
+.theme-light .category-tag.active,
+.theme-light .year-badge,
+.theme-light blockquote::before,
+.theme-light blockquote::after {
+  color: var(--color-primary);
+}
+
+.theme-light .category-tag.active,
+.theme-light .year-badge {
+  background-color: var(--color-primary);
+  color: var(--color-darktext);
+}
+
+.theme-light .bio-section h2::after,
+.theme-light .skills-section h2::after,
+.theme-light .journey-section h2::after,
+.theme-light .connect-section h2::after,
+.theme-light .dot,
+.theme-light .timeline-line {
+  background-color: var(--color-primary);
+}
+
+.theme-light .image-frame::before {
+  background: linear-gradient(135deg, var(--color-primary), transparent);
+}
+
+.theme-light .category-tag:hover {
+  background-color: var(--color-primary-20);
+}
+
+/* Light theme specific fixes for feature buttons and expertise bars */
+.theme-light .filter-btn.active,
+.theme-light .featured-badge,
+.theme-light .live-link,
+.theme-light .reset-filter,
+.theme-light .submit-button,
+.theme-light .cta-button {
+  background-color: var(--color-primary) !important;
+  color: var(--color-darktext) !important;
+}
+
+.theme-light .live-link:hover,
+.theme-light .reset-filter:hover {
+  background-color: var(--color-secondary) !important;
+}
+
+.theme-light .tech-tag,
+.theme-light .project-category-tag,
+.theme-light .contact-availability,
+.theme-light .skill-icon,
+.theme-light .expertise-icon {
+  background-color: var(--color-primary-10) !important;
+  color: var(--color-primary) !important;
+}
+
+.theme-light .progress-bar-fill,
+.theme-light .expertise-progress-bar .progress-fill,
+.theme-light .skill-progress .progress-fill,
+.theme-light .skill-bar .progress-fill,
+.theme-light .expertise-bar .progress-fill {
+  background-color: var(--color-primary) !important;
+}
+
+/* Additional light theme fixes */
+.theme-light .skill-title,
+.theme-light .expertise-title,
+.theme-light .skill-percent,
+.theme-light .expertise-percent {
+  color: var(--color-primary) !important;
+}
+
+.theme-light .filter-button.active,
+.theme-light .feature-button,
+.theme-light .feature-badge,
+.theme-light button.active {
+  background-color: var(--color-primary) !important;
+  color: var(--color-darktext) !important;
+}
+
+/* Purple Theme */
+.theme-purple .dot,
+.theme-purple .highlight,
+.theme-purple h2,
+.theme-purple .category-tag:hover,
+.theme-purple .category-tag.active,
+.theme-purple .year-badge,
+.theme-purple blockquote::before,
+.theme-purple blockquote::after {
+  color: var(--color-primary);
+}
+
+.theme-purple .category-tag.active,
+.theme-purple .year-badge {
+  background-color: var(--color-primary);
+  color: var(--color-darktext);
+}
+
+.theme-purple .bio-section h2::after,
+.theme-purple .skills-section h2::after,
+.theme-purple .journey-section h2::after,
+.theme-purple .connect-section h2::after,
+.theme-purple .dot,
+.theme-purple .timeline-line {
+  background-color: var(--color-primary);
+}
+
+.theme-purple .image-frame::before {
+  background: linear-gradient(135deg, var(--color-primary), transparent);
+}
+
+.theme-purple .category-tag:hover {
+  background-color: var(--color-primary-20);
+}
+
+/* Blue Theme */
+.theme-blue .dot,
+.theme-blue .highlight,
+.theme-blue h2,
+.theme-blue .category-tag:hover,
+.theme-blue .category-tag.active,
+.theme-blue .year-badge,
+.theme-blue blockquote::before,
+.theme-blue blockquote::after {
+  color: var(--color-primary);
+}
+
+.theme-blue .category-tag.active,
+.theme-blue .year-badge {
+  background-color: var(--color-primary);
+  color: var(--color-darktext);
+}
+
+.theme-blue .bio-section h2::after,
+.theme-blue .skills-section h2::after,
+.theme-blue .journey-section h2::after,
+.theme-blue .connect-section h2::after,
+.theme-blue .dot,
+.theme-blue .timeline-line {
+  background-color: var(--color-primary);
+}
+
+.theme-blue .image-frame::before {
+  background: linear-gradient(135deg, var(--color-primary), transparent);
+}
+
+.theme-blue .category-tag:hover {
+  background-color: var(--color-primary-20);
+}
+
+/* Fix for active states in all themes */
+.category-tag.active {
+  background-color: var(--color-primary) !important;
+  color: var(--color-darktext) !important;
+}
+
+.category-tag:hover {
+  background-color: var(--color-primary-20) !important;
+  color: var(--color-primary) !important;
+}
+
+/* Timeline colors */
+.year-badge {
+  background-color: var(--color-primary) !important;
+  color: var(--color-darktext) !important;
+  cursor: default !important;
+}
+
+.year-badge:hover {
+  transform: none !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.timeline-line {
+  background-color: var(--color-primary) !important;
+}
+
+/* Keep only timeline content popup effect */
+.timeline-item:hover .year-badge {
+  transform: none !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Skill cards */
+.skill-card::before {
+  background: linear-gradient(90deg, #bb86fc, #9d4edd) !important;
+}
+
+.skill-card.frontend::before {
+  background: linear-gradient(90deg, #00bcd4, #03a9f4) !important;
+}
+
+.skill-card.design::before {
+  background: linear-gradient(90deg, #ff9800, #f44336) !important;
+}
+
+.skill-card.programming::before {
+  background: linear-gradient(90deg, #9c27b0, #673ab7) !important;
+}
+
+.skill-card.development::before {
+  background: linear-gradient(90deg, #4caf50, #8bc34a) !important;
+}
+
+.skill-card:nth-child(2)::before {
+  background: linear-gradient(90deg, #38bdf8, #0ea5e9) !important;
+}
+
+.skill-card.programming .skill-icon {
+  color: #9c27b0 !important;
+  background-color: rgba(156, 39, 176, 0.1) !important;
+}
+
+.skill-card.programming:hover .skill-icon {
+  background-color: rgba(156, 39, 176, 0.2) !important;
+}
+
+.skill-card.development .skill-icon {
+  color: #4caf50 !important;
+  background-color: rgba(76, 175, 80, 0.1) !important;
+}
+
+.skill-card.development:hover .skill-icon {
+  background-color: rgba(76, 175, 80, 0.2) !important;
+}
+
+.skill-card.frontend .skill-icon {
+  color: #00bcd4 !important;
+  background-color: rgba(0, 188, 212, 0.1) !important;
+}
+
+.skill-card.frontend:hover .skill-icon {
+  background-color: rgba(0, 188, 212, 0.2) !important;
+}
+
+.skill-card.design .skill-icon {
+  color: #ff9800 !important;
+  background-color: rgba(255, 152, 0, 0.1) !important;
+}
+
+.skill-card.design:hover .skill-icon {
+  background-color: rgba(255, 152, 0, 0.2) !important;
+}
+
+.skill-card:nth-child(2) .skill-icon {
+  color: #38bdf8 !important;
+  background-color: rgba(56, 189, 248, 0.1) !important;
+}
+
+.skill-card:nth-child(2):hover .skill-icon {
+  background-color: rgba(56, 189, 248, 0.2) !important;
+}
+
+/* Quote styles */
+blockquote::before,
+blockquote::after {
+  color: var(--color-primary) !important;
+}
+
+/* Bio section */
+.highlight {
+  color: var(--color-primary) !important;
+}
+
+.bio-section h2,
+.skills-section h2,
+.journey-section h2,
+.connect-section h2 {
+  color: var(--color-primary) !important;
+}
+
+.bio-section h2::after,
+.skills-section h2::after,
+.journey-section h2::after,
+.connect-section h2::after {
+  background-color: var(--color-primary) !important;
+}
+
+/* Dot element */
+.dot {
+  background-color: var(--color-primary) !important;
+}
+
+/* Projects page extra fixes */
+.projects-hero-title::after {
+  background-color: var(--color-primary) !important;
+}
+
+.project-card-tag {
+  background-color: var(--color-primary-10) !important;
+  color: var(--color-primary) !important;
+}
+
+/* Contact page extra fixes */
+.contact-info-item i {
+  color: var(--color-primary) !important;
+}
+
+.contact-details .icon-box {
+  background-color: var(--color-primary-10) !important; 
+}
+
+.form-success-message {
+  color: var(--color-primary) !important;
+}
+
+/* Animation fixes */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--color-primary-30);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+/* Motion animation buttons */
+.nav-indicator {
+  background-color: var(--color-primary) !important;
+}
+
+/* Specific icon colors */
+.fa-js-square, 
+i.fab.fa-js-square {
+  color: #f7df1e !important;
+  background-color: rgba(247, 223, 30, 0.1) !important;
+}
+
+.skill-card:hover .fa-js-square {
+  background-color: rgba(247, 223, 30, 0.2) !important;
+}
+
+/* JavaScript skill card specific styling */
+.skill-card:has(.fa-js-square)::before {
+  background: linear-gradient(90deg, #f7df1e, #f0db4f) !important;
+}
+
+/* Fallback for browsers that don't support :has */
+.skill-card.javascript::before {
+  background: linear-gradient(90deg, #f7df1e, #f0db4f) !important;
+}
+
+/* More specific selector for JavaScript */
+.skills-grid .skill-card:nth-child(2)::before {
+  background: linear-gradient(90deg, #f7df1e, #f0db4f) !important;
+}
+
+/* Social media icons theme compatibility */
+.social-icon-link {
+  background-color: var(--color-primary-10) !important;
+  color: var(--color-primary) !important;
+}
+
+.social-icon-link:hover {
+  background-color: var(--color-primary-20) !important;
+  box-shadow: 0 5px 15px rgba(var(--color-primary-rgb), 0.3) !important;
+} 

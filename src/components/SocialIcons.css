@@ -1,0 +1,61 @@
+/* Social Icons container */
+.social-icons-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 15px 0;
+}
+
+/* Social Icons styling with subtle popup effect */
+.social-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(187, 134, 252, 0.1);
+  color: #bb86fc;
+  margin: 0 10px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-icon-link:hover {
+  transform: translateY(-3px) scale(1.1);
+  background-color: rgba(187, 134, 252, 0.2);
+  box-shadow: 0 5px 15px rgba(187, 134, 252, 0.3);
+}
+
+.social-icon-link svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+.social-icon-link:hover svg {
+  transform: scale(1.1);
+}
+
+/* Ripple effect for clicks */
+.social-icon-link::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: 50%;
+}
+
+.social-icon-link:active::after {
+  transform: scale(1.5);
+  opacity: 1;
+  transition: 0s;
+} 

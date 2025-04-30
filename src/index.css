@@ -2,19 +2,175 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Default dark theme colors - will be overridden by ThemeContext */
+  --color-background: #121212;
+  --color-surface: #1f1f1f;
+  --color-text: #ffffff;
+  --color-dimtext: #bbbbbb;
+  --color-primary: #bb86fc;
+  --color-secondary: #03dac6;
+  --color-darktext: #121212;
+  --color-border: #333333;
+  --color-primary-10: rgba(187, 134, 252, 0.1); /* Precomputed value */
+  --color-primary-20: rgba(187, 134, 252, 0.2); /* Precomputed value */
+}
+
 @layer base {
   body {
-    @apply bg-background text-lighttext;
+    background-color: var(--color-background);
+    color: var(--color-text);
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
 
   code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
       monospace;
   }
+
+  /* Apply transitions to all elements that might change with theme */
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, color, box-shadow;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+  }
+
+  /* Exclude transitions from certain elements */
+  .no-transition,
+  .no-transition *,
+  button:active,
+  button:active * {
+    transition: none !important;
+  }
+
+  /* Theme color utility classes */
+  .bg-background {
+    background-color: var(--color-background) !important;
+  }
+
+  .bg-surface {
+    background-color: var(--color-surface) !important;
+  }
+
+  .text-primary {
+    color: var(--color-primary) !important;
+  }
+
+  .text-lighttext {
+    color: var(--color-text) !important;
+  }
+
+  .text-dimtext {
+    color: var(--color-dimtext) !important;
+  }
+
+  .text-darktext {
+    color: var(--color-darktext) !important;
+  }
+
+  .border-primary {
+    border-color: var(--color-primary) !important;
+  }
+
+  .border-gray-700 {
+    border-color: var(--color-border) !important;
+  }
+
+  /* Overlay fixes for different themes */
+  .bg-black-50 {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .theme-light .bg-black-50 {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+  }
+
+  /* Primary color with opacity */
+  .bg-primary-10 {
+    background-color: var(--color-primary-10) !important;
+  }
+
+  .hover-bg-primary-10:hover {
+    background-color: var(--color-primary-10) !important;
+  }
+
+  .hover-bg-primary-20:hover {
+    background-color: var(--color-primary-20) !important;
+  }
+}
+
+/* Add these additional styles to properly handle light theme */
+
+/* Light theme specific adjustments */
+.theme-light .bg-surface {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.theme-light .border-gray-700 {
+  border-color: var(--color-border) !important;
+}
+
+/* Fix for light theme active state in sidebar */
+.theme-light a.text-primary {
+  color: var(--color-primary) !important;
+}
+
+/* Fix for hover effects in light theme */
+.theme-light .hover-bg-primary-10:hover {
+  background-color: rgba(98, 0, 238, 0.1) !important;
+}
+
+/* Fix for transparency overlay in light theme */
+.theme-light .bg-black-50 {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Active state backgrounds for light theme */
+.theme-light .bg-primary-10 {
+  background-color: rgba(98, 0, 238, 0.1) !important;
+}
+
+/* Utility class for light theme text that should be dark */
+.theme-light .text-lighttext {
+  color: var(--color-text) !important;
+}
+
+/* Border fixes for all themes */
+.border-b,
+.border-t {
+  border-color: var(--color-border);
+}
+
+/* Add specific overrides for blue theme */
+.theme-blue .bg-primary-10 {
+  background-color: rgba(0, 180, 216, 0.1) !important;
+}
+
+.theme-blue .hover-bg-primary-10:hover {
+  background-color: rgba(0, 180, 216, 0.1) !important;
+}
+
+.theme-blue .hover-bg-primary-20:hover {
+  background-color: rgba(0, 180, 216, 0.2) !important;
+}
+
+/* Also add overrides for purple theme to ensure consistency */
+.theme-purple .bg-primary-10 {
+  background-color: rgba(233, 166, 255, 0.1) !important;
+}
+
+.theme-purple .hover-bg-primary-10:hover {
+  background-color: rgba(233, 166, 255, 0.1) !important;
+}
+
+.theme-purple .hover-bg-primary-20:hover {
+  background-color: rgba(233, 166, 255, 0.2) !important;
 }
