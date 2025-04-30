@@ -18,7 +18,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: linear-gradient(135deg, #121212, #1f1f1f);
+  background: var(--color-surface);
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 40px;
@@ -31,13 +31,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(18, 18, 18, 0.9), rgba(31, 31, 31, 0.9));
+  /* background: linear-gradient(135deg, rgba(18, 18, 18, 0.9), rgba(31, 31, 31, 0.9)); */
   opacity: 0.1;
 }
 
 .about-hero h1 {
   font-size: 3.5rem;
-  color: #ffffff;
+  color: var(--color-text);
   margin-bottom: 20px;
   position: relative;
   z-index: 1;
@@ -48,7 +48,7 @@
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-  color: #bbbbbb;
+  color: var(--color-dimtext);
   position: relative;
   z-index: 1;
 }
@@ -56,7 +56,7 @@
 .dot {
   width: 6px;
   height: 6px;
-  background-color: var(--primary);
+  background-color: var(--color-primary);
   border-radius: 50%;
   margin: 0 15px;
 }
@@ -70,7 +70,7 @@
 .journey-section,
 .connect-section,
 .quote-section {
-  background-color: #1f1f1f;
+  background-color: var(--color-surface);
   padding: 30px;
   border-radius: 10px;
   margin-bottom: 40px;
@@ -82,7 +82,7 @@
 .journey-section h2,
 .connect-section h2 {
   font-size: 2rem;
-  color: #bb86fc;
+  color: var(--color-primary);
   margin-bottom: 25px;
   position: relative;
   padding-bottom: 15px;
@@ -153,7 +153,7 @@
 .bio-text p {
   margin-bottom: 20px;
   line-height: 1.7;
-  color: #e0e0e0;
+  
   font-size: 1.05rem;
 }
 
@@ -183,8 +183,8 @@
 
 .category-tag {
   padding: 8px 16px;
-  background-color: #2d2d2d;
-  color: #ffffff;
+  background-color: var(--color-surface);
+  color: var(--color-text);
   border-radius: 20px;
   font-size: 0.9rem;
   cursor: pointer;
@@ -192,13 +192,13 @@
 }
 
 .category-tag:hover {
-  background-color: rgba(187, 134, 252, 0.2);
-  color: #bb86fc;
+  background-color: var(--color-primary-10);
+  color: var(--color-primary);
 }
 
 .category-tag.active {
-  background-color: #bb86fc;
-  color: #121212;
+  background-color: var(--color-primary);
+  color: var(--color-darktext);
   transition: all 0.15s ease;
 }
 
@@ -209,7 +209,7 @@
 }
 
 .skill-card {
-  background-color: #2d2d2d;
+  background-color: var(--color-surface);
   border-radius: 12px;
   padding: 30px 25px 35px;
   display: flex;
@@ -236,32 +236,32 @@
   left: 0;
   width: 100%;
   height: 5px;
-  background: linear-gradient(90deg, #bb86fc, #9d4edd);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-shade, #9d4edd));
 }
 
 .skill-card.frontend::before {
-  background: linear-gradient(90deg, #00bcd4, #03a9f4);
+  background: linear-gradient(90deg, var(--color-secondary, #00bcd4), var(--color-secondary-shade, #03a9f4));
 }
 
 .skill-card.design::before {
-  background: linear-gradient(90deg, #ff9800, #f44336);
-}
-
-.skill-card.programming::before {
-  background: linear-gradient(90deg, #9c27b0, #673ab7);
+  background: linear-gradient(90deg, var(--color-accent, #ff9800), var(--color-accent-shade, #f44336));
 }
 
 .skill-card.development::before {
-  background: linear-gradient(90deg, #4caf50, #8bc34a);
+  background: linear-gradient(90deg, var(--color-success, #4caf50), var(--color-success-shade, #8bc34a));
+}
+
+.skill-card.programming::before {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-shade, #673ab7));
 }
 
 .skill-card.programming .skill-icon {
-  color: #9c27b0;
-  background-color: rgba(156, 39, 176, 0.1);
+  color: var(--color-primary);
+  background-color: var(--color-primary-10);
 }
 
 .skill-card.programming:hover .skill-icon {
-  background-color: rgba(156, 39, 176, 0.2);
+  background-color: var(--color-primary-20);
 }
 
 .skill-card.development .skill-icon {
@@ -274,11 +274,11 @@
 }
 
 .skill-card:nth-child(2) .skill-icon {
-  background-color: rgba(56, 189, 248, 0.1);
+  background-color: rgba(var(--color-secondary-rgb, 56, 189, 248), 0.1);
 }
 
 .skill-card:nth-child(2):hover .skill-icon {
-  background-color: rgba(56, 189, 248, 0.2);
+  background-color: rgba(var(--color-secondary-rgb, 56, 189, 248), 0.2);
 }
 
 .skill-card:nth-child(2):hover .skill-icon .tailwind-icon::before {
@@ -287,17 +287,17 @@
 }
 
 .skill-card:nth-child(2)::before {
-  background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+  background: linear-gradient(90deg, var(--color-secondary, #38bdf8), var(--color-secondary-shade, #0ea5e9));
 }
 
 .skill-card h3 {
   font-size: 1.3rem;
   margin-bottom: 15px;
-  color: #ffffff;
+  color: var(--color-text);
 }
 
 .skill-card p {
-  color: #bbbbbb;
+  color: var(--color-dimtext);
   font-size: 0.95rem;
   line-height: 1.6;
   flex-grow: 1;
@@ -315,7 +315,7 @@
   transform: translateX(-50%);
   width: 3px;
   height: 100%;
-  background-color: #2d2d2d;
+  background-color: var(--color-border);
 }
 
 .timeline-item {
@@ -336,7 +336,7 @@
 }
 
 .timeline-content {
-  background-color: #2d2d2d;
+  background-color: var(--color-surface);
   padding: 20px;
   border-radius: 8px;
   position: relative;
@@ -361,7 +361,7 @@
   right: -10px;
   width: 20px;
   height: 20px;
-  background-color: #2d2d2d;
+  background-color: var(--color-surface);
   transform: rotate(45deg);
 }
 
@@ -372,7 +372,7 @@
   left: -10px;
   width: 20px;
   height: 20px;
-  background-color: #2d2d2d;
+  background-color: var(--color-surface);
   transform: rotate(45deg);
 }
 
@@ -380,8 +380,8 @@
   position: absolute;
   top: -15px;
   left: 20px;
-  background-color: #bb86fc;
-  color: #000000;
+  background-color: var(--color-primary);
+  color: var(--color-darktext);
   padding: 5px 15px;
   border-radius: 20px;
   font-weight: 600;
@@ -397,18 +397,18 @@
 .timeline-content h3 {
   margin-top: 15px;
   margin-bottom: 10px;
-  color: #ffffff;
+  color: var(--color-text);
 }
 
 .timeline-content p {
-  color: #bbbbbb;
+  color: var(--color-dimtext);
   line-height: 1.5;
 }
 
 .quote-section {
   padding: 40px;
   text-align: center;
-  background-color: rgba(187, 134, 252, 0.1);
+  background-color: var(--color-primary-10);
   border-radius: 10px;
   margin-bottom: 40px;
 }
@@ -416,17 +416,17 @@
 blockquote {
   font-size: 1.3rem;
   line-height: 1.8;
-  
   font-style: italic;
   position: relative;
   padding: 0 40px;
+  color: var(--color-text);
 }
 
 blockquote::before,
 blockquote::after {
   content: '"';
   font-size: 3rem;
-  color: #bb86fc;
+  color: var(--color-primary);
   position: absolute;
   opacity: 0.5;
 }
@@ -447,7 +447,7 @@ blockquote::after {
 
 .connect-section p {
   margin-bottom: 25px;
-  color: #e0e0e0;
+  color: var(--color-dimtext);
   font-size: 1.1rem;
 }
 
@@ -556,11 +556,11 @@ blockquote::after {
 }
 
 .skill-card:nth-child(2) .skill-icon {
-  background-color: rgba(56, 189, 248, 0.1);
+  background-color: rgba(var(--color-secondary-rgb, 56, 189, 248), 0.1);
 }
 
 .skill-card:nth-child(2):hover .skill-icon {
-  background-color: rgba(56, 189, 248, 0.2);
+  background-color: rgba(var(--color-secondary-rgb, 56, 189, 248), 0.2);
 }
 
 .skill-card:nth-child(2):hover .skill-icon .tailwind-icon::before {
@@ -569,19 +569,19 @@ blockquote::after {
 }
 
 .skill-card:nth-child(2)::before {
-  background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+  background: linear-gradient(90deg, var(--color-secondary, #38bdf8), var(--color-secondary-shade, #0ea5e9));
 }
 
 .skill-icon {
   font-size: 3rem;
-  color: #bb86fc;
+  color: var(--color-primary);
   margin-bottom: 20px;
   height: 80px;
   width: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(187, 134, 252, 0.1);
+  background-color: var(--color-primary-10);
   border-radius: 50%;
   padding: 15px;
   transition: all 0.2s ease;
@@ -589,31 +589,40 @@ blockquote::after {
 
 .skill-card:hover .skill-icon {
   transform: scale(1.1);
-  background-color: rgba(187, 134, 252, 0.2);
+  background-color: var(--color-primary-20);
 }
 
 .skill-card.frontend .skill-icon {
-  color: #00bcd4;
-  background-color: rgba(0, 188, 212, 0.1);
+  color: var(--color-secondary, #00bcd4);
+  background-color: rgba(var(--color-secondary-rgb, 0, 188, 212), 0.1);
 }
 
 .skill-card.frontend:hover .skill-icon {
-  background-color: rgba(0, 188, 212, 0.2);
+  background-color: rgba(var(--color-secondary-rgb, 0, 188, 212), 0.2);
 }
 
 .skill-card.design .skill-icon {
-  color: #ff9800;
-  background-color: rgba(255, 152, 0, 0.1);
+  color: var(--color-accent, #ff9800);
+  background-color: rgba(var(--color-accent-rgb, 255, 152, 0), 0.1);
 }
 
 .skill-card.design:hover .skill-icon {
-  background-color: rgba(255, 152, 0, 0.2);
+  background-color: rgba(var(--color-accent-rgb, 255, 152, 0), 0.2);
+}
+
+.skill-card.development .skill-icon {
+  color: var(--color-success, #4caf50);
+  background-color: rgba(var(--color-success-rgb, 76, 175, 80), 0.1);
+}
+
+.skill-card.development:hover .skill-icon {
+  background-color: rgba(var(--color-success-rgb, 76, 175, 80), 0.2);
 }
 
 /* Add special styling for highlighted journey item */
 .highlight-journey .timeline-content {
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border-left: 3px solid var(--primary);
+  border-left: 3px solid var(--color-primary);
   transform-origin: center;
 }
 
@@ -621,23 +630,23 @@ blockquote::after {
   transform: scale(1.08);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
   z-index: 10;
-  background-color: #2d2d2d;
+  background-color: var(--color-surface);
 }
 
 /* Even and odd items need different borders and animations */
 .highlight-journey:nth-child(odd) .timeline-content {
-  border-left: 3px solid var(--primary);
+  border-left: 3px solid var(--color-primary);
   border-right: none;
 }
 
 .highlight-journey:nth-child(even) .timeline-content {
-  border-right: 3px solid var(--primary);
+  border-right: 3px solid var(--color-primary);
   border-left: none;
 }
 @media (max-width: 768px) {
   .highlight-journey:nth-child(odd) .timeline-content,
   .highlight-journey:nth-child(even) .timeline-content {
-    border-right: 3px solid var(--primary);
+    border-right: 3px solid var(--color-primary);
     border-left: none;
   }
 }
@@ -649,7 +658,7 @@ blockquote::after {
 
 .highlight-journey:hover .year-badge {
   transform: translateY(-5px) scale(1.1);
-  box-shadow: 0 10px 20px rgba(187, 134, 252, 0.5);
+  box-shadow: 0 10px 20px rgba(var(--color-primary-shadow, 187, 134, 252), 0.5);
 }
 
 /* Fix for arrows when timeline items scale */

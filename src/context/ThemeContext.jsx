@@ -42,7 +42,7 @@ export const themes = {
     text: '#ffffff',
     dimText: '#cccccc',
     primary: '#00b4d8',
-    secondary: '#d4af37',
+    secondary: '#154784',
     darkText: '#121212',
     border: '#1a3b5f',
   }

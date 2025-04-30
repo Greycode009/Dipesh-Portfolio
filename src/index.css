@@ -14,6 +14,18 @@
   --color-border: #333333;
   --color-primary-10: rgba(187, 134, 252, 0.1); /* Precomputed value */
   --color-primary-20: rgba(187, 134, 252, 0.2); /* Precomputed value */
+  
+  /* RGB values for advanced color manipulation */
+  --color-primary-rgb: 187, 134, 252;
+  --color-secondary-rgb: 3, 218, 198;
+  --color-primary-shade: #9d4edd;
+  --color-secondary-shade: #018786;
+  --color-accent: #ff9800;
+  --color-accent-rgb: 255, 152, 0;
+  --color-accent-shade: #f44336;
+  --color-success: #4caf50;
+  --color-success-rgb: 76, 175, 80;
+  --color-success-shade: #8bc34a;
 }
 
 @layer base {
