@@ -59,7 +59,7 @@ function Home() {
               to="/projects"
               className="bg-primary text-darktext px-6 py-3 rounded font-medium transition-all duration-300 hover:bg-secondary hover:-translate-y-1"
             >
-              View My Work
+              View Work
             </Link>
             <Link
               to="/contact"

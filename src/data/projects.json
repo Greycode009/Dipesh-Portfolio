@@ -5,7 +5,7 @@
     "description": "A modern and responsive portfolio website built with React. Features include dark/light theme, smooth animations, and a contact form.",
     "technologies": ["React", "Tailwind CSS", "Framer Motion", "EmailJS"],
     "image": "https://i.ibb.co/ZpRvMYyv/Screenshot-2025-04-24-183655.png",
-    "githubLink": "https://github.com/greycode009",
+    "githubLink": "https://github.com/Greycode009/Dipesh-Portfolio",
     "liveLink": "https://dipesh-malla.vercel.app/",
     "featured": true,
     "category": "frontend",
