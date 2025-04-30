@@ -27,12 +27,13 @@ function App() {
        <ScrollTop />
         <div className="min-h-screen bg-background text-lighttext">
           <button 
-            className={`fixed top-6 right-6 z-50 flex flex-col justify-center items-center w-10 h-10 rounded-md bg-surface shadow-md md:hidden ${sidebarOpen ? 'rotate-90' : ''}`} 
+            className={`fixed top-6 right-6 z-50 flex flex-col justify-center items-center w-10 h-10 rounded-md bg-surface shadow-md md:hidden transition-all duration-300 hover:shadow-lg ${sidebarOpen ? 'rotate-90 shadow-lg' : ''}`} 
             onClick={toggleSidebar}
+            aria-label={sidebarOpen ? "Close menu" : "Open menu"}
           >
-            <span className={`block w-6 h-0.5 bg-primary mb-1.5 transition-transform ${sidebarOpen ? 'translate-y-2 rotate-45' : ''}`}></span>
-            <span className={`block w-6 h-0.5 bg-primary transition-opacity ${sidebarOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`block w-6 h-0.5 bg-primary mt-1.5 transition-transform ${sidebarOpen ? '-translate-y-2 -rotate-45' : ''}`}></span>
+            <span className={`block w-6 h-0.5 bg-primary mb-1.5 transition-all duration-300 ${sidebarOpen ? 'translate-y-2 rotate-45' : ''}`}></span>
+            <span className={`block w-6 h-0.5 bg-primary transition-all duration-300 ${sidebarOpen ? 'opacity-0' : ''}`}></span>
+            <span className={`block w-6 h-0.5 bg-primary mt-1.5 transition-all duration-300 ${sidebarOpen ? '-translate-y-2 -rotate-45' : ''}`}></span>
           </button>
           
           <div 

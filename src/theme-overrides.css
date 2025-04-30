@@ -581,4 +581,45 @@ i.fab.fa-js-square {
 .social-icon-link:hover {
   background-color: var(--color-primary-20) !important;
   box-shadow: 0 5px 15px rgba(var(--color-primary-rgb), 0.3) !important;
+}
+
+/* Menu button theming */
+/* Menu toggle button styling for different themes */
+button[aria-label="Open menu"],
+button[aria-label="Close menu"] {
+  background-color: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.theme-light button[aria-label="Open menu"],
+.theme-light button[aria-label="Close menu"] {
+  background-color: var(--color-surface) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.theme-purple button[aria-label="Open menu"],
+.theme-purple button[aria-label="Close menu"] {
+  background-color: var(--color-surface) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+.theme-blue button[aria-label="Open menu"],
+.theme-blue button[aria-label="Close menu"] {
+  background-color: var(--color-surface) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+button[aria-label="Open menu"] span,
+button[aria-label="Close menu"] span {
+  background-color: var(--color-primary) !important;
+}
+
+button[aria-label="Open menu"]:hover span,
+button[aria-label="Close menu"]:hover span {
+  background-color: var(--color-secondary) !important;
+}
+
+button[aria-label="Close menu"] {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 } 
