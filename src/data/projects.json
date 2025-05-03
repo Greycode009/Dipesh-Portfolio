@@ -14,15 +14,15 @@
 
   {
     "id": 2,
-    "title": "Task Management App",
-    "description": "A collaborative task management application with real-time updates. Users can create projects, assign tasks, track progress, and receive notifications.",
-    "technologies": ["React", "Firebase", "Material UI", "Redux"],
-    "image": "https://plus.unsplash.com/premium_photo-1720551256983-445d23d516b2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHRhc2slMjBtYW5hZ2VtZW50JTIwYXBwfGVufDB8fDB8fHww",
-    "githubLink": "https://github.com/username/task-manager",
-    "liveLink": "https://task-manager-app.netlify.app",
-    "featured": false,
+    "title": "Task Master Pro",
+    "description": "The project is a Todo App, which likely allows users to manage tasks by adding, filtering, and marking them as complete or incomplete. It is structured as a modern web application with reusable components and a focus on modularity.",
+    "technologies": ["React", "Tailwind CSS", "Framer Motion", "TypeScript","Vite"],
+    "image": "https://i.postimg.cc/PJL4KfWY/Screenshot-2025-05-03-110938.png",
+    "githubLink": "https://github.com/Greycode009/Todo-App",
+    "liveLink": "https://mytasktodo.vercel.app",
+    "featured": true,
     "category": "frontend",
-    "date": "2023-05-20"
+    "date": "2025-05-03"
   },
   {
     "id": 3,
