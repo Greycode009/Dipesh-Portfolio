@@ -26,16 +26,17 @@
   },
   {
     "id": 3,
-    "title": "Weather Dashboard",
-    "description": "A weather application that displays current conditions and forecasts for any location. Includes interactive maps, charts for historical data, and severe weather alerts.",
-    "technologies": ["JavaScript", "OpenWeather API", "Chart.js", "HTML/CSS"],
-    "image": "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
-    "githubLink": "https://github.com/username/weather-dashboard",
-    "liveLink": "https://weather-dashboard-app.netlify.app",
-    "featured": false,
+    "title": "Anime Watchlist",
+    "description": "Anime Watchlist is a responsive web and Android application that helps users track, rate, and organize anime. Users can add series to their collection, assign ratings on a 0-10 scale, organize anime into tier rankings, and track their watch status. The app features both light and dark themes, and stores data locally with an optimized Android version that significantly reduces app size.",
+    "technologies": ["React 19", "TailwindCSS 3.3", "Framer Motion 12", "Jikan API",  "URL Object API", "LocalStorage"],
+    "image": "https://i.postimg.cc/rw1rMpxy/Screenshot-2025-05-05-022741.png",
+    "githubLink": "https://github.com/Greycode009/Anime-Watchlist",
+    "liveLink": "https://animewatchlists.vercel.app",
+    "featured": true,
     "category": "frontend",
-    "date": "2023-02-10"
+    "date": "2025-05-05"
   },
+  
   {
     "id": 4,
     "title": "E-Commerce Website",
@@ -84,17 +85,17 @@
     "featured": true,
     "category": "fullstack",
     "date": "2023-09-30"
-  },
-  {
+  },{
     "id": 8,
-    "title": "Content Management System",
-    "description": "A custom CMS for managing website content, users, and analytics. Built with a focus on performance and security.",
-    "technologies": ["PHP", "MySQL", "Laravel", "Vue.js", "Bootstrap"],
-    "image": "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
-    "githubLink": "https://github.com/username/custom-cms",
-    "liveLink": "https://custom-cms-demo.com",
+    "title": "Weather Dashboard",
+    "description": "A weather application that displays current conditions and forecasts for any location. Includes interactive maps, charts for historical data, and severe weather alerts.",
+    "technologies": ["JavaScript", "OpenWeather API", "Chart.js", "HTML/CSS"],
+    "image": "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
+    "githubLink": "https://github.com/username/weather-dashboard",
+    "liveLink": "https://weather-dashboard-app.netlify.app",
     "featured": false,
-    "category": "fullstack",
-    "date": "2023-12-05"
+    "category": "frontend",
+    "date": "2023-02-10"
   }
+  
 ]
