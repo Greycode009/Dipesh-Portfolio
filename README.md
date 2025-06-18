@@ -1,11 +1,11 @@
 # Dipesh Malla - Portfolio Website
 
 A modern, responsive portfolio website showcasing my web development skills, projects, and professional journey.
-## 🚀 Live Preview
 
-Check out the live site: [Live Preview](https://dipeshmalla.vercel.app)
+## 🔍 Live Preview
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online-blue?style=for-the-badge)](https://dipeshmalla.vercel.app)
+[![Website Preview](https://image.thum.io/get/https://your-site.vercel.app)](https://your-site.vercel.app)
+
 
 
 
