@@ -4,7 +4,7 @@ A modern, responsive portfolio website showcasing my web development skills, pro
 
 ## 🔍 Live Preview
 
-[![Website Preview](https://image.thum.io/get/https://your-site.vercel.app)](https://your-site.vercel.app)
+[![Website Preview](https://image.thum.io/get/https://dipeshmalla.vercel.app)](https://dipeshmalla.vercel.app)
 
 
 
