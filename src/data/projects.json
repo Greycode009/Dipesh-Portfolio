@@ -20,7 +20,7 @@
     "image": "https://i.postimg.cc/PJL4KfWY/Screenshot-2025-05-03-110938.png",
     "githubLink": "https://github.com/Greycode009/Todo-App",
     "liveLink": "https://mytasktodo.vercel.app",
-    "featured": true,
+    "featured": false,
     "category": "frontend",
     "date": "2025-05-03"
   },
@@ -35,67 +35,5 @@
     "featured": true,
     "category": "frontend",
     "date": "2025-05-05"
-  },
-  
-  {
-    "id": 4,
-    "title": "E-Commerce Website",
-    "description": "A fully responsive e-commerce platform built with React and Node.js. Features include user authentication, product filtering, cart functionality, and payment processing.",
-    "technologies": ["React", "Node.js", "Express", "MongoDB", "Stripe API"],
-    "image": "https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
-    "githubLink": "https://github.com/username/ecommerce-project",
-    "liveLink": "https://ecommerce-project.netlify.app",
-    "featured": false,
-    "category": "fullstack",
-    "date": "2023-08-15"
-  },
-
-  {
-    "id": 5,
-    "title": "Travel Blog API",
-    "description": "A RESTful API for a travel blog application. Features include user authentication, CRUD operations for blog posts, and image upload management.",
-    "technologies": ["Node.js", "MongoDB", "Express", "JWT", "Multer"],
-    "image": "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
-    "githubLink": "https://github.com/username/travel-blog-api",
-    "liveLink": "https://travel-blog-api.herokuapp.com",
-    "featured": false,
-    "category": "backend",
-    "date": "2023-11-15"
-  },
-  {
-    "id": 6,
-    "title": "Recipe Finder",
-    "description": "An application that helps users find recipes based on ingredients they have. Features include filtering by dietary restrictions, saving favorites, and meal planning.",
-    "technologies": ["React", "Recipe API", "CSS", "LocalStorage"],
-    "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
-    "githubLink": "https://github.com/username/recipe-finder",
-    "liveLink": "https://recipe-finder-app.netlify.app",
-    "featured": false,
-    "category": "frontend",
-    "date": "2023-07-25"
-  },
-  {
-    "id": 7,
-    "title": "Chat Application",
-    "description": "Real-time chat application with private messaging, group chats, and file sharing capabilities.",
-    "technologies": ["React", "Socket.io", "Node.js", "Express", "MongoDB"],
-    "image": "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
-    "githubLink": "https://github.com/username/chat-app",
-    "liveLink": "https://chat-application.netlify.app",
-    "featured": true,
-    "category": "fullstack",
-    "date": "2023-09-30"
-  },{
-    "id": 8,
-    "title": "Weather Dashboard",
-    "description": "A weather application that displays current conditions and forecasts for any location. Includes interactive maps, charts for historical data, and severe weather alerts.",
-    "technologies": ["JavaScript", "OpenWeather API", "Chart.js", "HTML/CSS"],
-    "image": "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80",
-    "githubLink": "https://github.com/username/weather-dashboard",
-    "liveLink": "https://weather-dashboard-app.netlify.app",
-    "featured": false,
-    "category": "frontend",
-    "date": "2023-02-10"
   }
-  
 ]

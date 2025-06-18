@@ -37,7 +37,8 @@ function Home() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            Web Developer & UI/UX Designer
+            {" "}
+            Full Stack Developer
           </motion.h2>
           <motion.p
             className="text-lg leading-relaxed mb-8"
@@ -45,8 +46,9 @@ function Home() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.8 }}
           >
-            I create beautiful, functional websites and applications with a
-            focus on user experience and modern design principles.
+            I specialize in building modern web applications with React and
+            Node.js, focusing on scalable solutions and exceptional user
+            experiences.
           </motion.p>
 
           <motion.div
@@ -108,7 +110,7 @@ function Home() {
               boxShadow: "0 15px 30px rgba(150, 150, 150, 0.2)",
             }}
           >
-           <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-primary)]"></div>
+            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-primary)]"></div>
 
             <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-5 text-2xl text-primary">
               <i className="fas fa-code"></i>
@@ -140,26 +142,26 @@ function Home() {
               boxShadow: "0 15px 30px rgba(150, 150, 150, 0.2)",
             }}
           >
-            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-primary)]"></div>
+            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-primary)]"></div>{" "}
             <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-5 text-2xl text-primary">
-              <i className="fas fa-palette"></i>
+              <i className="fab fa-node-js"></i>
             </div>
             <h3 className="text-xl font-medium mb-3  group-hover:text-primary transition-colors">
-              UI/UX Design
+              Backend Development
             </h3>
             <p className="text-dimtext mb-4">
-              Designing modern, intuitive user experiences with a focus on
-              accessibility and usability.
+              Building robust server-side applications and APIs using Node.js
+              and modern backend technologies.
             </p>
             <div className="flex flex-wrap gap-2 mt-3">
               <span className="px-3 py-1 bg-primary/10 rounded-full text-sm text-primary transition-all duration-200 hover:bg-primary/20 hover:-translate-y-0.5">
-                Figma
+                Node.js
               </span>
               <span className="px-3 py-1 bg-primary/10 rounded-full text-sm text-primary transition-all duration-200 hover:bg-primary/20 hover:-translate-y-0.5">
-                Wireframing
+                Express.js
               </span>
               <span className="px-3 py-1 bg-primary/10 rounded-full text-sm text-primary transition-all duration-200 hover:bg-primary/20 hover:-translate-y-0.5">
-                User Testing
+                PostgreSQL
               </span>
             </div>
           </motion.div>

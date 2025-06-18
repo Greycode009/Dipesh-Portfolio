@@ -11,7 +11,7 @@
     margin: 0 10px;
     transform: scale(0.9);
   }
-  
+
   .about-tagline {
     font-size: 1.1rem;
     flex-wrap: wrap;
@@ -96,7 +96,7 @@
   filter: drop-shadow(0 0 1px rgba(var(--color-primary-rgb), 0.3));
 }
 
-.theme-purple .separator-dot, 
+.theme-purple .separator-dot,
 .theme-blue .separator-dot {
   opacity: 0.9;
   filter: drop-shadow(0 0 2px rgba(var(--color-primary-rgb), 0.7));
@@ -111,7 +111,7 @@
 
 /* Add a subtle background to the highlighted text */
 .highlight::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -158,7 +158,7 @@
 .skills-section h2::after,
 .journey-section h2::after,
 .connect-section h2::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 0;
@@ -196,7 +196,7 @@
 }
 
 .image-frame::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -15px;
   left: -15px;
@@ -219,7 +219,7 @@
 .bio-text p {
   margin-bottom: 20px;
   line-height: 1.7;
-  
+
   font-size: 1.05rem;
 }
 
@@ -263,6 +263,16 @@
   transition: all 0.15s ease;
 }
 
+.category-tag.database {
+  color: white;
+}
+
+.category-tag.database:hover,
+.category-tag.database.active {
+  background-color: #336791;
+  color: white;
+}
+
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -291,31 +301,56 @@
 }
 
 .skill-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 5px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-shade, #9d4edd));
+  background: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-primary-shade, #9d4edd)
+  );
 }
 
 .skill-card.frontend::before {
-  background: linear-gradient(90deg, var(--color-secondary, #00bcd4), var(--color-secondary-shade, #03a9f4));
+  background: linear-gradient(
+    90deg,
+    var(--color-secondary, #00bcd4),
+    var(--color-secondary-shade, #03a9f4)
+  );
 }
 
 .skill-card.design::before {
-  background: linear-gradient(90deg, var(--color-accent, #ff9800), var(--color-accent-shade, #f44336));
+  background: linear-gradient(
+    90deg,
+    var(--color-accent, #ff9800),
+    var(--color-accent-shade, #f44336)
+  );
 }
 
 .skill-card.development::before {
-  background: linear-gradient(90deg, var(--color-success, #4caf50), var(--color-success-shade, #8bc34a));
+  background: linear-gradient(
+    90deg,
+    var(--color-success, #4caf50),
+    var(--color-success-shade, #8bc34a)
+  );
 }
 
-.skill-card.programming::before {
-  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-shade, #673ab7));
+.skill-card.backend::before {
+  background: #68a063; /* Node.js green color */
 }
 
+/* Override for Sequelize ORM card */
+.skill-card.backend[data-skill="Sequelize ORM"]::before {
+  background: #f2dc42 !important;
+  background-image: none !important;
+}
+
+.skill-card.backend[data-skill="Sequelize ORM"] .skill-icon i {
+  color: #f2dc42;
+}
 .skill-card.programming .skill-icon {
   color: var(--color-primary);
   background-color: var(--color-primary-10);
@@ -348,7 +383,11 @@
 }
 
 .skill-card:nth-child(2)::before {
-  background: linear-gradient(90deg, var(--color-secondary, #38bdf8), var(--color-secondary-shade, #0ea5e9));
+  background: linear-gradient(
+    90deg,
+    var(--color-secondary, #38bdf8),
+    var(--color-secondary-shade, #0ea5e9)
+  );
 }
 
 .skill-card h3 {
@@ -411,8 +450,9 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   border: 1px solid var(--color-border);
   /* Add subtle gradient overlay to create depth */
-  background-image: linear-gradient(to bottom, 
-    rgba(var(--color-primary-rgb), 0.03), 
+  background-image: linear-gradient(
+    to bottom,
+    rgba(var(--color-primary-rgb), 0.03),
     rgba(var(--color-primary-rgb), 0.01)
   );
 }
@@ -430,15 +470,16 @@
 }
 
 .timeline-item:nth-child(odd) .timeline-content::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 20px;
   right: -10px;
   width: 20px;
   height: 20px;
   background-color: var(--color-surface);
-  background-image: linear-gradient(to bottom, 
-    rgba(var(--color-primary-rgb), 0.03), 
+  background-image: linear-gradient(
+    to bottom,
+    rgba(var(--color-primary-rgb), 0.03),
     rgba(var(--color-primary-rgb), 0.01)
   );
   border-right: 1px solid var(--color-border);
@@ -447,15 +488,16 @@
 }
 
 .timeline-item:nth-child(even) .timeline-content::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 20px;
   left: -10px;
   width: 20px;
   height: 20px;
   background-color: var(--color-surface);
-  background-image: linear-gradient(to bottom, 
-    rgba(var(--color-primary-rgb), 0.03), 
+  background-image: linear-gradient(
+    to bottom,
+    rgba(var(--color-primary-rgb), 0.03),
     rgba(var(--color-primary-rgb), 0.01)
   );
   border-left: 1px solid var(--color-border);
@@ -548,44 +590,44 @@ blockquote::after {
     padding: 30px 20px;
     height: 40vh;
   }
-  
+
   .about-hero h1 {
     font-size: 2.5rem;
   }
-  
+
   .about-content {
     padding: 0 20px 20px;
   }
-  
+
   .bio-container {
     flex-direction: column;
   }
-  
+
   .bio-image {
     margin-top: 30px;
   }
-  
+
   .skills-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .skills-categories {
     overflow-x: auto;
     padding-bottom: 10px;
   }
-  
+
   .category-tags {
     width: max-content;
     margin: 0 auto;
   }
-  
+
   .timeline-item {
     width: 100%;
     left: 0 !important;
     padding-left: 80px !important;
     padding-right: 0 !important;
   }
-  
+
   .timeline-line {
     left: 40px;
     background: linear-gradient(
@@ -597,13 +639,13 @@ blockquote::after {
     );
     opacity: 0.4;
   }
-  
+
   .timeline-item:nth-child(even) .timeline-content::after,
   .timeline-item:nth-child(odd) .timeline-content::after {
     left: -10px;
     right: auto;
   }
-  
+
   blockquote {
     padding: 0 20px;
     font-size: 1.1rem;
@@ -615,7 +657,7 @@ blockquote::after {
     padding: 6px 12px;
     font-size: 0.8rem;
   }
-  
+
   .skill-icon {
     height: 60px;
     width: 60px;
@@ -658,7 +700,11 @@ blockquote::after {
 }
 
 .skill-card:nth-child(2)::before {
-  background: linear-gradient(90deg, var(--color-secondary, #38bdf8), var(--color-secondary-shade, #0ea5e9));
+  background: linear-gradient(
+    90deg,
+    var(--color-secondary, #38bdf8),
+    var(--color-secondary-shade, #0ea5e9)
+  );
 }
 
 .skill-icon {
@@ -713,8 +759,9 @@ blockquote::after {
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border-left: 3px solid var(--color-primary);
   transform-origin: center;
-  background-image: linear-gradient(to bottom, 
-    rgba(var(--color-primary-rgb), 0.07), 
+  background-image: linear-gradient(
+    to bottom,
+    rgba(var(--color-primary-rgb), 0.07),
     rgba(var(--color-primary-rgb), 0.03)
   );
 }
@@ -724,8 +771,9 @@ blockquote::after {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
   z-index: 10;
   background-color: var(--color-surface);
-  background-image: linear-gradient(to bottom, 
-    rgba(var(--color-primary-rgb), 0.1), 
+  background-image: linear-gradient(
+    to bottom,
+    rgba(var(--color-primary-rgb), 0.1),
     rgba(var(--color-primary-rgb), 0.05)
   );
 }
@@ -747,7 +795,6 @@ blockquote::after {
     border-left: none;
   }
 }
-
 
 .highlight-journey .year-badge {
   transition: all 0.3s ease;
@@ -777,5 +824,38 @@ blockquote::after {
 .theme-purple .timeline-content,
 .theme-blue .timeline-content {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-} 
+}
 
+.fa-node-js {
+  color: #68a063 !important;
+}
+
+.skill-card[data-skill="Node Js"] {
+  border-top: 4px solid #68a063;
+}
+
+.skills-section .fab.fa-node-js {
+  color: #68a063 !important;
+}
+
+.skill-card[data-skill="Node.js"]::before {
+  background: #68a063 !important; /* Solid Node.js green color */
+  background-image: none !important; /* Remove any gradient */
+}
+
+.skill-card[data-skill="PostgreSQL"]::before {
+  background: linear-gradient(
+    90deg,
+    #336791,
+    #0064a5
+  ) !important; /* PostgreSQL colors */
+}
+.skills-section .fas.fa-database {
+  color: #0064a5;
+}
+.skill-card[data-skill="Sequelize ORM"] i {
+  color: #f2dc42 !important;
+}
+.skills-section .skill-card[data-skill="Sequelize ORM"]::before {
+  color: #0064a5 !important;
+}
