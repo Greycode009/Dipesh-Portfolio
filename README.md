@@ -2,9 +2,12 @@
 
 A modern, responsive portfolio website showcasing my web development skills, projects, and professional journey.
 
-## 🔍 Live Preview
 
-[![Website Preview](https://image.thum.io/get/https://dipeshmalla.vercel.app)](https://dipeshmalla.vercel.app)
+<h2>🔍 Live Preview</h2>
+<a href="https://dipeshmalla.vercel.app">
+  <img src="https://image.thum.io/get/width/1920/crop/1080/https://dipeshmalla.vercel.app" width="960" height="540" />
+</a>
+
 
 
 
