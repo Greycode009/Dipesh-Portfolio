@@ -35,5 +35,17 @@
     "featured": true,
     "category": "frontend",
     "date": "2025-05-05"
+  },
+  {
+    "id": 4,
+    "title": "Simple Calculator",
+    "description": "A clean and functional calculator web application built with HTML, CSS, and JavaScript.",
+    "technologies": ["HTML", "CSS", "JavaScript"],
+    "image": "https://i.postimg.cc/BbTm0h37/Screenshot-2025-06-25-141825.png",
+    "githubLink": "https://github.com/Greycode009/Simple-Calculator",
+    "liveLink": "https://greycode009.github.io/Simple-Calculator/",
+    "featured": false,
+    "category": "frontend",
+    "date": "2025-06-25"
   }
 ]
