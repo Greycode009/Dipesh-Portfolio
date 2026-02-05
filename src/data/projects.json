@@ -16,7 +16,13 @@
     "id": 2,
     "title": "Task Master Pro",
     "description": "The project is a Todo App, which likely allows users to manage tasks by adding, filtering, and marking them as complete or incomplete. It is structured as a modern web application with reusable components and a focus on modularity.",
-    "technologies": ["React", "Tailwind CSS", "Framer Motion", "TypeScript","Vite"],
+    "technologies": [
+      "React",
+      "Tailwind CSS",
+      "Framer Motion",
+      "TypeScript",
+      "Vite"
+    ],
     "image": "https://i.postimg.cc/PJL4KfWY/Screenshot-2025-05-03-110938.png",
     "githubLink": "https://github.com/Greycode009/Todo-App",
     "liveLink": "https://mytasktodo.vercel.app",
@@ -28,7 +34,14 @@
     "id": 3,
     "title": "Anime Watchlist",
     "description": "Anime Watchlist is a responsive web and Android application that helps users track, rate, and organize anime. Users can add series to their collection, assign ratings on a 0-10 scale, organize anime into tier rankings, and track their watch status. The app features both light and dark themes, and stores data locally with an optimized Android version that significantly reduces app size.",
-    "technologies": ["React 19", "TailwindCSS 3.3", "Framer Motion 12", "Jikan API",  "URL Object API", "LocalStorage"],
+    "technologies": [
+      "React 19",
+      "TailwindCSS 3.3",
+      "Framer Motion 12",
+      "Jikan API",
+      "URL Object API",
+      "LocalStorage"
+    ],
     "image": "https://i.postimg.cc/rw1rMpxy/Screenshot-2025-05-05-022741.png",
     "githubLink": "https://github.com/Greycode009/Anime-Watchlist",
     "liveLink": "https://animewatchlists.vercel.app",
@@ -36,16 +49,35 @@
     "category": "frontend",
     "date": "2025-05-05"
   },
+
   {
     "id": 4,
-    "title": "Simple Calculator",
-    "description": "A clean and functional calculator web application built with HTML, CSS, and JavaScript.",
-    "technologies": ["HTML", "CSS", "JavaScript"],
-    "image": "https://i.ibb.co/JR0dxhgk/Screenshot-2025-11-27-210847.png",
-    "githubLink": "https://github.com/Greycode009/Simple-Calculator",
-    "liveLink": "https://greycode009.github.io/Simple-Calculator/",
+    "title": "School Website",
+    "description": "An informational school website showcasing the school's mission, programs, admissions, academic calendar, faculty profiles, photo gallery, news & events, and contact information. Built as a fast, accessible, mobile-first static site ready for deployment.",
+    "technologies": [
+      "React",
+      "Tailwind CSS",
+      "React Router",
+      "Framer Motion",
+      "Vercel"
+    ],
+    "image": "https://i.postimg.cc/gkSxZPjQ/Screenshot-2026-02-05-172049.png",
+    "githubLink": "https://github.com/Greycode009/School-Website",
+    "liveLink": "https://myschool-dashboard.vercel.app/",
     "featured": false,
     "category": "frontend",
-    "date": "2025-06-25"
+    "date": "2026-01-20"
+  },
+  {
+    "id": 5,
+    "title": "Admin Dashboard",
+    "description": "A comprehensive admin dashboard for managing student fee collections and payments. Features real-time statistics, monthly collection analytics, payment status tracking, and a detailed transaction history. Includes interactive charts for data visualization and payment management.",
+    "technologies": ["React", "Tailwind CSS", "Recharts", "React Router"],
+    "image": "https://i.postimg.cc/BbGMGK2L/Screenshot-2026-02-05-175307.png",
+    "githubLink": "https://github.com/Greycode009/Admin-Dashboard",
+    "liveLink": "https://myadmindash.vercel.app/",
+    "featured": false,
+    "category": "frontend",
+    "date": "2025-12-25"
   }
 ]
