@@ -79,5 +79,17 @@
     "featured": false,
     "category": "frontend",
     "date": "2025-12-25"
+  },
+  {
+    "id": 6,
+    "title": "Draggable File Cards UI",
+    "description": "An interactive draggable card interface built with React, Tailwind CSS, and Framer Motion. Each card represents a file with dynamic tag colors, smooth drag animations, and responsive layout. The project focuses on modern UI interactions, reusable components, and physics-based motion effects.",
+    "technologies": ["React", "Tailwind CSS", "Framer Motion", "React Icons"],
+    "image": "https://i.postimg.cc/bwv1VKw8/Screenshot-2026-02-08-231652.png",
+    "githubLink": "https://github.com/Greycode009/Docs-card",
+    "liveLink": "https://docscard.vercel.app/",
+    "featured": false,
+    "category": "frontend",
+    "date": "2026-02-08"
   }
 ]
