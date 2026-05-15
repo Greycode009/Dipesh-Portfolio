@@ -67,6 +67,34 @@ function About() {
       category: "backend",
     },
     {
+      name: "JWT",
+      icon: "fas fa-key",
+      description:
+        "Implementing secure token-based authentication with JWT. Experienced in auth flows, token refresh, and secure API access control.",
+      category: "authentication",
+    },
+    {
+      name: "bcrypt",
+      icon: "fas fa-lock",
+      description:
+        "Securing user credentials using bcrypt hashing. Skilled in password storage, verification, and best practices for authentication security.",
+      category: "authentication",
+    },
+    {
+      name: "FastAPI",
+      icon: "fab fa-python",
+      description:
+        "Developing high-performance Python APIs with FastAPI. Skilled in async endpoints, dependency injection, and automatic OpenAPI documentation.",
+      category: "backend",
+    },
+    {
+      name: "SQLAlchemy",
+      icon: "fab fa-python",
+      description:
+        "Designing ORM-driven Python data models with SQLAlchemy. Experienced in database schema design, relationships, and query optimization.",
+      category: "backend",
+    },
+    {
       name: "Sequelize ORM",
       icon: "fas fa-database",
       description:
@@ -171,15 +199,15 @@ function About() {
               <p>
                 Hi, I'm <span className="highlight">Dipesh Malla</span>, a
                 full-stack developer from Nepal. I specialize in building modern
-                web applications using React on the frontend and Node.js on the
+                web applications using React on the frontend and FastAPI on the
                 backend. My passion lies in creating scalable and efficient
                 solutions that deliver exceptional user experiences.
               </p>
               <p>
                 With 2 years of experience in web development, I've evolved from
                 frontend development with React and JavaScript to mastering
-                full-stack development. I work extensively with Node.js,
-                Express, and PostgreSQL to build robust backend systems. I'm
+                full-stack development. I work extensively with FastAPI,
+                SQLAlchemy, and PostgreSQL to build robust backend systems. I'm
                 particularly passionate about creating clean, maintainable code
                 and implementing efficient database solutions that power
                 seamless user experiences.
@@ -255,6 +283,14 @@ function About() {
                 >
                   Development
                 </span>
+                <span
+                  className={`category-tag authentication ${
+                    activeCategory === "authentication" ? "active" : ""
+                  }`}
+                  onClick={() => handleCategoryClick("authentication")}
+                >
+                  Authentication
+                </span>
               </div>
             </div>
 
@@ -263,7 +299,7 @@ function About() {
                 .filter(
                   (skill) =>
                     activeCategory === "all" ||
-                    skill.category === activeCategory
+                    skill.category === activeCategory,
                 )
                 .map((skill, index) => (
                   <motion.div
