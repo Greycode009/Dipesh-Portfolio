@@ -1,30 +1,30 @@
-import React, { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
-import emailjs from 'emailjs-com';
-import '../Contact.css';
+import React, { useState, useRef } from "react";
+import { motion } from "framer-motion";
+import emailjs from "emailjs-com";
+import "../Contact.css";
 
 // EmailJS configuration
-const SERVICE_ID = 'service_ypix5q7';
-const TEMPLATE_ID = 'template_5jfszow';
-const USER_ID = 'XWDNojF92emN4PUsd';
+const SERVICE_ID = "service_ypix5q7";
+const TEMPLATE_ID = "template_5jfszow";
+const USER_ID = "s2ytb1FrMeJHkIipYIwoD";
 
 function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
-  
-  const [status, setStatus] = useState('');
+
+  const [status, setStatus] = useState("");
   const [currentField, setCurrentField] = useState(null);
   const form = useRef();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -38,55 +38,56 @@ function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setStatus('sending');
-    
+    setStatus("sending");
+
     // Send the email using EmailJS
-    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, USER_ID)
+    emailjs
+      .sendForm(SERVICE_ID, TEMPLATE_ID, form.current, USER_ID)
       .then((response) => {
-        console.log('Email sent successfully:', response);
-        setStatus('success');
+        console.log("Email sent successfully:", response);
+        setStatus("success");
         // Reset form after submission
         setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
         });
-        setTimeout(() => setStatus(''), 5000); // Clear status after 5 seconds
+        setTimeout(() => setStatus(""), 5000); // Clear status after 5 seconds
       })
       .catch((error) => {
-        console.error('Error sending email:', error);
-        setStatus('error');
-        setTimeout(() => setStatus(''), 5000); // Clear status after 5 seconds
+        console.error("Error sending email:", error);
+        setStatus("error");
+        setTimeout(() => setStatus(""), 5000); // Clear status after 5 seconds
       });
   };
 
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
-      transition: { 
+      transition: {
         when: "beforeChildren",
         staggerChildren: 0.2,
-        duration: 0.5
-      }
-    }
+        duration: 0.5,
+      },
+    },
   };
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { 
-      y: 0, 
+    visible: {
+      y: 0,
       opacity: 1,
       transition: {
-        duration: 0.5
-      }
-    }
+        duration: 0.5,
+      },
+    },
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="contact-container"
       initial="hidden"
       animate="visible"
@@ -95,8 +96,10 @@ function Contact() {
       <div className="contact-wrapper">
         <motion.div className="contact-info" variants={itemVariants}>
           <h1>Let's Connect</h1>
-          <p className="subtitle">I'm excited to collaborate on your next project</p>
-          
+          <p className="subtitle">
+            I'm excited to collaborate on your next project
+          </p>
+
           <div className="info-cards">
             <div className="info-card">
               <div className="h-12 w-12 bg-[var(--color-primary)] rounded-xl flex items-center justify-center text-white">
@@ -107,7 +110,7 @@ function Contact() {
                 <p>Nepalgunj, Nepal</p>
               </div>
             </div>
-            
+
             <div className="info-card">
               <div className="h-12 w-12 bg-[var(--color-primary)]  rounded-xl flex items-center justify-center text-white">
                 <i className="fa-solid fa-envelope"></i>
@@ -117,7 +120,7 @@ function Contact() {
                 <p>dipeshmalla000@gmail.com</p>
               </div>
             </div>
-            
+
             <div className="info-card">
               <div className="h-12 w-12 bg-[var(--color-primary)]   rounded-xl flex items-center justify-center text-white">
                 <i className="fa-solid fa-phone"></i>
@@ -128,7 +131,7 @@ function Contact() {
               </div>
             </div>
           </div>
-          
+
           <div className="contact-availability">
             <div className="availability-indicator">
               <span className="status-dot"></span>
@@ -137,15 +140,17 @@ function Contact() {
             <p>I typically respond within 24 hours</p>
           </div>
         </motion.div>
-        
+
         <motion.div className="contact-form-container" variants={itemVariants}>
           <div className="form-header">
             <h2>Hire Me for Your Project</h2>
             <p>Fill out the form below to discuss your project needs</p>
           </div>
-          
+
           <form className="contact-form" ref={form} onSubmit={handleSubmit}>
-            <div className={`form-group ${currentField === 'name' ? 'focused' : ''}`}>
+            <div
+              className={`form-group ${currentField === "name" ? "focused" : ""}`}
+            >
               <label htmlFor="name">
                 <i className="fa-solid fa-user text-[var(--color-primary)]"></i>
                 <span>Name</span>
@@ -156,32 +161,36 @@ function Contact() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                onFocus={() => handleFocus('name')}
+                onFocus={() => handleFocus("name")}
                 onBlur={handleBlur}
                 required
               />
               <div className="focus-border"></div>
             </div>
-            
-            <div className={`form-group ${currentField === 'email' ? 'focused' : ''}`}>
+
+            <div
+              className={`form-group ${currentField === "email" ? "focused" : ""}`}
+            >
               <label htmlFor="email">
                 <i className="fa-solid fa-envelope text-[var(--color-primary)]"></i>
                 <span>Email</span>
               </label>
               <input
-                type="email" 
+                type="email"
                 id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                onFocus={() => handleFocus('email')}
+                onFocus={() => handleFocus("email")}
                 onBlur={handleBlur}
                 required
               />
               <div className="focus-border"></div>
             </div>
-            
-            <div className={`form-group ${currentField === 'subject' ? 'focused' : ''}`}>
+
+            <div
+              className={`form-group ${currentField === "subject" ? "focused" : ""}`}
+            >
               <label htmlFor="subject">
                 <i className="fa-solid fa-tag text-[var(--color-primary)]"></i>
                 <span>Subject & Budget</span>
@@ -192,14 +201,16 @@ function Contact() {
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
-                onFocus={() => handleFocus('subject')}
+                onFocus={() => handleFocus("subject")}
                 onBlur={handleBlur}
                 required
               />
               <div className="focus-border"></div>
             </div>
-            
-            <div className={`form-group ${currentField === 'message' ? 'focused' : ''}`}>
+
+            <div
+              className={`form-group ${currentField === "message" ? "focused" : ""}`}
+            >
               <label htmlFor="message">
                 <i className="fa-solid fa-message text-[var(--color-primary)]"></i>
                 <span>Message</span>
@@ -209,7 +220,7 @@ function Contact() {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                onFocus={() => handleFocus('message')}
+                onFocus={() => handleFocus("message")}
                 onBlur={handleBlur}
                 rows="5"
                 required
@@ -218,17 +229,21 @@ function Contact() {
             </div>
 
             {/* Hidden field for recipient email */}
-            <input type="hidden" name="to_email" value="gamerdipesh002@gmail.com" />
-            
+            <input
+              type="hidden"
+              name="to_email"
+              value="gamerdipesh002@gmail.com"
+            />
+
             <div className="form-footer">
-              <motion.button 
-                type="submit" 
-                className="submit-btn " 
-                disabled={status === 'sending'}
+              <motion.button
+                type="submit"
+                className="submit-btn "
+                disabled={status === "sending"}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {status === 'sending' ? (
+                {status === "sending" ? (
                   <>
                     <i className="fa-solid fa-spinner fa-spin"></i>
                     <span>Sending...</span>
@@ -242,21 +257,24 @@ function Contact() {
               </motion.button>
             </div>
           </form>
-          
-          {status === 'success' && (
-            <motion.div 
+
+          {status === "success" && (
+            <motion.div
               className="success-message"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
               <i className="fa-solid fa-circle-check"></i>
-              <p>Thanks for reaching out! I'll review your project request and get back to you soon.</p>
+              <p>
+                Thanks for reaching out! I'll review your project request and
+                get back to you soon.
+              </p>
             </motion.div>
           )}
-          
-          {status === 'error' && (
-            <motion.div 
+
+          {status === "error" && (
+            <motion.div
               className="error-message"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -268,8 +286,8 @@ function Contact() {
           )}
         </motion.div>
       </div>
-      
-      <motion.div 
+
+      <motion.div
         className="contact-background-elements"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -283,4 +301,4 @@ function Contact() {
   );
 }
 
-export default Contact; 
+export default Contact;
