@@ -182,7 +182,7 @@ function About() {
           >
             <circle cx="2.5" cy="2.5" r="2.5" fill="currentColor" />
           </svg>
-          <span>Node.js Developer</span>
+          <span>FastAPI Developer</span>
         </motion.div>
       </motion.section>
 
