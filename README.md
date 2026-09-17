@@ -96,7 +96,10 @@ people out:
 
 `frontend/vercel.json` supplies the SPA rewrite that client-side routing needs —
 as a fallback only, since Vercel checks the filesystem before applying
-rewrites, so the prerendered per-route files win.
+rewrites, so the prerendered per-route files win. The rewrite points at `/`
+rather than `/index.html`: `cleanUrls` makes `.html` paths redirect instead of
+serve, so an `/index.html` destination resolves to nothing and every
+client-only route (`/admin`, `/room`) returns 404.
 
 ## Roadmap
 
