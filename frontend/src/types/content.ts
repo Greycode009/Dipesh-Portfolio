@@ -88,6 +88,9 @@ export interface Bio {
   story: string[];
   /** Lead paragraph on the home page. */
   homeIntro: string;
+  /** Third figure in the hero. The other two are counted, not stored. */
+  heroStatValue: string;
+  heroStatLabel: string;
   quote: string;
   avatarUrl: string;
   portraitUrl: string;

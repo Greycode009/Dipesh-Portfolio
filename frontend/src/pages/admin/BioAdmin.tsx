@@ -133,6 +133,18 @@ export default function BioAdmin() {
           />
         </div>
 
+        <fieldset className="rounded-lg border border-border p-4">
+          <legend className="px-1.5 text-sm font-medium">Hero stat</legend>
+          <p className="mb-3 text-xs text-muted">
+            The third box beside your name. The other two count your published
+            projects and your skills, so they keep themselves up to date.
+          </p>
+          <div className="grid gap-4 sm:grid-cols-[8rem_1fr]">
+            {text('Value', 'heroStatValue')}
+            {text('Label', 'heroStatLabel')}
+          </div>
+        </fieldset>
+
         <div>
           <label htmlFor="story" className="mb-1.5 block text-sm font-medium">
             Story

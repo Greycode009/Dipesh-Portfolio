@@ -76,7 +76,7 @@ export default function Home() {
   const stats = [
     { value: String(projects.length), label: 'Projects shipped' },
     { value: String(skills.length), label: 'Tools in the box' },
-    { value: '2yr', label: 'Building for the web' },
+    { value: bio.heroStatValue, label: bio.heroStatLabel },
   ];
 
   return (

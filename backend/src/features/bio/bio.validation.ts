@@ -10,6 +10,8 @@ export const updateBioSchema = z
     avatarUrl: z.string().url(),
     portraitUrl: z.string().url(),
     homeIntro: z.string(),
+    heroStatValue: z.string().min(1).max(12),
+    heroStatLabel: z.string().min(1).max(60),
     location: z.string(),
     email: z.string().email(),
     phone: z.string(),

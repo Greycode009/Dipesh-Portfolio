@@ -389,6 +389,8 @@
     "email": "dipeshmalla000@gmail.com",
     "phone": "+977 9869705507",
     "availableForWork": true,
-    "homeIntro": "I specialize in building modern web applications with React and Node.js, focusing on scalable solutions and exceptional user experiences."
+    "homeIntro": "I specialize in building modern web applications with React and Node.js, focusing on scalable solutions and exceptional user experiences.",
+    "heroStatValue": "2yr",
+    "heroStatLabel": "Building for the web"
   }
 }

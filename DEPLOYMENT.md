@@ -68,13 +68,14 @@ The server only runs `sequelize.sync()` outside production, so deploying will
 not create or alter tables. It does not need to: the schema and the content are
 already in Neon.
 
-The catch is that **a future schema change will not apply itself**. After
-adding or changing a column you have to run the sync against Neon yourself,
-from your machine, with `DATABASE_URL` pointing at Neon and `NODE_ENV` unset:
+The catch is that **a future schema change will not apply itself**. You have to
+apply it to Neon yourself before deploying the code that needs it.
 
-```bash
-npm run db:sync --prefix backend
-```
+Prefer explicit additive SQL — see `src/db/add-hero-stat-columns.ts` for the
+shape: one script, `ADD COLUMN IF NOT EXISTS`, safe to re-run. `npm run db:sync`
+exists too, but it runs `sync({ alter: true })`, which compares every model
+against every table and will rewrite columns it decides have drifted. That is
+fine on a throwaway SQLite file and a poor idea against live content.
 
 This is the weakest part of the setup and the thing most worth replacing with
 real migrations before the content gets any more valuable.

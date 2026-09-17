@@ -21,6 +21,8 @@ export class Bio extends Model<
   declare avatarUrl: string;
   declare portraitUrl: string;
   declare homeIntro: string;
+  declare heroStatValue: CreationOptional<string>;
+  declare heroStatLabel: CreationOptional<string>;
   declare location: string;
   declare email: string;
   declare phone: string;
@@ -40,6 +42,18 @@ Bio.init(
     avatarUrl: { type: DataTypes.STRING(1024), allowNull: false },
     portraitUrl: { type: DataTypes.STRING(1024), allowNull: false },
     homeIntro: { type: DataTypes.TEXT, allowNull: false, defaultValue: '' },
+    // The third figure in the hero. The other two are counted from the
+    // projects and skills tables, so only this one needs storing.
+    heroStatValue: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: '2yr',
+    },
+    heroStatLabel: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'Building for the web',
+    },
     location: { type: DataTypes.STRING, allowNull: false },
     email: { type: DataTypes.STRING, allowNull: false },
     phone: { type: DataTypes.STRING, allowNull: false },
