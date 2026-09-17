@@ -100,15 +100,22 @@ export function infiniteMarquee(track: HTMLElement, baseSpeed = 0.6) {
    * Distance to travel before the second copy sits exactly where the first
    * started. Not scrollWidth/2: a flex `gap` sits between every item, so half
    * the total width is half a gap short and the wrap visibly jumps.
+   *
+   * Measured once and cached. Reading offsetLeft forces a synchronous layout,
+   * and doing that inside the ticker meant one forced reflow per frame.
    */
-  const wrapDistance = () => {
+  const measure = () => {
     const items = track.children;
     const perSet = Math.floor(items.length / 2);
-    if (perSet < 1) return track.scrollWidth / 2;
-    return (
-      (items[perSet] as HTMLElement).offsetLeft -
-      (items[0] as HTMLElement).offsetLeft
-    );
+    return perSet < 1
+      ? track.scrollWidth / 2
+      : (items[perSet] as HTMLElement).offsetLeft -
+          (items[0] as HTMLElement).offsetLeft;
+  };
+
+  let width = measure();
+  const remeasure = () => {
+    width = measure();
   };
 
   const setX = gsap.quickSetter(track, 'x', 'px');
@@ -117,22 +124,23 @@ export function infiniteMarquee(track: HTMLElement, baseSpeed = 0.6) {
   let velocityBoost = 0;
 
   const tick = (_time: number, delta: number) => {
+    if (width <= 0) return;
+
     // delta is milliseconds; normalise to a per-frame step at any refresh rate.
     const step = (baseSpeed + velocityBoost) * (delta / 16.6667);
     offset -= step * direction;
 
-    const width = wrapDistance();
-    if (width > 0) {
-      // Wrap in both directions so a scroll-up flip never leaves a gap.
-      if (offset <= -width) offset += width;
-      if (offset > 0) offset -= width;
-    }
+    // Wrap in both directions so a scroll-up flip never leaves a gap.
+    if (offset <= -width) offset += width;
+    if (offset > 0) offset -= width;
 
     setX(offset);
     velocityBoost *= 0.94; // ease back to the resting speed
   };
 
   gsap.ticker.add(tick);
+  window.addEventListener('resize', remeasure);
+  ScrollTrigger.addEventListener('refresh', remeasure);
 
   const trigger = ScrollTrigger.create({
     trigger: track,
@@ -146,6 +154,8 @@ export function infiniteMarquee(track: HTMLElement, baseSpeed = 0.6) {
 
   return () => {
     gsap.ticker.remove(tick);
+    window.removeEventListener('resize', remeasure);
+    ScrollTrigger.removeEventListener('refresh', remeasure);
     trigger.kill();
     gsap.set(track, { x: 0 });
   };

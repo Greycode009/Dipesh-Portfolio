@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import PublicLayout from '@/components/PublicLayout';
 import NotFound from '@/pages/NotFound';
 import { routes } from '@/routes';
+import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 
 // The admin area is a separate chunk: public visitors never download it.
 const AdminApp = lazy(() => import('@/pages/admin/AdminApp'));
@@ -35,6 +36,8 @@ function DocumentMeta() {
 /** The app minus its router, so the client and the prerenderer can each
  *  supply their own. */
 export default function App() {
+  useSmoothScroll();
+
   return (
     <ThemeProvider>
       <ScrollToTop />

@@ -33,9 +33,7 @@
     --color-on-primary: 10 10 10;
   }
 
-  html {
-    @apply scroll-smooth;
-  }
+  /* No scroll-smooth here: Lenis owns scrolling, and the two fight. */
 
   body {
     @apply bg-background text-content antialiased;
