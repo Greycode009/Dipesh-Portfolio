@@ -107,6 +107,21 @@
     box-shadow: 0 0 0 0 rgb(var(--color-border));
   }
 
+  /*
+   * Hover lift for cards that are not buttons. Written here rather than as
+   * arbitrary Tailwind utilities: the shadow needs a theme custom property,
+   * and a plain transform avoids fighting Tailwind's transform variables.
+   */
+  .nb-lift {
+    @apply transition-[transform,box-shadow] duration-200 ease-out;
+  }
+
+  /* Same gesture as the buttons, scaled to the card's larger shadow. */
+  .nb-lift:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0 0 rgb(var(--color-border));
+  }
+
   .nb-btn {
     @apply nb-box nb-shadow nb-press inline-flex items-center justify-center gap-2
       px-6 py-3 text-sm font-extrabold uppercase tracking-wide;

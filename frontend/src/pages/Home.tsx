@@ -134,19 +134,29 @@ export default function Home() {
         </div>
 
         <div className="md:col-span-5">
+          {/*
+            The outer element is what GSAP animates, so it carries the tilt and
+            nothing else. Hover lives on the inner card: GSAP writes an inline
+            transform here, and an inline style beats a hover class.
+            Capped from md up — at full column width the 4:5 portrait was 739px
+            tall on a 900px screen, pushing everything else out of the first
+            view. Mobile is left alone; it scrolls anyway.
+          */}
           <div
-            /* Capped from md up: at full column width the 4:5 portrait was
-               739px tall on a 900px screen, pushing everything else out of the
-               first view. Mobile is left alone — it scrolls anyway. */
-            className="nb-box nb-shadow-lg rotate-2 overflow-hidden bg-surface md:ml-auto md:max-w-[22rem] xl:max-w-[26rem]"
+            className="relative rotate-2 pb-6 md:ml-auto md:max-w-[22rem] xl:max-w-[26rem]"
             data-hero-portrait
           >
-            <img
-              src={bio.avatarUrl}
-              alt={bio.name}
-              className="aspect-[4/5] w-full object-cover"
-            />
-            <p className="flex items-center gap-2 border-t-[3px] border-border bg-primary px-4 py-3 font-mono text-xs font-bold uppercase tracking-wider text-on-primary">
+            <div className="nb-box nb-shadow-lg nb-lift overflow-hidden bg-surface">
+              <img
+                src={bio.avatarUrl}
+                alt={bio.name}
+                className="aspect-[4/5] w-full object-cover"
+              />
+            </div>
+
+            {/* Detached sticker: sits off the card's bottom-right corner and
+                counter-rotates so it reads level against the tilt. */}
+            <p className="nb-box nb-shadow absolute -bottom-1 -right-2 flex -rotate-2 items-center gap-2 whitespace-nowrap bg-primary px-4 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-on-primary sm:-right-4">
               <span
                 aria-hidden="true"
                 className="h-2.5 w-2.5 rounded-full bg-on-primary"
