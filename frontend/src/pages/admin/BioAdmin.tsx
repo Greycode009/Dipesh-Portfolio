@@ -91,7 +91,8 @@ export default function BioAdmin() {
       <header className="mb-6">
         <h1 className="text-2xl font-bold text-primary">Bio</h1>
         <p className="mt-1 text-muted">
-          Shown on the home and about pages, and in the contact details.
+          Shown on the home and about pages, and in the contact details. The
+          hero and game pictures are on the Pictures page.
         </p>
       </header>
 
@@ -161,8 +162,6 @@ export default function BioAdmin() {
           />
         </div>
 
-        {text('Avatar URL', 'avatarUrl')}
-        {text('Portrait URL', 'portraitUrl')}
         {text('Location', 'location')}
         {text('Email', 'email')}
         {text('Phone', 'phone')}

@@ -10,6 +10,7 @@ const adminNav = [
   { to: '/admin/expertise', label: 'Expertise' },
   { to: '/admin/socials', label: 'Socials' },
   { to: '/admin/bio', label: 'Bio' },
+  { to: '/admin/pictures', label: 'Pictures' },
   { to: '/admin/guestbook', label: 'Guestbook' },
 ];
 

@@ -6,6 +6,7 @@ import Dashboard from './Dashboard';
 import ExpertiseAdmin from './ExpertiseAdmin';
 import GuestbookAdmin from './GuestbookAdmin';
 import Login from './Login';
+import PicturesAdmin from './PicturesAdmin';
 import ProjectsAdmin from './ProjectsAdmin';
 import SkillsAdmin from './SkillsAdmin';
 import SocialsAdmin from './SocialsAdmin';
@@ -28,6 +29,7 @@ export default function AdminApp() {
           <Route path="expertise" element={<ExpertiseAdmin />} />
           <Route path="socials" element={<SocialsAdmin />} />
           <Route path="bio" element={<BioAdmin />} />
+          <Route path="pictures" element={<PicturesAdmin />} />
           <Route path="guestbook" element={<GuestbookAdmin />} />
         </Route>
       </Routes>
