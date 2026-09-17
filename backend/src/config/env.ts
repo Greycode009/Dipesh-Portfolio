@@ -27,6 +27,9 @@ export const env = {
     .map((origin) => origin.trim())
     .filter(Boolean),
 
+  /** Optional. Raises the GitHub API rate limit from 60 to 5000 per hour. */
+  githubToken: process.env.GITHUB_TOKEN,
+
   adminEmail: process.env.ADMIN_EMAIL,
   adminPassword: process.env.ADMIN_PASSWORD,
 } as const;

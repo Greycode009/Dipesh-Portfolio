@@ -1,4 +1,5 @@
 import { cms } from '@/api/cms';
+import GitHubImport from '@/components/admin/GitHubImport';
 import ResourceManager from '@/components/admin/ResourceManager';
 import type { FieldSpec } from '@/components/admin/fields';
 import type { Project } from '@/types/content';
@@ -71,6 +72,7 @@ export default function ProjectsAdmin() {
       fields={fields}
       emptyDraft={emptyDraft}
       label={(project) => project.title}
+      toolbar={(startCreate) => <GitHubImport onDraft={startCreate} />}
     />
   );
 }

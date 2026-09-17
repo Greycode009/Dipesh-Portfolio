@@ -74,7 +74,12 @@ token reveals drafts.
 | POST | `/api/guestbook` | – (rate limited, 3 per hour) |
 | PATCH | `/api/guestbook/:id` | admin — `{ approved: bool }` |
 | DELETE | `/api/guestbook/:id` | admin |
+| POST | `/api/github/preview` | admin — body `{ repo }`, returns an unsaved draft |
+| POST | `/api/github/sync-stats` | admin — refreshes stars and last-commit dates |
 | GET | `/health` | – |
+
+`GITHUB_TOKEN` is optional; without it GitHub allows 60 requests an hour, with
+it 5000. A classic token with no scopes is enough for public repositories.
 
 ## Deployment
 

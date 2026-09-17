@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { ApiError } from '@/api/client';
 import ResourceForm from './ResourceForm';
 import { formatFieldValue, type FieldSpec } from './fields';
@@ -21,6 +21,11 @@ interface ResourceManagerProps<T extends { id: number }> {
   label: (item: T) => string;
   /** Set false for resources with no sortOrder column. */
   reorderable?: boolean;
+  /**
+   * Rendered above the list. Receives a callback that opens the create form
+   * prefilled — used by the GitHub importer.
+   */
+  toolbar?: (startCreate: (draft: Partial<T>) => void) => ReactNode;
 }
 
 function describeError(error: unknown): string {
@@ -43,6 +48,7 @@ export default function ResourceManager<T extends { id: number }>({
   emptyDraft,
   label,
   reorderable = true,
+  toolbar,
 }: ResourceManagerProps<T>) {
   const [items, setItems] = useState<T[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -107,6 +113,15 @@ export default function ResourceManager<T extends { id: number }>({
         <h1 className="text-2xl font-bold text-primary">{title}</h1>
         {description && <p className="mt-1 text-muted">{description}</p>}
       </header>
+
+      {toolbar && (
+        <div className="mb-6">
+          {toolbar((prefilled) => {
+            setDraft({ ...emptyDraft, ...prefilled });
+            setEditing('new');
+          })}
+        </div>
+      )}
 
       {error && (
         <p className="mb-4 rounded-lg bg-red-500/10 p-3 text-sm text-red-400">

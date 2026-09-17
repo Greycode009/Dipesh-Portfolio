@@ -7,6 +7,7 @@ import '@/db/models';
 import { authRouter } from '@/features/auth/auth.routes';
 import { bioRouter } from '@/features/bio/bio.routes';
 import { expertiseRouter } from '@/features/expertise/expertise.routes';
+import { githubRouter } from '@/features/github/github.routes';
 import { guestbookRouter } from '@/features/guestbook/guestbook.routes';
 import { projectsRouter } from '@/features/projects/projects.routes';
 import { skillsRouter } from '@/features/skills/skills.routes';
@@ -48,6 +49,7 @@ export function createApp() {
   app.use('/api/expertise', expertiseRouter);
   app.use('/api/bio', bioRouter);
   app.use('/api/guestbook', guestbookRouter);
+  app.use('/api/github', githubRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

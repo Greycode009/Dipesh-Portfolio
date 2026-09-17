@@ -79,3 +79,22 @@ export const cms = {
       request<void>(`/api/guestbook/${id}`, { method: 'DELETE', auth: true }),
   },
 };
+
+export interface GitHubPreview {
+  existingProjectId: number | null;
+  draft: Partial<Project> & { githubStars?: number; lastCommitAt?: string };
+}
+
+export const github = {
+  preview: (repo: string) =>
+    request<GitHubPreview>('/api/github/preview', {
+      method: 'POST',
+      body: { repo },
+      auth: true,
+    }),
+  syncStats: () =>
+    request<{ results: { title: string; ok: boolean; reason?: string }[] }>(
+      '/api/github/sync-stats',
+      { method: 'POST', auth: true },
+    ),
+};

@@ -91,7 +91,7 @@ export const projects: Project[] = [
       "Vercel"
     ],
     "image": "https://i.postimg.cc/gkSxZPjQ/Screenshot-2026-02-05-172049.png",
-    "githubUrl": "https://github.com/Greycode009/School-Website",
+    "githubUrl": "https://github.com/Greycode009/School",
     "liveUrl": "https://myschool-dashboard.vercel.app/",
     "featured": false,
     "category": "frontend",

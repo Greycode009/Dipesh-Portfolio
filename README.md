@@ -60,7 +60,7 @@ files win.
 ## Roadmap
 
 1. **Foundations** — Vite + TypeScript, Tailwind-only styling, content extracted, routes prerendered. *(this branch)*
-2. **CMS** — Express + Sequelize + Postgres, admin UI at `/admin`. *(GitHub
-   import and image upload still to come.)*
+2. **CMS** — Express + Sequelize + Postgres, admin UI at `/admin`, GitHub
+   project import. *(Image upload and migrations still to come.)*
 3. **The Room** — Phaser pixel world: arcade cabinets, skill inventory, dialogue, mailbox.
 4. **Living world** — guestbook and ghost visitors.
