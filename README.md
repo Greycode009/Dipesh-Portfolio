@@ -5,7 +5,7 @@ Personal portfolio, being rebuilt as a pixel-game world backed by a CMS.
 ## Structure
 
     frontend/   React + Vite + TypeScript + Tailwind  → Vercel
-    backend/    Express + Sequelize + PostgreSQL      → Railway/Fly (Phase 2)
+    backend/    Express + Sequelize + PostgreSQL      → Render
 
 ### frontend
 
@@ -13,7 +13,7 @@ Personal portfolio, being rebuilt as a pixel-game world backed by a CMS.
       api/        HTTP seams for dynamic features (contact, later guestbook/presence)
       game/       The room: sprites, tile map, engine, in-world panels
       components/ Shared UI
-      content/    Projects, skills, timeline, bio — generated from the CMS in Phase 2
+      content/    ContentProvider — hands CMS content to the whole app
       context/    React context providers
       hooks/
       pages/      One file per route
@@ -52,8 +52,8 @@ window over 56x40 tiles.
 
 Styling is Tailwind only. Theme colours are CSS custom properties holding
 space-separated RGB channels, so opacity modifiers (`bg-primary/10`) work
-against whichever theme is active. There are two — light and dark, a warm
-amber accent on paper or charcoal — switched via the `data-theme` attribute on
+against whichever theme is active. There are two — light and dark, the
+same violet accent on paper or charcoal — switched via the `data-theme` attribute on
 `<html>`. A visitor with no stored preference follows their operating system,
 and an inline script in `index.html` applies the theme before first paint so
 the prerendered page never flashes the wrong one.
@@ -62,16 +62,20 @@ the prerendered page never flashes the wrong one.
 
     cd frontend
     npm install
-    cp .env.example .env.local   # EmailJS credentials for the contact form
+    cp .env.example .env.local   # VITE_API_URL, EmailJS credentials
     npm run dev                  # http://localhost:3000
-    npm run sync:content         # pull CMS content into src/content/
-    npm run build      # client build, SSR build, then prerender each route
+    npm run build                # client build, SSR build, prerender each route
     npm run typecheck
 
-Editing content: sign in at `/admin`, make changes, then run
-`npm run sync:content` to regenerate `src/content/*.ts` from the API and
-rebuild. Content ships in the bundle rather than being fetched at runtime, so
-the site stays fast and survives the API being down.
+The backend has to be running for either `dev` or `build` to have any content
+to show: `npm run dev --prefix backend`.
+
+Editing content: sign in at `/admin` and save. That is the whole loop — there
+is no regeneration step and no rebuild. The database is the only copy of the
+content; the build embeds a snapshot in the prerendered HTML so the first paint
+is real text, and the browser refetches on load so an edit is live on reload.
+If the API cannot be reached and no snapshot was embedded, the page says so
+rather than rendering empty.
 
 `npm run build` writes one static HTML file per route in `src/routes.ts`
 (`dist/about/index.html`, and so on), each with its own title, description,
@@ -82,11 +86,17 @@ or deploy, to check prerendering.
 
 ## Deployment
 
-The Vercel project's **Root Directory** must be set to `frontend`, since the app
-no longer lives at the repository root. `frontend/vercel.json` supplies the SPA
-rewrite that client-side routing needs — as a fallback only, since Vercel
-checks the filesystem before applying rewrites, so the prerendered per-route
-files win.
+Full walkthrough in [DEPLOYMENT.md](DEPLOYMENT.md). The two settings that catch
+people out:
+
+- The Vercel project's **Root Directory** must be `frontend`, since the app no
+  longer lives at the repository root.
+- **`VITE_API_URL`** must point at the deployed API. It is compiled in at build
+  time, so changing it needs a fresh deploy.
+
+`frontend/vercel.json` supplies the SPA rewrite that client-side routing needs —
+as a fallback only, since Vercel checks the filesystem before applying
+rewrites, so the prerendered per-route files win.
 
 ## Roadmap
 
