@@ -31,9 +31,16 @@ Animations do not initialise while the page is hidden. Applying their start
 states in a background tab would hide the content and then freeze, because
 requestAnimationFrame is throttled there.
 
-The design is brutalist: monochrome with one sharp red accent, hard 2px rules
-instead of soft cards, offset block shadows, oversized uppercase display type
-(Space Grotesk) with monospace labels (JetBrains Mono), and no easing softness.
+The design is neo-brutalist: a warm paper ground, white cards outlined in
+heavy ink with hard offset shadows and no blur, pill-shaped tags, chunky
+uppercase display type (Archivo Black) with monospace labels (JetBrains Mono),
+and one loud accent — electric violet. Dark mode inverts the ink: paper-white
+borders and shadows on near-black.
+
+Shared pieces live in the `@layer components` block of `src/styles/index.css`
+as `nb-*` classes (`nb-box`, `nb-shadow`, `nb-card`, `nb-btn`, `nb-pill`,
+`nb-press`, `nb-mark`), so the look is defined once rather than repeated as
+long class strings.
 
 The pixel room lives at `/room` as an easter egg, loaded only when asked for.
 Its sprites are authored in code as grids of palette characters

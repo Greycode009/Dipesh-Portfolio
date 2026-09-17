@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import { bio, timeline } from '@/content/bio';
 import { skills } from '@/content/skills';
+import { skillCategories, type SkillFilter } from '@/content/skillCategories';
 import { usePageAnimations } from '@/hooks/usePageAnimations';
-import {
-  skillCategories,
-  type SkillFilter,
-} from '@/content/skillCategories';
 
-const shell = 'mx-auto max-w-[110rem] px-5 sm:px-8';
+const shell = 'mx-auto max-w-[92rem] px-5 sm:px-8';
 
 export default function About() {
   const scope = usePageAnimations();
@@ -19,16 +16,28 @@ export default function About() {
 
   return (
     <div ref={scope}>
-      <section className="border-b-2 border-border">
-        <div className={`${shell} grid gap-10 py-14 md:grid-cols-12 md:py-20`}>
-          <div className="md:col-span-7">
-            <p className="eyebrow">{bio.roles.join(' / ')}</p>
-            <h1 className="mt-5 text-display font-bold uppercase">
-              Profile<span className="text-primary">.</span>
-            </h1>
-          </div>
+      <section className={`${shell} grid gap-10 py-12 md:grid-cols-12 md:py-16`}>
+        <div className="md:col-span-5">
+          <p className="eyebrow" data-reveal>
+            Who you would be working with
+          </p>
+          <h1
+            className="mt-4 font-display text-[clamp(2.5rem,9vw,5rem)] uppercase leading-[0.92]"
+            data-reveal
+          >
+            <span className="nb-mark">About</span>
+          </h1>
+          <ul className="mt-6 flex flex-wrap gap-2" data-reveal>
+            {bio.roles.map((role) => (
+              <li key={role} className="nb-pill nb-shadow">
+                {role}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-          <div className="space-y-5 text-lg leading-snug md:col-span-5">
+        <div className="md:col-span-7">
+          <div className="nb-card space-y-5 p-7 text-lg font-medium leading-snug" data-reveal>
             {bio.story.map((paragraph) => (
               <p key={paragraph.slice(0, 24)}>{paragraph}</p>
             ))}
@@ -37,88 +46,94 @@ export default function About() {
       </section>
 
       {/* ----------------------------------------------------------- skills */}
-      <section className="border-b-2 border-border">
-        <div className={`${shell} py-14 md:py-20`}>
-          <div className="flex flex-wrap items-end justify-between gap-5">
-            <p className="eyebrow">01 — Stack</p>
-            <div className="flex flex-wrap gap-2">
-              {skillCategories.map((option) => (
-                <button
-                  key={option.key}
-                  type="button"
-                  onClick={() => setCategory(option.key)}
-                  aria-pressed={category === option.key}
-                  className={`border-2 border-border px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.15em] transition-colors ${
-                    category === option.key
-                      ? 'bg-primary text-on-primary'
-                      : 'hover:bg-content hover:text-background'
-                  }`}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-10 grid gap-px border-2 border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-            {visible.map((skill) => (
-              <article key={skill.id} className="bg-background p-6" data-reveal>
-                <div className="flex items-baseline justify-between gap-3">
-                  <h2 className="text-xl font-bold uppercase leading-none tracking-tight">
-                    {skill.name}
-                  </h2>
-                  <span
-                    className="font-mono text-xs tracking-[0.2em] text-primary"
-                    aria-label={`${skill.proficiency} out of 5`}
-                  >
-                    {'█'.repeat(skill.proficiency)}
-                    <span className="text-muted">
-                      {'░'.repeat(5 - skill.proficiency)}
-                    </span>
-                  </span>
-                </div>
-                <p className="mt-3 text-sm leading-snug text-muted">
-                  {skill.description}
-                </p>
-              </article>
+      <section className={`${shell} pb-14 md:pb-20`}>
+        <div className="flex flex-wrap items-end justify-between gap-5" data-reveal>
+          <p className="eyebrow">01 — The toolkit</p>
+          <div className="flex flex-wrap gap-2.5">
+            {skillCategories.map((option) => (
+              <button
+                key={option.key}
+                type="button"
+                onClick={() => setCategory(option.key)}
+                aria-pressed={category === option.key}
+                className={`nb-box nb-press px-3.5 py-2 font-mono text-[0.7rem] font-bold uppercase tracking-wider ${
+                  category === option.key
+                    ? 'nb-shadow bg-primary text-on-primary'
+                    : 'nb-shadow bg-surface'
+                }`}
+              >
+                {option.label}
+              </button>
             ))}
           </div>
+        </div>
+
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {visible.map((skill) => (
+            <article key={skill.id} className="nb-card p-6" data-reveal>
+              <div className="flex items-start justify-between gap-3">
+                <h2 className="font-display text-lg uppercase leading-tight">
+                  {skill.name}
+                </h2>
+                <span
+                  className="flex shrink-0 gap-1"
+                  aria-label={`${skill.proficiency} out of 5`}
+                >
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <span
+                      key={index}
+                      aria-hidden="true"
+                      className={`h-3 w-3 rounded-full border-2 border-border ${
+                        index < skill.proficiency ? 'bg-primary' : 'bg-background'
+                      }`}
+                    />
+                  ))}
+                </span>
+              </div>
+              <p className="mt-3 text-sm font-medium leading-snug text-muted">
+                {skill.description}
+              </p>
+            </article>
+          ))}
         </div>
       </section>
 
       {/* --------------------------------------------------------- timeline */}
-      <section className="border-b-2 border-border">
-        <div className={`${shell} py-14 md:py-20`}>
-          <p className="eyebrow">02 — Timeline</p>
+      <section className={`${shell} pb-14 md:pb-20`}>
+        <p className="eyebrow" data-reveal>
+          02 — How it went
+        </p>
 
-          <ol className="mt-10 border-t-2 border-border">
-            {timeline.map((entry) => (
-              <li
-                key={entry.id}
-                className="grid gap-3 border-b-2 border-border py-7 md:grid-cols-12"
-                data-reveal
-              >
-                <span className="font-mono text-sm tracking-[0.2em] text-primary md:col-span-2">
+        <ol className="mt-8 space-y-5">
+          {timeline.map((entry) => (
+            <li key={entry.id} data-reveal>
+              <div className="nb-card flex flex-wrap items-start gap-5 p-6">
+                <span className="nb-box flex shrink-0 items-center bg-primary px-3 py-1.5 font-display text-base text-on-primary">
                   {entry.year}
                 </span>
-                <h3 className="text-xl font-bold uppercase leading-none tracking-tight md:col-span-4">
-                  {entry.title}
-                </h3>
-                <p className="leading-snug text-muted md:col-span-6">
-                  {entry.description}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-display text-lg uppercase leading-tight">
+                    {entry.title}
+                  </h3>
+                  <p className="mt-2 font-medium leading-snug text-muted">
+                    {entry.description}
+                  </p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <section className={`${shell} py-14 md:py-20`}>
+      <section className={`${shell} pb-16 md:pb-24`}>
         <blockquote
-          className="max-w-4xl border-l-4 border-primary pl-6 text-2xl font-medium leading-tight sm:text-3xl"
+          className="nb-box nb-shadow-lg rotate-1 bg-surface p-8 text-xl font-semibold leading-snug md:p-12 md:text-2xl"
           data-reveal
         >
-          {bio.quote}
+          <span aria-hidden="true" className="font-display text-4xl text-primary">
+            “
+          </span>
+          <p className="mt-2">{bio.quote}</p>
         </blockquote>
       </section>
     </div>

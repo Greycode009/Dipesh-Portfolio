@@ -5,7 +5,7 @@ import { skills } from '@/content/skills';
 import { gsap, infiniteMarquee } from '@/lib/animations';
 import { usePageAnimations } from '@/hooks/usePageAnimations';
 
-const shell = 'mx-auto max-w-[110rem] px-5 sm:px-8';
+const shell = 'mx-auto max-w-[92rem] px-5 sm:px-8';
 
 export default function Home() {
   const scope = usePageAnimations((root) => {
@@ -15,39 +15,24 @@ export default function Home() {
     const items = root.querySelectorAll('[data-hero-item]');
     const portrait = root.querySelector('[data-hero-portrait]');
 
-    // Each headline line sits in an overflow-hidden block, so sliding it up
-    // from below reads as the type being uncovered rather than fading in.
+    // Headline lines sit in overflow-hidden blocks, so sliding them up reads
+    // as the type being uncovered rather than fading in.
     if (lines.length) {
-      timeline.from(lines, { yPercent: 115, duration: 0.9, stagger: 0.09 });
+      timeline.from(lines, { yPercent: 115, duration: 0.85, stagger: 0.08 });
     }
     if (items.length) {
       timeline.from(
         items,
-        { opacity: 0, y: 24, duration: 0.7, stagger: 0.08 },
-        '-=0.55',
+        { opacity: 0, y: 24, duration: 0.6, stagger: 0.07 },
+        '-=0.5',
       );
     }
     if (portrait) {
       timeline.from(
         portrait,
-        { opacity: 0, scale: 1.06, duration: 0.9 },
-        '-=0.8',
+        { opacity: 0, scale: 0.94, rotate: -4, duration: 0.7 },
+        '-=0.6',
       );
-    }
-
-    // The portrait drifts slightly slower than the page.
-    const portraitImage = root.querySelector('[data-hero-portrait] img');
-    if (portraitImage) {
-      gsap.to(portraitImage, {
-        yPercent: 8,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: portraitImage,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      });
     }
 
     const track = root.querySelector<HTMLElement>('[data-marquee]');
@@ -62,84 +47,103 @@ export default function Home() {
   const featured = projects
     .filter((project) => project.status === 'published')
     .sort(
-      (a, b) => Number(b.featured) - Number(a.featured) || a.sortOrder - b.sortOrder,
+      (a, b) =>
+        Number(b.featured) - Number(a.featured) || a.sortOrder - b.sortOrder,
     )
     .slice(0, 3);
 
   const ticker = skills.map((skill) => skill.name);
-  const [firstName, ...restName] = bio.name.split(' ');
+  const nameParts = bio.name.split(' ');
+  const firstName = nameParts[0];
+  const lastName = nameParts.slice(1).join(' ');
+
+  const stats = [
+    { value: String(projects.length), label: 'Projects shipped' },
+    { value: String(skills.length), label: 'Tools in the box' },
+    { value: '2yr', label: 'Building for the web' },
+  ];
 
   return (
     <div ref={scope}>
       {/* ------------------------------------------------------------ hero */}
-      <section className="border-b-2 border-border">
-        <div className={`${shell} grid gap-10 py-14 md:grid-cols-12 md:py-20`}>
-          <div className="md:col-span-8">
-            <p className="eyebrow" data-hero-item>
-              {bio.headline} — {bio.location}
-            </p>
+      <section className={`${shell} grid gap-10 py-12 md:grid-cols-12 md:py-20`}>
+        <div className="md:col-span-7">
+          <p className="nb-pill nb-shadow" data-hero-item>
+            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-primary" />
+            {bio.headline} · {bio.location}
+          </p>
 
-            <h1 className="mt-5 text-display font-bold uppercase">
-              <span className="block overflow-hidden pb-[0.06em]">
-                <span className="block" data-hero-line>
-                  {firstName}
-                </span>
+          <h1 className="mt-6 font-display text-[clamp(2.75rem,9vw,5.5rem)] uppercase leading-[0.92]">
+            <span className="block overflow-hidden pb-[0.05em]">
+              <span className="block" data-hero-line>
+                {firstName}
               </span>
-              <span className="block overflow-hidden pb-[0.06em]">
-                <span className="block" data-hero-line>
-                  {restName.join(' ')}
-                  <span className="text-primary">.</span>
-                </span>
+            </span>
+            <span className="block overflow-hidden pb-[0.05em]">
+              <span className="block" data-hero-line>
+                <span className="nb-mark">{lastName}</span>
               </span>
-            </h1>
+            </span>
+          </h1>
 
-            <p
-              className="mt-8 max-w-2xl text-lg leading-snug text-muted sm:text-xl"
-              data-hero-item
-            >
-              {homeIntro}
-            </p>
+          <p
+            className="mt-7 max-w-xl text-lg font-medium leading-snug text-muted"
+            data-hero-item
+          >
+            {homeIntro}
+          </p>
 
-            <div className="mt-10 flex flex-wrap gap-4" data-hero-item>
-              <Link
-                to="/projects"
-                className="block-shadow-hover border-2 border-border bg-primary px-7 py-4 font-mono text-xs uppercase tracking-[0.2em] text-on-primary"
-              >
-                See the work
-              </Link>
-              <Link
-                to="/contact"
-                className="block-shadow-hover border-2 border-border px-7 py-4 font-mono text-xs uppercase tracking-[0.2em]"
-              >
-                Hire me
-              </Link>
-            </div>
+          <div className="mt-9 flex flex-wrap gap-4" data-hero-item>
+            <Link to="/projects" className="nb-btn-primary">
+              See the work →
+            </Link>
+            <Link to="/contact" className="nb-btn-plain">
+              Hire me
+            </Link>
           </div>
 
-          <div className="md:col-span-4">
-            <div className="border-2 border-border" data-hero-portrait>
-              <div className="overflow-hidden">
-                <img
-                  src={bio.avatarUrl}
-                  alt={bio.name}
-                  className="aspect-square w-full scale-110 object-cover grayscale transition-all duration-150 hover:grayscale-0"
-                />
+          <dl className="mt-10 flex flex-wrap gap-3" data-hero-item>
+            {stats.map((stat) => (
+              <div key={stat.label} className="nb-card px-5 py-3">
+                <dt className="font-display text-2xl leading-none">
+                  {stat.value}
+                </dt>
+                <dd className="mt-1 font-mono text-[0.65rem] uppercase tracking-wider text-muted">
+                  {stat.label}
+                </dd>
               </div>
-              <p className="border-t-2 border-border px-4 py-3 font-mono text-xs uppercase tracking-[0.2em]">
-                {bio.availableForWork ? 'Available for work' : 'Currently booked'}
-              </p>
-            </div>
+            ))}
+          </dl>
+        </div>
+
+        <div className="md:col-span-5">
+          <div
+            className="nb-box nb-shadow-lg rotate-2 overflow-hidden bg-surface"
+            data-hero-portrait
+          >
+            <img
+              src={bio.avatarUrl}
+              alt={bio.name}
+              className="aspect-[4/5] w-full object-cover"
+            />
+            <p className="flex items-center gap-2 border-t-[3px] border-border bg-primary px-4 py-3 font-mono text-xs font-bold uppercase tracking-wider text-on-primary">
+              <span
+                aria-hidden="true"
+                className="h-2.5 w-2.5 rounded-full bg-on-primary"
+              />
+              {bio.availableForWork ? 'Available for work' : 'Currently booked'}
+            </p>
           </div>
         </div>
       </section>
 
       {/* ---------------------------------------------------------- ticker */}
-      <div className="overflow-hidden border-b-2 border-border bg-primary py-3 text-on-primary">
+      <div className="overflow-hidden border-y-[3px] border-border bg-primary py-3 text-on-primary">
         <div className="flex w-max gap-8" data-marquee>
           {[...ticker, ...ticker].map((name, index) => (
             <span
               key={`${name}-${index}`}
-              className="whitespace-nowrap font-mono text-xs uppercase tracking-[0.2em]"
+              className="whitespace-nowrap font-display text-sm uppercase"
             >
               {name} <span aria-hidden="true">✦</span>
             </span>
@@ -148,96 +152,90 @@ export default function Home() {
       </div>
 
       {/* -------------------------------------------------------- expertise */}
-      <section className="border-b-2 border-border">
-        <div className={`${shell} py-14 md:py-20`}>
-          <p className="eyebrow" data-reveal>
-            01 — What I do
-          </p>
+      <section className={`${shell} py-14 md:py-20`}>
+        <p className="eyebrow" data-reveal>
+          01 — What I do
+        </p>
 
-          <div className="mt-10 grid gap-px border-2 border-border bg-border md:grid-cols-3">
-            {expertise.map((item, index) => (
-              <article key={item.id} className="bg-background p-7" data-reveal>
-                <p className="font-mono text-xs tracking-[0.2em] text-primary">
-                  {String(index + 1).padStart(2, '0')}
-                </p>
-                <h2 className="mt-4 text-2xl font-bold uppercase leading-none tracking-tight">
-                  {item.title}
-                </h2>
-                <p className="mt-4 leading-snug text-muted">{item.description}</p>
-                <ul className="mt-6 flex flex-wrap gap-2">
-                  {item.technologies.map((tech) => (
-                    <li
-                      key={tech}
-                      className="border-2 border-border px-2 py-1 font-mono text-[0.65rem] uppercase tracking-[0.15em]"
-                    >
-                      {tech}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          {expertise.map((item, index) => (
+            <article key={item.id} className="nb-card p-6" data-reveal>
+              <span className="nb-box flex h-11 w-11 items-center justify-center bg-primary font-display text-base text-on-primary">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <h2 className="mt-5 font-display text-xl uppercase leading-tight">
+                {item.title}
+              </h2>
+              <p className="mt-3 font-medium leading-snug text-muted">
+                {item.description}
+              </p>
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {item.technologies.map((tech) => (
+                  <li key={tech} className="nb-pill">
+                    {tech}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
         </div>
       </section>
 
       {/* ------------------------------------------------------ recent work */}
-      <section className="border-b-2 border-border">
-        <div className={`${shell} py-14 md:py-20`}>
-          <div className="flex flex-wrap items-end justify-between gap-4" data-reveal>
-            <p className="eyebrow">02 — Selected work</p>
-            <Link
-              to="/projects"
-              className="font-mono text-xs uppercase tracking-[0.2em] text-primary"
-            >
-              All {projects.length} projects →
-            </Link>
-          </div>
-
-          <ul className="mt-10 border-t-2 border-border">
-            {featured.map((project, index) => (
-              <li key={project.id} data-reveal>
-                <Link
-                  to="/projects"
-                  className="group grid items-center gap-4 border-b-2 border-border py-6 transition-colors hover:bg-primary hover:text-on-primary md:grid-cols-12"
-                >
-                  <span className="font-mono text-xs tracking-[0.2em] md:col-span-1">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="text-2xl font-bold uppercase leading-none tracking-tight md:col-span-5">
-                    {project.title}
-                  </h3>
-                  <p className="font-mono text-xs uppercase tracking-[0.15em] md:col-span-5">
-                    {project.technologies.slice(0, 3).join(' / ')}
-                  </p>
-                  <span
-                    aria-hidden="true"
-                    className="font-mono text-xl transition-transform duration-150 group-hover:translate-x-2 md:col-span-1 md:text-right"
-                  >
-                    →
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+      <section className={`${shell} pb-14 md:pb-20`}>
+        <div className="flex flex-wrap items-end justify-between gap-4" data-reveal>
+          <p className="eyebrow">02 — Selected work</p>
+          <Link
+            to="/projects"
+            className="font-mono text-xs font-bold uppercase tracking-wider underline decoration-primary decoration-[3px] underline-offset-4"
+          >
+            All {projects.length} projects →
+          </Link>
         </div>
+
+        <ul className="mt-8 space-y-5">
+          {featured.map((project, index) => (
+            <li key={project.id} data-reveal>
+              <Link
+                to="/projects"
+                className="nb-card nb-press flex flex-wrap items-center gap-4 p-5 sm:gap-6"
+              >
+                <span className="nb-box flex h-12 w-12 shrink-0 items-center justify-center bg-background font-display text-lg">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block font-display text-xl uppercase leading-tight sm:text-2xl">
+                    {project.title}
+                  </span>
+                  <span className="mt-1 block font-mono text-[0.7rem] uppercase tracking-wider text-muted">
+                    {project.technologies.slice(0, 3).join(' · ')}
+                  </span>
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="nb-box flex h-11 w-11 shrink-0 items-center justify-center bg-primary text-lg text-on-primary"
+                >
+                  →
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* ------------------------------------------------------------- cta */}
-      <section className={`${shell} py-14 md:py-24`}>
+      <section className={`${shell} pb-16 md:pb-24`}>
         <div
-          className="border-2 border-border bg-primary p-8 text-on-primary md:p-14"
+          className="nb-box nb-shadow-lg -rotate-1 bg-primary p-8 text-on-primary md:p-14"
           data-reveal
         >
-          <p className="font-mono text-xs uppercase tracking-[0.2em] opacity-80">
-            03 — Next
+          <p className="font-mono text-xs font-bold uppercase tracking-wider opacity-80">
+            03 — What next
           </p>
-          <h2 className="mt-5 max-w-4xl text-headline font-bold uppercase">
+          <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.75rem,5vw,3.25rem)] uppercase leading-[0.95]">
             Got something that needs building?
           </h2>
-          <Link
-            to="/contact"
-            className="mt-9 inline-block border-2 border-current bg-background px-7 py-4 font-mono text-xs uppercase tracking-[0.2em] text-content"
-          >
+          <Link to="/contact" className="nb-btn nb-press mt-8 rotate-1 bg-surface text-content">
             Start a conversation
           </Link>
         </div>

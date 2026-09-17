@@ -33,9 +33,11 @@ export default function MotionToggle() {
           ? 'Your system asks for reduced motion. Animations are on anyway — switch them off here.'
           : `Animations are ${isOn ? 'on' : 'off'}`
       }
-      className="border-2 border-border px-3 py-1.5 font-mono text-xs uppercase tracking-[0.2em] transition-colors hover:bg-primary hover:text-on-primary"
+      className={`nb-box nb-shadow nb-press px-4 py-2 font-mono text-[0.7rem] font-bold uppercase tracking-wider ${
+        isOn ? 'bg-primary text-on-primary' : 'bg-surface'
+      }`}
     >
-      Motion: {isOn ? 'On' : 'Off'}
+      Motion {isOn ? 'on' : 'off'}
     </button>
   );
 }

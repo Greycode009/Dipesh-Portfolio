@@ -22,7 +22,8 @@ export default {
         'on-primary': themeColor('on-primary'),
       },
       fontFamily: {
-        sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        sans: ['Archivo', 'system-ui', 'sans-serif'],
+        display: ['"Archivo Black"', 'Archivo', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
         // Only the easter-egg room uses this.
         pixel: ['"Press Start 2P"', 'ui-monospace', 'monospace'],

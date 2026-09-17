@@ -3,12 +3,22 @@ import { sendContactMessage } from '@/api/contact';
 import { bio } from '@/content/bio';
 import { usePageAnimations } from '@/hooks/usePageAnimations';
 
-const shell = 'mx-auto max-w-[110rem] px-5 sm:px-8';
+const shell = 'mx-auto max-w-[92rem] px-5 sm:px-8';
 
 const fields = [
-  { name: 'name', label: 'Name', type: 'text' },
-  { name: 'email', label: 'Email', type: 'email' },
-  { name: 'subject', label: 'Subject & budget', type: 'text' },
+  { name: 'name', label: 'Your name', type: 'text', placeholder: 'Jane Doe' },
+  {
+    name: 'email',
+    label: 'Your email',
+    type: 'email',
+    placeholder: 'jane@company.com',
+  },
+  {
+    name: 'subject',
+    label: 'Subject & budget',
+    type: 'text',
+    placeholder: 'Landing page · $2k',
+  },
 ] as const;
 
 const details = [
@@ -45,39 +55,39 @@ export default function Contact() {
   };
 
   const inputClass =
-    'w-full border-2 border-border bg-background px-4 py-3 font-sans outline-none placeholder:text-muted focus:bg-surface';
+    'nb-box w-full bg-background px-4 py-3 font-medium outline-none placeholder:text-muted/70 focus:bg-surface';
 
   return (
     <div ref={scope}>
-      <section className="border-b-2 border-border">
-        <div className={`${shell} py-14 md:py-20`}>
-          <p className="eyebrow">
-            {bio.availableForWork ? 'Available for work' : 'Currently booked'} —
-            replies within 24h
-          </p>
-          <h1 className="mt-5 text-display font-bold uppercase">
-            Contact<span className="text-primary">.</span>
-          </h1>
-        </div>
-      </section>
+      <section className={`${shell} py-12 md:py-16`}>
+        <p className="eyebrow" data-reveal>
+          Replies within 24 hours
+        </p>
+        <h1
+          className="mt-4 font-display text-[clamp(2.5rem,9vw,5rem)] uppercase leading-[0.92]"
+          data-reveal
+        >
+          Say <span className="nb-mark">hello</span>
+        </h1>
 
-      <section className="border-b-2 border-border">
-        <dl className={`${shell} grid gap-px bg-border md:grid-cols-3`}>
+        <dl className="mt-8 grid gap-5 sm:grid-cols-3">
           {details.map((detail) => (
-            <div key={detail.label} className="bg-background py-6" data-reveal>
+            <div key={detail.label} className="nb-card p-5" data-reveal>
               <dt className="eyebrow">{detail.label}</dt>
-              <dd className="mt-2 break-all text-lg">{detail.value}</dd>
+              <dd className="mt-2 break-all font-semibold">{detail.value}</dd>
             </div>
           ))}
         </dl>
       </section>
 
-      <section className={`${shell} py-14 md:py-20`}>
+      <section className={`${shell} pb-16 md:pb-24`}>
         {status === 'sent' ? (
-          <div className="border-2 border-border bg-primary p-10 text-on-primary md:p-16">
-            <h2 className="text-headline font-bold uppercase">Message sent.</h2>
-            <p className="mt-5 max-w-xl text-lg leading-snug">
-              Thanks for reaching out. {bio.name.split(' ')[0]} will review it and
+          <div className="nb-box nb-shadow-lg -rotate-1 bg-primary p-10 text-on-primary md:p-16">
+            <h2 className="font-display text-[clamp(1.75rem,5vw,3rem)] uppercase leading-[0.95]">
+              Message sent
+            </h2>
+            <p className="mt-5 max-w-xl text-lg font-medium leading-snug">
+              Thanks for reaching out. {bio.name.split(' ')[0]} will read it and
               get back to you within a day.
             </p>
           </div>
@@ -85,17 +95,20 @@ export default function Contact() {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="grid gap-10 md:grid-cols-12"
+            className="nb-card grid gap-8 p-7 md:grid-cols-12 md:p-10"
+            data-reveal
           >
             <div className="md:col-span-5">
-              <p className="eyebrow">01 — Brief</p>
-              <h2 className="mt-4 text-headline font-bold uppercase">
-                Tell me
+              <p className="eyebrow">01 — The brief</p>
+              <h2 className="mt-4 font-display text-[clamp(1.5rem,4vw,2.5rem)] uppercase leading-[0.95]">
+                Tell me what
                 <br />
-                what you
-                <br />
-                need<span className="text-primary">.</span>
+                you need built
               </h2>
+              <p className="mt-5 font-medium leading-snug text-muted">
+                A sentence or two is plenty to start. The more detail on budget
+                and timeline, the faster the reply is useful.
+              </p>
             </div>
 
             <div className="space-y-5 md:col-span-7">
@@ -108,6 +121,7 @@ export default function Contact() {
                     id={field.name}
                     name={field.name}
                     type={field.type}
+                    placeholder={field.placeholder}
                     required
                     className={inputClass}
                   />
@@ -121,7 +135,8 @@ export default function Contact() {
                 <textarea
                   id="message"
                   name="message"
-                  rows={6}
+                  rows={5}
+                  placeholder="What are you building?"
                   required
                   className={`${inputClass} resize-y`}
                 />
@@ -136,7 +151,7 @@ export default function Contact() {
               {status === 'error' && (
                 <p
                   role="alert"
-                  className="border-2 border-primary px-4 py-3 font-mono text-xs uppercase tracking-[0.15em] text-primary"
+                  className="nb-box bg-primary px-4 py-3 text-sm font-bold text-on-primary"
                 >
                   {error}
                 </p>
@@ -145,9 +160,9 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                className="block-shadow-hover w-full border-2 border-border bg-primary px-7 py-5 font-mono text-xs uppercase tracking-[0.2em] text-on-primary disabled:opacity-60"
+                className="nb-btn-primary w-full py-4 disabled:opacity-60"
               >
-                {status === 'sending' ? 'Sending…' : 'Send it'}
+                {status === 'sending' ? 'Sending…' : 'Send it →'}
               </button>
             </div>
           </form>

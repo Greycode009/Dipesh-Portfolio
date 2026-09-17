@@ -3,44 +3,43 @@
 @tailwind utilities;
 
 /**
- * Monochrome with one sharp accent. Colours are space-separated RGB channels
- * so Tailwind's opacity modifiers work against the active theme.
+ * Neo-brutalism: a warm paper ground, white cards outlined in heavy ink, hard
+ * offset shadows with no blur, and one loud accent.
  *
- * Borders are deliberately the full text colour rather than a soft grey —
- * hard rules are the point of this design, not an oversight.
+ * Colours are space-separated RGB channels so Tailwind's opacity modifiers
+ * work against the active theme. `border` doubles as the shadow colour —
+ * ink on paper, paper on ink — which is what keeps the dark theme from
+ * looking like the light one with the lights off.
  */
 @layer base {
   :root,
   [data-theme='light'] {
-    --color-background: 255 255 255;
-    --color-surface: 245 245 245;
-    --color-border: 10 10 10;
-    --color-content: 10 10 10;
-    --color-muted: 90 90 90;
-    --color-primary: 229 35 26;
-    --color-secondary: 179 25 16;
+    --color-background: 251 247 239;
+    --color-surface: 255 255 255;
+    --color-border: 17 17 17;
+    --color-content: 17 17 17;
+    --color-muted: 92 87 80;
+    --color-primary: 77 61 247;
+    --color-secondary: 54 40 196;
     --color-on-primary: 255 255 255;
   }
 
   [data-theme='dark'] {
-    --color-background: 10 10 10;
-    --color-surface: 22 22 22;
-    --color-border: 245 245 245;
-    --color-content: 245 245 245;
-    --color-muted: 160 160 160;
-    --color-primary: 255 65 54;
-    --color-secondary: 255 111 102;
-    --color-on-primary: 10 10 10;
+    --color-background: 21 21 21;
+    --color-surface: 33 33 33;
+    --color-border: 245 243 238;
+    --color-content: 245 243 238;
+    --color-muted: 168 163 154;
+    --color-primary: 145 132 255;
+    --color-secondary: 120 106 245;
+    --color-on-primary: 17 17 17;
   }
-
-  /* No scroll-smooth here: Lenis owns scrolling, and the two fight. */
 
   body {
     @apply bg-background text-content antialiased;
-    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-family: Archivo, system-ui, sans-serif;
   }
 
-  /* Nothing in this design is soft-edged. */
   ::selection {
     background-color: rgb(var(--color-primary));
     color: rgb(var(--color-on-primary));
@@ -58,29 +57,87 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
     }
   }
 }
 
 @layer components {
-  /* The section label: 01 / PROJECTS */
+  /* The section label: 01 / WHAT I DO */
   .eyebrow {
-    @apply font-mono text-xs uppercase tracking-[0.2em] text-muted;
+    @apply font-mono text-xs font-bold uppercase tracking-[0.18em] text-muted;
   }
 
-  /* Hard offset shadow. Hover slides the element into its own shadow. */
-  .block-shadow {
-    box-shadow: 6px 6px 0 0 rgb(var(--color-border));
+  /* Outlined block. Everything on the page is one of these. */
+  .nb-box {
+    @apply rounded-[6px] border-[3px] border-border;
   }
 
-  .block-shadow-hover {
-    @apply transition-[transform,box-shadow] duration-100;
-    box-shadow: 6px 6px 0 0 rgb(var(--color-border));
+  .nb-shadow {
+    box-shadow: 5px 5px 0 0 rgb(var(--color-border));
   }
 
-  .block-shadow-hover:hover {
-    transform: translate(6px, 6px);
+  .nb-shadow-lg {
+    box-shadow: 8px 8px 0 0 rgb(var(--color-border));
+  }
+
+  /* Accent-coloured shadow, for blocks that already sit on ink. */
+  .nb-shadow-accent {
+    box-shadow: 5px 5px 0 0 rgb(var(--color-primary));
+  }
+
+  .nb-card {
+    @apply nb-box nb-shadow bg-surface;
+  }
+
+  /*
+   * Pressable things move into their own shadow. Transform and box-shadow are
+   * the two properties a browser can animate without re-laying-out the page.
+   */
+  .nb-press {
+    @apply transition-[transform,box-shadow] duration-100 ease-out;
+  }
+
+  .nb-press:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 0 rgb(var(--color-border));
+  }
+
+  .nb-press:active {
+    transform: translate(5px, 5px);
     box-shadow: 0 0 0 0 rgb(var(--color-border));
+  }
+
+  .nb-btn {
+    @apply nb-box nb-shadow nb-press inline-flex items-center justify-center gap-2
+      px-6 py-3 text-sm font-extrabold uppercase tracking-wide;
+  }
+
+  .nb-btn-primary {
+    @apply nb-btn bg-primary text-on-primary;
+  }
+
+  .nb-btn-plain {
+    @apply nb-btn bg-surface text-content;
+  }
+
+  .nb-pill {
+    @apply inline-flex items-center gap-1.5 rounded-full border-2 border-border
+      bg-surface px-3 py-1 font-mono text-[0.7rem] font-bold uppercase tracking-wider;
+  }
+
+  /*
+   * Marker-pen highlight behind a word. Painted as a background gradient
+   * rather than a pseudo-element: a negative z-index would put it behind the
+   * section's own background and disappear.
+   */
+  .nb-mark {
+    background-image: linear-gradient(
+      to top,
+      transparent 0.02em,
+      rgb(var(--color-primary)) 0.02em,
+      rgb(var(--color-primary)) 0.46em,
+      transparent 0.46em
+    );
+    padding-inline: 0.08em;
   }
 }

@@ -1,6 +1,5 @@
 import { useTheme } from '@/hooks/useTheme';
 
-/** Hard-edged two-state switch. No animation; this design does not do soft. */
 export default function ThemeSwitcher() {
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === 'dark';
@@ -12,9 +11,9 @@ export default function ThemeSwitcher() {
       role="switch"
       aria-checked={isDark}
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
-      className="border-2 border-border px-3 py-2 font-mono text-xs uppercase tracking-[0.2em] transition-colors hover:bg-primary hover:text-on-primary"
+      className="nb-box nb-shadow nb-press flex h-10 w-10 items-center justify-center bg-surface text-base"
     >
-      {isDark ? 'Dark' : 'Light'}
+      <span aria-hidden="true">{isDark ? '☾' : '☀'}</span>
     </button>
   );
 }
