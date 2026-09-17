@@ -107,8 +107,10 @@ In the existing Vercel project:
 
 3. Redeploy.
 
-Framework preset, build command and output directory are detected from
-`frontend/package.json` and `frontend/vercel.json`; there is nothing to change.
+Build settings come from `frontend/vercel.json`, which pins the framework to
+Vite and the output directory to `dist`. That file wins over the dashboard, so
+a stale Create React App preset left over from the old site — which looks for a
+`build/` directory that Vite never produces — no longer matters.
 
 ### `VITE_API_URL` is compiled in, not read at runtime
 
