@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { bio } from '@/content/bio';
+import MotionToggle from './MotionToggle';
 import SocialIcons from './SocialIcons';
 
 export default function Footer() {
@@ -18,6 +19,7 @@ export default function Footer() {
 
         <div className="flex flex-col gap-4 md:items-end">
           <SocialIcons />
+          <MotionToggle />
           <Link
             to="/room"
             className="font-mono text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-primary"

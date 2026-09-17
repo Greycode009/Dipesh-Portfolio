@@ -5,26 +5,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export { gsap, ScrollTrigger };
 
-/**
- * Every animation in the app runs inside this. `gsap.matchMedia` re-runs the
- * setup when the media query changes and reverts everything it created when it
- * stops matching, so a visitor who turns on "reduce motion" gets a static site
- * without a reload — and nothing is left half-animated.
- */
-/**
- * Development escape hatch: `?motion` forces animations on even when the OS
- * asks for reduced motion, so they can be checked on a machine that has the
- * setting enabled. Stripped from production builds.
- */
-const forceMotion =
-  import.meta.env.DEV &&
-  typeof window !== 'undefined' &&
-  new URLSearchParams(window.location.search).has('motion');
-
-export const MOTION_OK = forceMotion
-  ? 'all'
-  : '(prefers-reduced-motion: no-preference)';
-
 /** gsap.to on an empty array warns; this keeps the console honest. */
 function animateIn(targets: HTMLElement[], stagger: number) {
   if (targets.length === 0) return;
@@ -85,6 +65,8 @@ export function revealOnScroll(scope: HTMLElement) {
   return () => {
     ScrollTrigger.removeEventListener('refresh', revealAlreadyInView);
     for (const element of targets) delete element.dataset.revealed;
+    // Switching motion off mid-visit must not leave anything at opacity 0.
+    gsap.set(targets, { clearProps: 'opacity,transform' });
   };
 }
 

@@ -20,11 +20,16 @@ Personal portfolio, being rebuilt as a pixel-game world backed by a CMS.
       styles/     Tailwind entry + theme tokens
       types/      Shapes shared with the API
 
-Motion is GSAP with ScrollTrigger (`src/lib/animations.ts`), driven by
-`gsap.matchMedia` so a visitor who prefers reduced motion gets a completely
-static site — and gets it without a reload if they change the setting. In
-development, `?motion` forces animations on so they can be checked on a machine
-that has reduce-motion enabled.
+Motion is GSAP with ScrollTrigger (`src/lib/animations.ts`) plus Lenis for
+interpolated scrolling. It runs by default for everyone, including visitors
+whose system asks for reduced motion — a deliberate choice, paired with the
+thing that makes it defensible: a Motion toggle in the footer of every page,
+remembered across visits. Turning it off reverts every animation immediately
+and hands scrolling back to the browser.
+
+Animations do not initialise while the page is hidden. Applying their start
+states in a background tab would hide the content and then freeze, because
+requestAnimationFrame is throttled there.
 
 The design is brutalist: monochrome with one sharp red accent, hard 2px rules
 instead of soft cards, offset block shadows, oversized uppercase display type
