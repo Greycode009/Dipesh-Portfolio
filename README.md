@@ -1,105 +1,47 @@
-# Dipesh Malla - Portfolio Website
+# Dipesh Malla — Portfolio
 
-A modern, responsive portfolio website showcasing my web development skills, projects, and professional journey.
+Personal portfolio, being rebuilt as a pixel-game world backed by a CMS.
 
+## Structure
 
-<h2>🔍 Live Preview</h2>
-<a href="https://dipeshmalla.vercel.app">
-  <img src="https://image.thum.io/get/width/1920/crop/1080/https://dipeshmalla.vercel.app" width="960" height="540" />
-</a>
+    frontend/   React + Vite + TypeScript + Tailwind  → Vercel
+    backend/    Express + Sequelize + PostgreSQL      → Railway/Fly (Phase 2)
 
+### frontend
 
+    src/
+      api/        HTTP seams for dynamic features (contact, later guestbook/presence)
+      components/ Shared UI
+      content/    Projects, skills, timeline, bio — generated from the CMS in Phase 2
+      context/    React context providers
+      hooks/
+      pages/      One file per route
+      styles/     Tailwind entry + theme tokens
+      types/      Shapes shared with the API
 
+Styling is Tailwind only. Theme colours are CSS custom properties holding
+space-separated RGB channels, so opacity modifiers (`bg-primary/10`) work
+against whichever of the four themes is active. Themes switch via the
+`data-theme` attribute on `<html>`.
 
+## Running
 
-## 🚀 Features
+    cd frontend
+    npm install
+    cp .env.example .env.local   # EmailJS credentials for the contact form
+    npm run dev                  # http://localhost:3000
+    npm run build
+    npm run typecheck
 
-- **Responsive Design**: Fully responsive across all devices (mobile, tablet, desktop)
-- **Modern UI**: Clean, minimalist design with smooth animations
-- **Interactive Elements**: Animated sections powered by Framer Motion
-- **Project Showcase**: Filterable project gallery with detailed information
-- **Skills Section**: Categorized skill cards highlighting technical expertise
-- **Timeline**: Professional journey showcased in an interactive timeline
-- **Contact Form**: Working contact form with EmailJS integration
-- **Smooth Navigation**: React Router for seamless page transitions
-- **Dark Theme**: Modern dark-themed UI with accent colors
+## Deployment
 
-## 🛠️ Technologies Used
+The Vercel project's **Root Directory** must be set to `frontend`, since the app
+no longer lives at the repository root. `frontend/vercel.json` supplies the SPA
+rewrite that client-side routing needs.
 
-- **React**: Frontend library for building the user interface
-- **Framer Motion**: Animation library for smooth transitions and effects
-- **React Router**: For seamless navigation between pages
-- **Tailwind CSS**: Utility-first CSS framework for styling
-- **EmailJS**: For handling contact form submissions
-- **Font Awesome**: Icon library for visual elements
+## Roadmap
 
-## 📋 Pages
-
-- **Home**: Introduction and overview
-- **Projects**: Showcase of development work with filtering capabilities
-- **About**: Personal story, skills, and professional journey
-- **Contact**: Contact form and professional links
-
-## 🔧 Setup & Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/portfolio-website.git
-   cd portfolio-website
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Configure environment variables**
-   - Create a `.env` file in the root directory
-   - Add your EmailJS credentials:
-     ```
-     REACT_APP_EMAILJS_SERVICE_ID=your_service_id
-     REACT_APP_EMAILJS_TEMPLATE_ID=your_template_id
-     REACT_APP_EMAILJS_USER_ID=your_user_id
-     ```
-
-4. **Run the development server**
-   ```bash
-   npm start
-   ```
-
-5. **Build for production**
-   ```bash
-   npm run build
-   ```
-
-## 📱 Mobile Responsiveness
-
-The portfolio is fully responsive with:
-- Dynamic layout adjustments for different screen sizes
-- Mobile-friendly navigation with a toggle sidebar
-- Touch-friendly interactive elements
-- Optimized images and assets for faster loading on mobile devices
-
-## 🎨 Customization
-
-You can easily customize this portfolio by:
-- Modifying the content in respective component files
-- Adjusting the color scheme in the Tailwind configuration
-- Adding your own projects to the projects data
-- Updating skills and timeline information in the About page
-
-## 🚀 Deployment
-
-The site can be deployed to various platforms:
-- GitHub Pages
-- Netlify
-- Vercel
-- Any static site hosting service
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-Designed and developed by Dipesh Malla © 2023
+1. **Foundations** — Vite + TypeScript, Tailwind-only styling, content extracted. *(this branch)*
+2. **CMS** — Express + Sequelize + Postgres, admin UI, GitHub project import.
+3. **The Room** — Phaser pixel world: arcade cabinets, skill inventory, dialogue, mailbox.
+4. **Living world** — guestbook and ghost visitors.
