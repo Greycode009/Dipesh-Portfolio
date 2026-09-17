@@ -1,10 +1,12 @@
 import { useMemo, useState } from 'react';
 import { projects } from '@/content/projects';
+import { usePageAnimations } from '@/hooks/usePageAnimations';
 
 const shell = 'mx-auto max-w-[110rem] px-5 sm:px-8';
 const ALL = 'All';
 
 export default function Projects() {
+  const scope = usePageAnimations();
   const [filter, setFilter] = useState(ALL);
 
   const published = useMemo(
@@ -26,11 +28,11 @@ export default function Projects() {
       : published.filter((project) => project.technologies.includes(filter));
 
   return (
-    <>
+    <div ref={scope}>
       <section className="border-b-2 border-border">
         <div className={`${shell} py-14 md:py-20`}>
-          <p className="eyebrow">Index of work</p>
-          <h1 className="mt-5 text-display font-bold uppercase">
+          <p className="eyebrow" data-reveal>Index of work</p>
+          <h1 className="mt-5 text-display font-bold uppercase" data-reveal>
             Work<span className="text-primary">.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-snug text-muted">
@@ -77,7 +79,7 @@ export default function Projects() {
         ) : (
           <div className="grid gap-px border-2 border-border bg-border md:grid-cols-2 xl:grid-cols-3">
             {visible.map((project, index) => (
-              <article key={project.id} className="flex flex-col bg-background">
+              <article key={project.id} className="flex flex-col bg-background" data-reveal>
                 <div className="relative border-b-2 border-border">
                   <img
                     src={project.image}
@@ -138,6 +140,6 @@ export default function Projects() {
           </div>
         )}
       </section>
-    </>
+    </div>
   );
 }

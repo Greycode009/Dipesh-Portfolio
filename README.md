@@ -20,6 +20,12 @@ Personal portfolio, being rebuilt as a pixel-game world backed by a CMS.
       styles/     Tailwind entry + theme tokens
       types/      Shapes shared with the API
 
+Motion is GSAP with ScrollTrigger (`src/lib/animations.ts`), driven by
+`gsap.matchMedia` so a visitor who prefers reduced motion gets a completely
+static site — and gets it without a reload if they change the setting. In
+development, `?motion` forces animations on so they can be checked on a machine
+that has reduce-motion enabled.
+
 The design is brutalist: monochrome with one sharp red accent, hard 2px rules
 instead of soft cards, offset block shadows, oversized uppercase display type
 (Space Grotesk) with monospace labels (JetBrains Mono), and no easing softness.

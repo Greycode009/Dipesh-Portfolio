@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { bio, timeline } from '@/content/bio';
 import { skills } from '@/content/skills';
+import { usePageAnimations } from '@/hooks/usePageAnimations';
 import {
   skillCategories,
   type SkillFilter,
@@ -9,6 +10,7 @@ import {
 const shell = 'mx-auto max-w-[110rem] px-5 sm:px-8';
 
 export default function About() {
+  const scope = usePageAnimations();
   const [category, setCategory] = useState<SkillFilter>('all');
 
   const visible = skills.filter(
@@ -16,7 +18,7 @@ export default function About() {
   );
 
   return (
-    <>
+    <div ref={scope}>
       <section className="border-b-2 border-border">
         <div className={`${shell} grid gap-10 py-14 md:grid-cols-12 md:py-20`}>
           <div className="md:col-span-7">
@@ -60,7 +62,7 @@ export default function About() {
 
           <div className="mt-10 grid gap-px border-2 border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
             {visible.map((skill) => (
-              <article key={skill.id} className="bg-background p-6">
+              <article key={skill.id} className="bg-background p-6" data-reveal>
                 <div className="flex items-baseline justify-between gap-3">
                   <h2 className="text-xl font-bold uppercase leading-none tracking-tight">
                     {skill.name}
@@ -94,6 +96,7 @@ export default function About() {
               <li
                 key={entry.id}
                 className="grid gap-3 border-b-2 border-border py-7 md:grid-cols-12"
+                data-reveal
               >
                 <span className="font-mono text-sm tracking-[0.2em] text-primary md:col-span-2">
                   {entry.year}
@@ -111,10 +114,13 @@ export default function About() {
       </section>
 
       <section className={`${shell} py-14 md:py-20`}>
-        <blockquote className="max-w-4xl border-l-4 border-primary pl-6 text-2xl font-medium leading-tight sm:text-3xl">
+        <blockquote
+          className="max-w-4xl border-l-4 border-primary pl-6 text-2xl font-medium leading-tight sm:text-3xl"
+          data-reveal
+        >
           {bio.quote}
         </blockquote>
       </section>
-    </>
+    </div>
   );
 }

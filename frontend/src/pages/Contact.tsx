@@ -1,6 +1,7 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { sendContactMessage } from '@/api/contact';
 import { bio } from '@/content/bio';
+import { usePageAnimations } from '@/hooks/usePageAnimations';
 
 const shell = 'mx-auto max-w-[110rem] px-5 sm:px-8';
 
@@ -17,6 +18,7 @@ const details = [
 ] as const;
 
 export default function Contact() {
+  const scope = usePageAnimations();
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>(
     'idle',
@@ -46,7 +48,7 @@ export default function Contact() {
     'w-full border-2 border-border bg-background px-4 py-3 font-sans outline-none placeholder:text-muted focus:bg-surface';
 
   return (
-    <>
+    <div ref={scope}>
       <section className="border-b-2 border-border">
         <div className={`${shell} py-14 md:py-20`}>
           <p className="eyebrow">
@@ -62,7 +64,7 @@ export default function Contact() {
       <section className="border-b-2 border-border">
         <dl className={`${shell} grid gap-px bg-border md:grid-cols-3`}>
           {details.map((detail) => (
-            <div key={detail.label} className="bg-background py-6">
+            <div key={detail.label} className="bg-background py-6" data-reveal>
               <dt className="eyebrow">{detail.label}</dt>
               <dd className="mt-2 break-all text-lg">{detail.value}</dd>
             </div>
@@ -151,6 +153,6 @@ export default function Contact() {
           </form>
         )}
       </section>
-    </>
+    </div>
   );
 }
