@@ -13,7 +13,13 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const distDir = join(root, 'dist');
 const ssrDir = join(root, 'dist-ssr');
 
-const SITE_URL = 'https://dipeshmalla.vercel.app';
+/** Overridable so a custom domain does not need a code change. */
+const SITE_URL = (
+  process.env.SITE_URL ?? 'https://dipeshmalla.vercel.app'
+).replace(/\/$/, '');
+
+/** Vercel sets both of these; a laptop build sets neither. */
+const isCi = Boolean(process.env.CI || process.env.VERCEL);
 
 const escapeHtml = (value) =>
   value.replace(
@@ -35,24 +41,64 @@ const { render, routes, fetchSiteContent } = await import(
 /**
  * Content comes from the CMS, so the build needs it too — otherwise the static
  * HTML would ship a loading state and there would be nothing for a crawler to
- * read. A build without the API still succeeds: the pages render empty and the
- * browser fills them in, which costs SEO but does not block a deploy.
+ * read.
+ *
+ * On a laptop the API is often just not running, so an unreachable API is a
+ * warning and the pages render empty. On CI it is a failure: a deploy that
+ * quietly ships blank pages is worse than one that does not ship.
  */
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * A free-tier host puts the API to sleep after a spell of no traffic, and the
+ * first request then waits on a cold start that can take about a minute. One
+ * failed fetch is therefore not evidence the API is down, so the build knocks
+ * a few times before giving up.
+ */
+async function fetchContentWithRetry(attempts = 6) {
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      return await fetchSiteContent();
+    } catch (error) {
+      if (attempt >= attempts) throw error;
+      const wait = attempt * 5000;
+      console.log(
+        `  API did not answer (attempt ${attempt}/${attempts}): ${error.message}` +
+          ` — waiting ${wait / 1000}s, it may be waking up`,
+      );
+      await sleep(wait);
+    }
+  }
+}
+
 let content = null;
 try {
-  content = await fetchSiteContent();
+  content = await fetchContentWithRetry();
   console.log(
     `fetched content: ${content.projects.length} projects, ` +
       `${content.skills.length} skills, bio for ${content.bio.name}`,
   );
 } catch (error) {
+  const detail =
+    `  API: ${process.env.VITE_API_URL ?? 'http://localhost:4000 (VITE_API_URL is unset)'}
+` +
+    `  Cause: ${error.message}`;
+
+  if (isCi) {
+    throw new Error(
+      `Could not reach the API, so every page would ship empty.
+` +
+        `${detail}
+` +
+        `  Set VITE_API_URL to the deployed API and check it is reachable.`,
+    );
+  }
+
   console.warn(
     `
-  WARNING: could not reach the API, so pages are prerendered empty.` +
-      `
-  Set VITE_API_URL to a reachable API before deploying.` +
-      `
-  (${error.message})
+  WARNING: could not reach the API, so pages are prerendered empty.
+` +
+      `${detail}
 `,
   );
 }

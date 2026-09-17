@@ -2,6 +2,9 @@
   "name": "portfolio-frontend",
   "private": true,
   "version": "0.1.0",
+  "engines": {
+    "node": ">=20"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
