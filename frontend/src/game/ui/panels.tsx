@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { sendContactMessage } from '@/api/contact';
 import { useContent } from '@/hooks/useContent';
+import { MAX_BODY, usePublicChat } from '@/hooks/usePublicChat';
 import type { Proficiency } from '@/types/content';
 import Panel from './Panel';
 
@@ -295,6 +296,110 @@ export function ContactPanel({ onClose }: { onClose: () => void }) {
     </Panel>
   );
 }
+
+// ---------------------------------------------------------------- chat
+
+/**
+ * The notice board. Same conversation as the floating widget on the site —
+ * one room, two doors — but dressed as something pinned up in the town.
+ */
+export function ChatPanel({ onClose }: { onClose: () => void }) {
+  const {
+    messages,
+    ownIds,
+    draft,
+    setDraft,
+    send,
+    status,
+    statusLabel,
+    error,
+  } = usePublicChat(true);
+
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const list = listRef.current;
+    if (list) list.scrollTop = list.scrollHeight;
+  }, [messages]);
+
+  return (
+    <Panel title="NOTICE BOARD" onClose={onClose}>
+      <p className="mb-4 flex items-center gap-2 font-pixel text-[0.5rem] uppercase leading-relaxed text-muted">
+        <span
+          aria-hidden="true"
+          className={`h-2 w-2 rounded-full ${
+            status === 'live' ? 'bg-primary' : 'bg-muted'
+          }`}
+        />
+        {statusLabel} · anyone can pin a note
+      </p>
+
+      <div
+        ref={listRef}
+        aria-live="polite"
+        className="mb-4 h-64 space-y-3 overflow-y-auto rounded border-2 border-border bg-background p-3"
+      >
+        {messages.length === 0 && (
+          <p className="font-pixel text-[0.5rem] leading-relaxed text-muted">
+            {status === 'offline'
+              ? 'THE BOARD IS EMPTY AND THE POST IS DOWN.'
+              : 'NOTHING PINNED YET. LEAVE THE FIRST NOTE.'}
+          </p>
+        )}
+
+        {messages.map((message) => {
+          const mine = ownIds.has(message.id);
+          return (
+            <div
+              key={message.id}
+              className={`flex ${mine ? 'justify-end' : 'justify-start'}`}
+            >
+              <p
+                className={`max-w-[85%] break-words rounded border-2 border-border px-3 py-2 text-sm leading-relaxed ${
+                  mine ? 'bg-primary text-on-primary' : 'bg-surface'
+                }`}
+              >
+                {message.body}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+
+      {error && (
+        <p
+          role="alert"
+          className="mb-3 rounded border-2 border-border bg-primary px-3 py-2 font-pixel text-[0.5rem] leading-relaxed text-on-primary"
+        >
+          {error}
+        </p>
+      )}
+
+      <form onSubmit={send} className="flex items-center gap-2">
+        <input
+          value={draft}
+          onChange={(event) => setDraft(event.target.value.slice(0, MAX_BODY))}
+          placeholder={status === 'offline' ? 'Board unavailable' : 'Write a note…'}
+          disabled={status === 'offline'}
+          aria-label="Your note"
+          className="min-w-0 flex-1 rounded border-2 border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary disabled:opacity-50"
+        />
+        <button
+          type="submit"
+          disabled={!draft.trim() || status === 'offline'}
+          className="shrink-0 rounded border-2 border-[#241c17] bg-primary px-4 py-2 font-pixel text-[0.55rem] text-on-primary transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:hover:translate-y-0"
+        >
+          PIN
+        </button>
+      </form>
+
+      <p className="mt-3 font-pixel text-[0.45rem] leading-relaxed text-muted">
+        ANONYMOUS — NO NAMES, NO ACCOUNTS
+      </p>
+    </Panel>
+  );
+}
+
 
 // ------------------------------------------------------------ town sign
 

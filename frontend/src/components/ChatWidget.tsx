@@ -1,14 +1,6 @@
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type FormEvent,
-} from 'react';
-import { ApiError } from '@/api/client';
-import { chat, openChatStream, type ChatMessage } from '@/api/chat';
+import { useEffect, useRef, useState } from 'react';
+import { MAX_BODY, usePublicChat } from '@/hooks/usePublicChat';
 
-const MAX_BODY = 240;
 const STORAGE_OPEN = 'chat_open';
 
 /**
@@ -21,23 +13,25 @@ const STORAGE_OPEN = 'chat_open';
  * that messages you sent in this session are aligned right, tracked by id
  * locally rather than by any identity, so nothing about you is stored or
  * broadcast.
+ *
+ * The same conversation is reachable from the notice board in the town; both
+ * read it through `usePublicChat`.
  */
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  /** Ids posted from this tab, so your own lines can sit on the right. */
-  const [ownIds, setOwnIds] = useState<Set<number>>(() => new Set());
-  const [draft, setDraft] = useState('');
-  const [status, setStatus] = useState<'connecting' | 'live' | 'offline'>(
-    'connecting',
-  );
-  const [online, setOnline] = useState(0);
-  const [error, setError] = useState('');
-  const [unread, setUnread] = useState(0);
+  const {
+    messages,
+    ownIds,
+    draft,
+    setDraft,
+    send,
+    status,
+    statusLabel,
+    error,
+    unread,
+  } = usePublicChat(isOpen);
 
   const listRef = useRef<HTMLDivElement>(null);
-  const openRef = useRef(isOpen);
-  openRef.current = isOpen;
 
   useEffect(() => {
     try {
@@ -55,51 +49,9 @@ export default function ChatWidget() {
       } catch {
         // Ignore.
       }
-      if (next) setUnread(0);
       return next;
     });
   };
-
-  const appendMessage = useCallback((message: ChatMessage) => {
-    setMessages((current) =>
-      current.some((item) => item.id === message.id)
-        ? current
-        : [...current, message].slice(-120),
-    );
-    if (!openRef.current) setUnread((count) => count + 1);
-  }, []);
-
-  // History first, then the live stream. Both run regardless of whether the
-  // panel is open, so the badge can count what arrives while it is shut.
-  useEffect(() => {
-    let cancelled = false;
-
-    chat
-      .history()
-      .then((result) => {
-        if (cancelled) return;
-        setMessages(result.messages);
-        // Deliberately not taking result.online: the history request is sent
-        // before the stream connects, so its count is already stale by the
-        // time it resolves and would overwrite the live presence event.
-      })
-      .catch(() => {
-        if (!cancelled) setStatus('offline');
-      });
-
-    const close = openChatStream({
-      onMessage: appendMessage,
-      onDeleted: (id) =>
-        setMessages((current) => current.filter((item) => item.id !== id)),
-      onPresence: setOnline,
-      onStatus: setStatus,
-    });
-
-    return () => {
-      cancelled = true;
-      close();
-    };
-  }, [appendMessage]);
 
   // Keep the transcript pinned to the newest line.
   useEffect(() => {
@@ -107,38 +59,6 @@ export default function ChatWidget() {
     const list = listRef.current;
     if (list) list.scrollTop = list.scrollHeight;
   }, [messages, isOpen]);
-
-  const send = async (event: FormEvent) => {
-    event.preventDefault();
-    const body = draft.trim();
-    if (!body) return;
-
-    setError('');
-    setDraft('');
-    try {
-      const sent = await chat.send(body);
-      setOwnIds((current) => new Set(current).add(sent.id));
-      appendMessage(sent);
-    } catch (cause) {
-      setDraft(body); // give the text back rather than losing it
-      if (cause instanceof ApiError && Array.isArray(cause.details)) {
-        setError(
-          (cause.details as { message: string }[])
-            .map((detail) => detail.message)
-            .join(' · '),
-        );
-      } else {
-        setError(cause instanceof ApiError ? cause.message : 'Could not send.');
-      }
-    }
-  };
-
-  const statusLabel =
-    status === 'live'
-      ? `${Math.max(online, 1)} here now`
-      : status === 'connecting'
-        ? 'Connecting…'
-        : 'Offline';
 
   return (
     <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3 print:hidden">

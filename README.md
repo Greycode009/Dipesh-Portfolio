@@ -44,7 +44,9 @@ long class strings.
 
 A pixel town lives at `/room` as an easter egg, loaded only when asked for. A
 project's house is built from its row in the projects table, so publishing one
-puts a house on the street. Sprites are authored in code as grids of palette
+puts a house on the street. The notice board on the town square opens the same
+public chat as the floating widget on the site — one conversation, two doors,
+both reading it through `usePublicChat`. Sprites are authored in code as grids of palette
 characters (`src/game/sprites.ts`) and rasterised to canvas at startup — there
 are no image assets and nothing to license. The map is generated in
 `src/game/townMap.ts` rather than hand-typed, and the camera scrolls a 24x16

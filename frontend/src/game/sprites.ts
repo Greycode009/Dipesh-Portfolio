@@ -285,6 +285,26 @@ const SIGN: PixelGrid = [
   '....hhhhhhhh....',
 ];
 
+/** The town notice board. Walk up to it to read the public chat. */
+const BOARD: PixelGrid = [
+  '................',
+  '..kkkkkkkkkkkk..',
+  '..kNNNNNNNNNNk..',
+  '..kNwwwwwwwwNk..',
+  '..kNwccwwccwNk..',
+  '..kNwccwwccwNk..',
+  '..kNwwwwwwwwNk..',
+  '..kNwwccccwwNk..',
+  '..kNwwccccwwNk..',
+  '..kNwwwwwwwwNk..',
+  '..kNNNNNNNNNNk..',
+  '..kkkkkkkkkkkk..',
+  '....knk..knk....',
+  '....knk..knk....',
+  '...kkkk..kkkk...',
+  '...hhhh..hhhh...',
+];
+
 const LAMP: PixelGrid = [
   '.....kkkkkk.....',
   '....kAAAAAAk....',
@@ -529,6 +549,7 @@ export type PropName =
   | 'treeBottom'
   | 'fence'
   | 'sign'
+  | 'board'
   | 'lamp'
   | 'bench'
   | 'cabinet'
@@ -579,6 +600,7 @@ export function loadSprites(): SpriteSheet {
       treeBottom: raster(TREE_BOT),
       fence: raster(FENCE),
       sign: raster(SIGN),
+      board: raster(BOARD),
       lamp: raster(LAMP),
       bench: raster(BENCH),
       cabinet: raster(CABINET),

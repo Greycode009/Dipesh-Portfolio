@@ -23,7 +23,8 @@ export type InteractionKind =
   | 'about'
   | 'contact'
   | 'cat'
-  | 'sign';
+  | 'sign'
+  | 'chat';
 
 export interface Building {
   id: string;
@@ -229,6 +230,11 @@ for (let x = 44; x < 49; x += 1) props.push({ x, y: 30, name: 'fence', solid: tr
 const signTile = { x: 26, y: MAIN_ROAD_Y + 2 };
 props.push({ ...signTile, name: 'sign', solid: true });
 
+// The notice board, across the lane from the town sign so it is the second
+// thing you see after spawning. Reading it opens the public chat.
+const boardTile = { x: 29, y: MAIN_ROAD_Y + 2 };
+props.push({ ...boardTile, name: 'board', solid: true });
+
 const catTile = { x: 22, y: 33 };
 props.push({ ...catTile, name: 'cat', solid: true });
 
@@ -265,6 +271,7 @@ const interactables: Interactable[] = [
   })),
   { id: 'cat', kind: 'cat', ...catTile, label: 'A cat' },
   { id: 'sign', kind: 'sign', ...signTile, label: 'Town sign' },
+  { id: 'board', kind: 'chat', ...boardTile, label: 'Notice board' },
 ];
 
 function interactableAt(x: number, y: number): Interactable | null {

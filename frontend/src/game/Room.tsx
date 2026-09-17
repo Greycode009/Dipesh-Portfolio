@@ -7,6 +7,7 @@ import TouchControls from './ui/TouchControls';
 import {
   AboutPanel,
   CatPanel,
+  ChatPanel,
   ContactPanel,
   ProjectPanel,
   SignPanel,
@@ -119,6 +120,7 @@ export default function Room() {
       {open?.kind === 'contact' && <ContactPanel onClose={closePanel} />}
       {open?.kind === 'cat' && <CatPanel onClose={closePanel} />}
       {open?.kind === 'sign' && <SignPanel onClose={closePanel} />}
+      {open?.kind === 'chat' && <ChatPanel onClose={closePanel} />}
     </div>
   );
 }
