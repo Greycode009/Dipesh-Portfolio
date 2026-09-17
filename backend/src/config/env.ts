@@ -27,6 +27,12 @@ export const env = {
     .map((origin) => origin.trim())
     .filter(Boolean),
 
+  /**
+   * Whether a signed message appears straight away. Set to 'false' to hold
+   * everything for approval in the admin queue instead.
+   */
+  guestbookAutoApprove: process.env.GUESTBOOK_AUTO_APPROVE !== 'false',
+
   /** Optional. Raises the GitHub API rate limit from 60 to 5000 per hour. */
   githubToken: process.env.GITHUB_TOKEN,
 

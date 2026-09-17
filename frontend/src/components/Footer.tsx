@@ -14,6 +14,12 @@ export default function Footer() {
             {bio.location} · {bio.email}
           </p>
           <Link
+            to="/contact#guestbook-heading"
+            className="nb-pill nb-shadow nb-press mt-5 inline-flex bg-background"
+          >
+            ✎ Sign the wall
+          </Link>
+          <Link
             to="/room"
             className="nb-pill nb-shadow nb-press mt-5 inline-flex bg-background"
           >

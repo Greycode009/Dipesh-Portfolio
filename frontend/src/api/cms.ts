@@ -69,6 +69,13 @@ export const cms = {
   guestbook: {
     list: (asAdmin = false) =>
       request<GuestbookEntry[]>('/api/guestbook', { auth: asAdmin }),
+    sign: (name: string, message: string) =>
+      request<{
+        ok: boolean;
+        published: boolean;
+        entry: GuestbookEntry | null;
+        message: string;
+      }>('/api/guestbook', { method: 'POST', body: { name, message } }),
     moderate: (id: number, approved: boolean) =>
       request<GuestbookEntry>(`/api/guestbook/${id}`, {
         method: 'PATCH',

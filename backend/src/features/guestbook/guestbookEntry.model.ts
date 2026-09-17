@@ -20,6 +20,19 @@ export class GuestbookEntry extends Model<
   declare authorHash: CreationOptional<string | null>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
+
+  /**
+   * Keeps authorHash out of every response by construction. It is a hashed
+   * address used only for rate limiting; publishing it would let anyone
+   * correlate which messages came from the same visitor.
+   */
+  toJSON() {
+    const { authorHash: _omit, ...rest } = super.toJSON() as Record<
+      string,
+      unknown
+    >;
+    return rest;
+  }
 }
 
 GuestbookEntry.init(

@@ -52,15 +52,19 @@ guestbookRouter.post(
     const entry = await GuestbookEntry.create({
       name: req.body.name,
       message: req.body.message,
-      approved: false,
+      approved: env.guestbookAutoApprove,
       authorHash: hashAuthor(req.ip ?? 'unknown'),
     });
 
-    // Never echo an unapproved message back as if it were live.
+    // Only echo the entry back when it is actually live; otherwise the client
+    // would render a message nobody else can see as though it were public.
     res.status(201).json({
       ok: true,
-      id: entry.id,
-      message: 'Thanks for signing! Your message will appear once approved.',
+      published: entry.approved,
+      entry: entry.approved ? entry : null,
+      message: entry.approved
+        ? 'Posted.'
+        : 'Thanks! Your message will appear once approved.',
     });
   }),
 );

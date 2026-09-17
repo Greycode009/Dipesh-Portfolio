@@ -1,5 +1,6 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { sendContactMessage } from '@/api/contact';
+import Guestbook from '@/components/Guestbook';
 import { bio } from '@/content/bio';
 import { usePageAnimations } from '@/hooks/usePageAnimations';
 
@@ -167,6 +168,10 @@ export default function Contact() {
             </div>
           </form>
         )}
+      </section>
+
+      <section className={`${shell} pb-16 md:pb-24`}>
+        <Guestbook />
       </section>
     </div>
   );

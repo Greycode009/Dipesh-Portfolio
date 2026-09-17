@@ -71,12 +71,17 @@ token reveals drafts.
 | GET | `/api/bio` | – |
 | PATCH | `/api/bio` | admin |
 | GET | `/api/guestbook` | – (approved only) |
-| POST | `/api/guestbook` | – (rate limited, 3 per hour) |
+| POST | `/api/guestbook` | – (rate limited, 3 per hour; links refused) |
 | PATCH | `/api/guestbook/:id` | admin — `{ approved: bool }` |
 | DELETE | `/api/guestbook/:id` | admin |
 | POST | `/api/github/preview` | admin — body `{ repo }`, returns an unsaved draft |
 | POST | `/api/github/sync-stats` | admin — refreshes stars and last-commit dates |
 | GET | `/health` | – |
+
+Guestbook messages are published immediately by default. Set
+`GUESTBOOK_AUTO_APPROVE=false` to hold them for approval in the admin queue
+instead; the API tells the client which happened, so it never shows a pending
+message as though it were live.
 
 `GITHUB_TOKEN` is optional; without it GitHub allows 60 requests an hour, with
 it 5000. A classic token with no scopes is enough for public repositories.

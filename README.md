@@ -94,4 +94,4 @@ files win.
 2. **CMS** — Express + Sequelize + Postgres, admin UI at `/admin`, GitHub
    project import. *(Image upload and migrations still to come.)*
 3. **The Town** — pixel world at `/room`: a house per project, a library, a post office, a park. *(Done, kept as an easter egg.)*
-4. **Living world** — guestbook and ghost visitors.
+4. **Living world** — public wall done; ghost visitors still to come.
