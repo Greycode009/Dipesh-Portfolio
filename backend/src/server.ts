@@ -9,10 +9,15 @@ async function start() {
   // Schema is still moving; migrations arrive once it settles.
   if (!env.isProduction) await sequelize.sync();
 
-  createApp().listen(env.port, () => {
+  const server = createApp().listen(env.port, () => {
     const dialect = sequelize.getDialect();
     console.log(`API listening on http://localhost:${env.port} (${dialect})`);
   });
+
+  // Chat streams are long-lived by design; the default 5s headers timeout and
+  // 2 minute keep-alive would cut them off mid-conversation.
+  server.keepAliveTimeout = 0;
+  server.headersTimeout = 0;
 }
 
 start().catch((error) => {

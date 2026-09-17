@@ -4,6 +4,7 @@
  */
 export { Admin } from '@/features/auth/admin.model';
 export { Bio } from '@/features/bio/bio.model';
+export { ChatMessage } from '@/features/chat/chatMessage.model';
 export { Expertise } from '@/features/expertise/expertise.model';
 export { GuestbookEntry } from '@/features/guestbook/guestbookEntry.model';
 export { Project } from '@/features/projects/project.model';

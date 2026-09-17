@@ -76,7 +76,16 @@ token reveals drafts.
 | DELETE | `/api/guestbook/:id` | admin |
 | POST | `/api/github/preview` | admin — body `{ repo }`, returns an unsaved draft |
 | POST | `/api/github/sync-stats` | admin — refreshes stars and last-commit dates |
+| GET | `/api/chat` | – recent messages plus how many are connected |
+| GET | `/api/chat/stream` | – server-sent events: message, deleted, presence |
+| POST | `/api/chat` | – (rate limited, 12 per minute; links refused) |
+| DELETE | `/api/chat/:id` | admin |
 | GET | `/health` | – |
+
+The chat is anonymous in the strong sense: no name is accepted, stored or
+returned. Only the message body is kept, alongside a hashed address used for
+rate limiting that never leaves the server. The table is pruned to the last 300
+rows — it is a conversation, not an archive.
 
 Guestbook messages are published immediately by default. Set
 `GUESTBOOK_AUTO_APPROVE=false` to hold them for approval in the admin queue

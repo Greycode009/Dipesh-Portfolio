@@ -1,5 +1,8 @@
 const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4000';
 
+/** Absolute URL for endpoints reached outside `request`, such as EventSource. */
+export const apiUrl = (path: string) => `${BASE_URL}${path}`;
+
 const TOKEN_KEY = 'admin_token';
 
 export class ApiError extends Error {
