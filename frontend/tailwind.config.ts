@@ -21,6 +21,9 @@ export default {
         muted: themeColor('muted'),
         'on-primary': themeColor('on-primary'),
       },
+      fontFamily: {
+        pixel: ['"Press Start 2P"', 'ui-monospace', 'monospace'],
+      },
       boxShadow: {
         card: '0 10px 20px rgb(0 0 0 / 0.2)',
         lift: '0 15px 30px rgb(var(--color-primary) / 0.2)',

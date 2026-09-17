@@ -1,8 +1,9 @@
-import { Suspense, lazy, useEffect, type ReactNode } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import ScrollToTop from '@/components/ScrollToTop';
-import Sidebar from '@/components/Sidebar';
 import { ThemeProvider } from '@/context/ThemeContext';
+import PublicLayout from '@/components/PublicLayout';
+import SiteView from '@/game/SiteView';
 import NotFound from '@/pages/NotFound';
 import { routes } from '@/routes';
 
@@ -30,15 +31,6 @@ function DocumentMeta() {
   return null;
 }
 
-function PublicLayout({ children }: { children: ReactNode }) {
-  return (
-    <div className="min-h-screen bg-background text-content">
-      <Sidebar />
-      <main className="min-h-screen md:pl-64">{children}</main>
-    </div>
-  );
-}
-
 /** The app minus its router, so the client and the prerenderer can each
  *  supply their own. */
 export default function App() {
@@ -64,11 +56,7 @@ export default function App() {
           <Route
             key={path}
             path={path}
-            element={
-              <PublicLayout>
-                <Page />
-              </PublicLayout>
-            }
+            element={<SiteView Page={Page} />}
           />
         ))}
 

@@ -11,6 +11,7 @@ Personal portfolio, being rebuilt as a pixel-game world backed by a CMS.
 
     src/
       api/        HTTP seams for dynamic features (contact, later guestbook/presence)
+      game/       The room: sprites, tile map, engine, in-world panels
       components/ Shared UI
       content/    Projects, skills, timeline, bio — generated from the CMS in Phase 2
       context/    React context providers
@@ -18,6 +19,15 @@ Personal portfolio, being rebuilt as a pixel-game world backed by a CMS.
       pages/      One file per route
       styles/     Tailwind entry + theme tokens
       types/      Shapes shared with the API
+
+The site is a pixel room you walk around. The readable pages still exist —
+they are what the prerenderer writes and what anyone without JavaScript gets —
+and a visitor can switch to them at any time.
+
+Sprites are authored in code as grids of palette characters
+(`src/game/sprites.ts`) and rasterised to canvas at startup. There are no image
+assets and nothing to license; swapping in a bought tileset later means
+changing the atlas, not the engine.
 
 Styling is Tailwind only. Theme colours are CSS custom properties holding
 space-separated RGB channels, so opacity modifiers (`bg-primary/10`) work
@@ -62,5 +72,5 @@ files win.
 1. **Foundations** — Vite + TypeScript, Tailwind-only styling, content extracted, routes prerendered. *(this branch)*
 2. **CMS** — Express + Sequelize + Postgres, admin UI at `/admin`, GitHub
    project import. *(Image upload and migrations still to come.)*
-3. **The Room** — Phaser pixel world: arcade cabinets, skill inventory, dialogue, mailbox.
+3. **The Room** — pixel world: arcade cabinets, skill inventory, dialogue, mailbox. *(Done; the town beyond the door is still to come.)*
 4. **Living world** — guestbook and ghost visitors.
