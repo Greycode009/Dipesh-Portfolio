@@ -9,7 +9,9 @@ The site is two deployments plus a database:
 | Frontend | Vercel | The static site, built from `frontend/`. |
 
 **The API goes first.** The frontend build calls the API and bakes the content
-into the HTML, so it cannot be built until the API has a public URL.
+into the HTML, so it cannot be built until the API has a public URL. Until then
+Vercel builds will fail — deliberately, rather than shipping blank pages — and
+the previous deployment stays live in the meantime.
 
 ---
 
@@ -25,10 +27,8 @@ including your local `backend/.env`.
 `render.yaml` in the repository root describes the service, so Render can read
 it rather than you filling in a form.
 
-1. Render dashboard → **New → Blueprint** → pick this repository, and set the
-   branch to `rebuild/phase-1-foundations`. `main` is still the old site and
-   has no `render.yaml`. Once the rebuild is merged, change the service's
-   branch to `main` in Render → Settings.
+1. Render dashboard → **New → Blueprint** → pick this repository, branch
+   `main`.
 2. Render reads `render.yaml` and asks for the values it will not read from
    version control:
 
@@ -111,18 +111,7 @@ cold start. If it still cannot reach the API it fails the build rather than
 quietly shipping blank pages. Locally it only warns, so you can build with the
 API switched off.
 
-## 3. Merge to main
-
-Only once the API answers and Vercel builds green. Merging is what replaces the
-live site, so it is the last step, not the first:
-
-```bash
-git checkout main && git merge rebuild/phase-1-foundations && git push
-```
-
-Then point Render's service branch at `main` too.
-
-## 4. After the first deploy
+## 3. After the first deploy
 
 1. Confirm `CORS_ORIGINS` on Render exactly matches the live origin — scheme
    included, no trailing slash. A mismatch shows up as content that renders on
