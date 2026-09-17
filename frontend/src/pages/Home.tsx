@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom';
-import { bio, expertise, homeIntro } from '@/content/bio';
-import { projects } from '@/content/projects';
-import { skills } from '@/content/skills';
+import { useContent } from '@/hooks/useContent';
 import { gsap, infiniteMarquee } from '@/lib/animations';
 import { usePageAnimations } from '@/hooks/usePageAnimations';
 
 const shell = 'mx-auto max-w-[92rem] px-5 sm:px-8';
 
 export default function Home() {
+  const { bio, expertise, projects, skills } = useContent();
   const scope = usePageAnimations((root) => {
     const timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
@@ -107,7 +106,7 @@ export default function Home() {
             className="mt-7 max-w-xl text-lg font-medium leading-snug text-muted"
             data-hero-item
           >
-            {homeIntro}
+            {bio.homeIntro}
           </p>
 
           <div className="mt-9 flex flex-wrap gap-4" data-hero-item>

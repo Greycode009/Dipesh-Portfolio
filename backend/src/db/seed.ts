@@ -11,37 +11,7 @@ import {
   TimelineEntry,
 } from '@/db/models';
 import seedData from './seed-data.json';
-
-/**
- * Seeding writes explicit ids, which leaves Postgres identity sequences at 1 —
- * the next insert from the admin UI would then collide with a seeded row.
- * SQLite picks max(rowid)+1 and never shows this, so it has to be handled
- * explicitly.
- */
-async function realignPostgresSequences() {
-  if (sequelize.getDialect() !== 'postgres') return;
-
-  const tables = [
-    'projects',
-    'skills',
-    'timeline_entries',
-    'socials',
-    'expertise',
-    'bio',
-    'guestbook_entries',
-    'admins',
-  ];
-
-  for (const table of tables) {
-    await sequelize.query(
-      `SELECT setval(
-         pg_get_serial_sequence('"${table}"', 'id'),
-         COALESCE((SELECT MAX(id) FROM "${table}"), 1)
-       )`,
-    );
-  }
-  console.log(`Realigned id sequences for ${tables.length} tables`);
-}
+import { realignPostgresSequences } from './sequences';
 
 /**
  * Idempotent: every row carries an explicit id, so re-running updates rather

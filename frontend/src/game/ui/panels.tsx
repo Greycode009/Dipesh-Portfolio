@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { sendContactMessage } from '@/api/contact';
-import { bio, timeline } from '@/content/bio';
-import { projects } from '@/content/projects';
-import { skills } from '@/content/skills';
+import { useContent } from '@/hooks/useContent';
 import type { Proficiency } from '@/types/content';
 import Panel from './Panel';
 
@@ -15,6 +13,7 @@ export function ProjectPanel({
   projectId: number;
   onClose: () => void;
 }) {
+  const { projects } = useContent();
   const project = projects.find((item) => item.id === projectId);
   if (!project) return null;
 
@@ -79,6 +78,7 @@ const RARITY: Record<Proficiency, { label: string; colour: string }> = {
 };
 
 export function SkillsPanel({ onClose }: { onClose: () => void }) {
+  const { skills } = useContent();
   const [selected, setSelected] = useState(skills[0]);
 
   return (
@@ -159,6 +159,7 @@ function useTypewriter(text: string, enabled: boolean) {
 }
 
 export function AboutPanel({ onClose }: { onClose: () => void }) {
+  const { bio, timeline } = useContent();
   const pages = [...bio.story, bio.quote];
   const [page, setPage] = useState(0);
 
@@ -211,6 +212,7 @@ export function AboutPanel({ onClose }: { onClose: () => void }) {
 // ------------------------------------------------------------ contact
 
 export function ContactPanel({ onClose }: { onClose: () => void }) {
+  const { bio } = useContent();
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>(
     'idle',
@@ -297,6 +299,7 @@ export function ContactPanel({ onClose }: { onClose: () => void }) {
 // ------------------------------------------------------------ town sign
 
 export function SignPanel({ onClose }: { onClose: () => void }) {
+  const { projects } = useContent();
   const houses = projects.filter((project) => project.status === 'published');
 
   return (

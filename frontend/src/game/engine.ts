@@ -3,12 +3,8 @@ import {
   MAP_WIDTH,
   VIEW_HEIGHT,
   VIEW_WIDTH,
-  buildings,
-  groundAt,
-  interactableAt,
-  isSolid,
-  props,
   type Interactable,
+  type Town,
 } from './townMap';
 import { TILE, loadSprites, type Facing, type Sprite } from './sprites';
 
@@ -50,6 +46,8 @@ export class TownGame {
 
   constructor(
     canvas: HTMLCanvasElement,
+    /** The map, built from whatever projects the CMS returned. */
+    private readonly town: Town,
     private readonly callbacks: GameCallbacks,
   ) {
     const context = canvas.getContext('2d');
@@ -171,7 +169,7 @@ export class TownGame {
 
     for (let tileY = top; tileY <= bottom; tileY += 1) {
       for (let tileX = left; tileX <= right; tileX += 1) {
-        if (isSolid(tileX, tileY)) return false;
+        if (this.town.isSolid(tileX, tileY)) return false;
       }
     }
     return true;
@@ -219,7 +217,7 @@ export class TownGame {
       right: { x: x + 1, y },
     }[this.facing];
 
-    const found = interactableAt(ahead.x, ahead.y);
+    const found = this.town.interactableAt(ahead.x, ahead.y);
     if (found?.id !== this.nearby?.id) {
       this.nearby = found;
       this.callbacks.onNearbyChange(found);
@@ -272,7 +270,7 @@ export class TownGame {
 
     for (let y = firstY; y <= lastY; y += 1) {
       for (let x = firstX; x <= lastX; x += 1) {
-        this.draw(ground[groundAt(x, y)], x * TILE, y * TILE);
+        this.draw(ground[this.town.groundAt(x, y)], x * TILE, y * TILE);
       }
     }
 
@@ -280,7 +278,7 @@ export class TownGame {
     // character can walk behind a house and in front of a fence.
     const layers: { sortY: number; paint: () => void }[] = [];
 
-    for (const building of buildings) {
+    for (const building of this.town.buildings) {
       const parts = houses[building.roof];
       const doorIndex = Math.floor(building.width / 2);
       layers.push({
@@ -310,7 +308,7 @@ export class TownGame {
       });
     }
 
-    for (const prop of props) {
+    for (const prop of this.town.props) {
       layers.push({
         sortY: prop.y,
         paint: () => {

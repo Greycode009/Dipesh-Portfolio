@@ -28,9 +28,34 @@ const escapeHtml = (value) =>
       })[char],
   );
 
-const { render, routes } = await import(
+const { render, routes, fetchSiteContent } = await import(
   pathToFileURL(join(ssrDir, 'entry-server.js')).href
 );
+
+/**
+ * Content comes from the CMS, so the build needs it too — otherwise the static
+ * HTML would ship a loading state and there would be nothing for a crawler to
+ * read. A build without the API still succeeds: the pages render empty and the
+ * browser fills them in, which costs SEO but does not block a deploy.
+ */
+let content = null;
+try {
+  content = await fetchSiteContent();
+  console.log(
+    `fetched content: ${content.projects.length} projects, ` +
+      `${content.skills.length} skills, bio for ${content.bio.name}`,
+  );
+} catch (error) {
+  console.warn(
+    `
+  WARNING: could not reach the API, so pages are prerendered empty.` +
+      `
+  Set VITE_API_URL to a reachable API before deploying.` +
+      `
+  (${error.message})
+`,
+  );
+}
 
 const template = await readFile(join(distDir, 'index.html'), 'utf8');
 
@@ -56,7 +81,11 @@ for (const route of routes) {
     )
     .replace(
       '<div id="root"></div>',
-      `<div id="root">${render(route.path)}</div>`,
+      `<div id="root">${render(route.path, content)}</div>` +
+        (content
+          ? `
+    <script>window.__CONTENT__=${JSON.stringify(content).replace(/</g, '\u003c')}</script>`
+          : ''),
     );
 
   if (html.includes('<div id="root"></div>')) {

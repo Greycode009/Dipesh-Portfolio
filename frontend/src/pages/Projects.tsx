@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { projects } from '@/content/projects';
+import { useContent } from '@/hooks/useContent';
 import { usePageAnimations } from '@/hooks/usePageAnimations';
 import type { Project, ProjectType } from '@/types/content';
 
@@ -39,6 +39,7 @@ function NoPreview({ project }: { project: Project }) {
 }
 
 export default function Projects() {
+  const { projects } = useContent();
   const scope = usePageAnimations();
   const [type, setType] = useState<ProjectType | 'all'>('all');
 
@@ -47,7 +48,7 @@ export default function Projects() {
       projects
         .filter((project) => project.status === 'published')
         .sort((a, b) => a.sortOrder - b.sortOrder),
-    [],
+    [projects],
   );
 
   /** Only offer a filter for types that actually exist. */

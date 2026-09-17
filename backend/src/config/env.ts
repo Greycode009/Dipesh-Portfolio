@@ -22,7 +22,11 @@ export const env = {
   ),
   jwtExpiresIn: process.env.JWT_EXPIRES_IN ?? '7d',
 
-  corsOrigins: (process.env.CORS_ORIGINS ?? 'http://localhost:3000')
+  // 3000 is the dev server, 4173 is `vite preview` — the built output, which
+  // is what actually ships, so it needs to reach the API locally too.
+  corsOrigins: (
+    process.env.CORS_ORIGINS ?? 'http://localhost:3000,http://localhost:4173'
+  )
     .split(',')
     .map((origin) => origin.trim())
     .filter(Boolean),

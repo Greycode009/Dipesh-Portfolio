@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { bio } from '@/content/bio';
+import { useContent } from '@/hooks/useContent';
 import { CANVAS_HEIGHT, CANVAS_WIDTH, TownGame } from './engine';
-import { SPAWN, type Interactable } from './townMap';
+import { SPAWN, buildTown, type Interactable } from './townMap';
 import TouchControls from './ui/TouchControls';
 import {
   AboutPanel,
@@ -14,6 +14,7 @@ import {
 } from './ui/panels';
 
 export default function Room() {
+  const { bio, projects } = useContent();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameRef = useRef<TownGame | null>(null);
 
@@ -24,6 +25,10 @@ export default function Room() {
   const handleInteract = useCallback((item: Interactable) => setOpen(item), []);
   const interactRef = useRef(handleInteract);
   interactRef.current = handleInteract;
+
+  // The map is built once from the projects present at mount; rebuilding it
+  // mid-walk would move the houses out from under the character.
+  const projectsRef = useRef(projects);
 
   // The pixel font is only needed here, so it is not in the document head.
   useEffect(() => {
@@ -41,9 +46,9 @@ export default function Room() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const game = new TownGame(canvas, {
+    const game = new TownGame(canvas, buildTown(projectsRef.current), {
       onNearbyChange: setNearby,
-      onInteract: (item) => interactRef.current(item),
+      onInteract: (item: Interactable) => interactRef.current(item),
     });
     gameRef.current = game;
     if (import.meta.env.DEV) {

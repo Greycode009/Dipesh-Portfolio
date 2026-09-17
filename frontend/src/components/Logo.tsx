@@ -1,7 +1,8 @@
-import { bio } from '@/content/bio';
+import { useContent } from '@/hooks/useContent';
 
 /** Initials in an accent tile — the site's one piece of "branding". */
 export default function Logo() {
+  const { bio } = useContent();
   const initials = bio.name
     .split(' ')
     .map((part) => part[0])

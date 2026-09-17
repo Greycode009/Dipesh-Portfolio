@@ -1,7 +1,7 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { sendContactMessage } from '@/api/contact';
 import Guestbook from '@/components/Guestbook';
-import { bio } from '@/content/bio';
+import { useContent } from '@/hooks/useContent';
 import { usePageAnimations } from '@/hooks/usePageAnimations';
 
 const shell = 'mx-auto max-w-[92rem] px-5 sm:px-8';
@@ -22,14 +22,15 @@ const fields = [
   },
 ] as const;
 
-const details = [
-  { label: 'Location', value: bio.location },
-  { label: 'Email', value: bio.email },
-  { label: 'Phone', value: bio.phone },
-] as const;
-
 export default function Contact() {
+  const { bio } = useContent();
   const scope = usePageAnimations();
+
+  const details = [
+    { label: 'Location', value: bio.location },
+    { label: 'Email', value: bio.email },
+    { label: 'Phone', value: bio.phone },
+  ];
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>(
     'idle',

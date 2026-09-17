@@ -1,4 +1,4 @@
-import { projects } from '@/content/projects';
+import type { Project } from '@/types/content';
 import type { GroundName, PropName } from './sprites';
 import type { RoofName } from './palette';
 
@@ -56,6 +56,22 @@ export interface Interactable {
   label: string;
   projectId?: number;
 }
+
+export interface Town {
+  groundAt: (x: number, y: number) => GroundName;
+  isSolid: (x: number, y: number) => boolean;
+  interactableAt: (x: number, y: number) => Interactable | null;
+  buildings: Building[];
+  props: Prop[];
+  interactables: Interactable[];
+}
+
+/**
+ * Builds the town from the projects the CMS returned. Called once when the
+ * game mounts rather than at module load, because the content now arrives over
+ * the network.
+ */
+export function buildTown(allProjects: Project[]): Town {
 
 // ---------------------------------------------------------------- terrain
 
@@ -116,11 +132,11 @@ blockRect(13, 31, 6, 4);
 
 const HOUSE_ROOFS: RoofName[] = ['red', 'blue', 'green', 'teal', 'violet', 'ochre'];
 
-const published = projects
+const published = allProjects
   .filter((project) => project.status === 'published')
   .sort((a, b) => a.sortOrder - b.sortOrder);
 
-export const buildings: Building[] = [
+const buildings: Building[] = [
   ...published.map((project, index) => ({
     id: `project-${project.id}`,
     kind: 'project' as const,
@@ -161,7 +177,7 @@ export const buildings: Building[] = [
 ];
 
 /** The door is the tile the visitor interacts with. */
-export const doorOf = (building: Building) => ({
+const doorOf = (building: Building) => ({
   x: building.x + Math.floor(building.width / 2),
   y: building.y + 2,
 });
@@ -175,7 +191,7 @@ for (const building of buildings) {
 
 // ------------------------------------------------------------------- props
 
-export const props: Prop[] = [];
+const props: Prop[] = [];
 
 // Tree line around the edges.
 for (let x = 1; x < MAP_WIDTH - 1; x += 3) {
@@ -233,13 +249,13 @@ for (let y = 0; y < MAP_HEIGHT; y += 1) {
 
 // ----------------------------------------------------------- lookup tables
 
-export const groundAt = (x: number, y: number): GroundName =>
+const groundAt = (x: number, y: number): GroundName =>
   inBounds(x, y) ? ground[y][x] : 'grass';
 
-export const isSolid = (x: number, y: number): boolean =>
+const isSolid = (x: number, y: number): boolean =>
   inBounds(x, y) ? solid[y][x] : true;
 
-export const interactables: Interactable[] = [
+const interactables: Interactable[] = [
   ...buildings.map((building) => ({
     id: building.id,
     kind: building.kind,
@@ -251,8 +267,11 @@ export const interactables: Interactable[] = [
   { id: 'sign', kind: 'sign', ...signTile, label: 'Town sign' },
 ];
 
-export function interactableAt(x: number, y: number): Interactable | null {
+function interactableAt(x: number, y: number): Interactable | null {
   return interactables.find((item) => item.x === x && item.y === y) ?? null;
+}
+
+  return { groundAt, isSolid, interactableAt, buildings, props, interactables };
 }
 
 /** Where the visitor appears — the crossroads, facing the houses. */

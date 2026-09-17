@@ -1,6 +1,8 @@
-import { socials } from '@/content/bio';
+import { useContent } from '@/hooks/useContent';
 
 export default function SocialIcons({ className = '' }: { className?: string }) {
+  const { socials } = useContent();
+
   return (
     <ul className={`flex flex-wrap gap-3 ${className}`}>
       {socials.map((social) => (

@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
-import { bio } from '@/content/bio';
+import { useContent } from '@/hooks/useContent';
 import Logo from './Logo';
 import MotionToggle from './MotionToggle';
 import SocialIcons from './SocialIcons';
 
 export default function Footer() {
+  const { bio } = useContent();
+
   return (
     <footer className="border-t-[3px] border-border bg-surface">
       <div className="mx-auto flex max-w-[92rem] flex-col gap-8 px-5 py-12 sm:px-8 md:flex-row md:items-start md:justify-between">

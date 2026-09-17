@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { bio } from '@/content/bio';
-import { skills } from '@/content/skills';
-import { skillCategories, type SkillFilter } from '@/content/skillCategories';
+import { skillCategoriesOf } from '@/api/content';
+import { useContent } from '@/hooks/useContent';
 import { usePageAnimations } from '@/hooks/usePageAnimations';
 
 const shell = 'mx-auto max-w-[92rem] px-5 sm:px-8';
 
 export default function About() {
+  const { bio, skills } = useContent();
   const scope = usePageAnimations();
-  const [category, setCategory] = useState<SkillFilter>('all');
+  const [category, setCategory] = useState('all');
+  const skillCategories = skillCategoriesOf(skills);
 
   const visible = skills.filter(
     (skill) => category === 'all' || skill.category === category,

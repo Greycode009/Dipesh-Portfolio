@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit",
     "db:sync": "tsx src/db/sync.ts",
     "db:seed": "tsx src/db/seed.ts",
+    "db:restore": "tsx src/db/restore-projects.ts",
     "db:ping": "tsx src/db/ping.ts"
   },
   "dependencies": {
