@@ -1,44 +1,27 @@
 import { useRef, useState, type FormEvent } from 'react';
-import { motion } from 'framer-motion';
 import { sendContactMessage } from '@/api/contact';
 import { bio } from '@/content/bio';
 
-type Status = 'idle' | 'sending' | 'success' | 'error';
+const shell = 'mx-auto max-w-[110rem] px-5 sm:px-8';
 
 const fields = [
-  { name: 'name', label: 'Name', icon: 'fa-solid fa-user', type: 'text' },
-  { name: 'email', label: 'Email', icon: 'fa-solid fa-envelope', type: 'email' },
-  {
-    name: 'subject',
-    label: 'Subject & Budget',
-    icon: 'fa-solid fa-tag',
-    type: 'text',
-  },
+  { name: 'name', label: 'Name', type: 'text' },
+  { name: 'email', label: 'Email', type: 'email' },
+  { name: 'subject', label: 'Subject & budget', type: 'text' },
 ] as const;
 
 const details = [
-  { icon: 'fa-solid fa-location-dot', label: 'Location', value: bio.location },
-  { icon: 'fa-solid fa-envelope', label: 'Email', value: bio.email },
-  { icon: 'fa-solid fa-phone', label: 'Phone', value: bio.phone },
-];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { when: 'beforeChildren' as const, staggerChildren: 0.2 },
-  },
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
-};
+  { label: 'Location', value: bio.location },
+  { label: 'Email', value: bio.email },
+  { label: 'Phone', value: bio.phone },
+] as const;
 
 export default function Contact() {
-  const [status, setStatus] = useState<Status>('idle');
-  const [error, setError] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>(
+    'idle',
+  );
+  const [error, setError] = useState('');
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -48,175 +31,126 @@ export default function Contact() {
     try {
       await sendContactMessage(formRef.current);
       formRef.current.reset();
-      setStatus('success');
+      setStatus('sent');
     } catch (cause) {
       setError(
         cause instanceof Error
           ? cause.message
-          : 'Failed to send message. Please try again later.',
+          : 'Could not send. Try again later.',
       );
       setStatus('error');
     }
   };
 
+  const inputClass =
+    'w-full border-2 border-border bg-background px-4 py-3 font-sans outline-none placeholder:text-muted focus:bg-surface';
+
   return (
-    <motion.div
-      className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-        <motion.section variants={itemVariants}>
-          <h1 className="mb-3 text-4xl font-bold text-primary">
-            Let&apos;s Connect
-          </h1>
-          <p className="mb-10 text-lg text-muted">
-            I&apos;m excited to collaborate on your next project
+    <>
+      <section className="border-b-2 border-border">
+        <div className={`${shell} py-14 md:py-20`}>
+          <p className="eyebrow">
+            {bio.availableForWork ? 'Available for work' : 'Currently booked'} —
+            replies within 24h
           </p>
+          <h1 className="mt-5 text-display font-bold uppercase">
+            Contact<span className="text-primary">.</span>
+          </h1>
+        </div>
+      </section>
 
-          <div className="space-y-4">
-            {details.map((detail) => (
-              <div
-                key={detail.label}
-                className="flex items-center gap-4 rounded-xl border border-primary/10 bg-surface p-4"
-              >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-on-primary">
-                  <i className={detail.icon} aria-hidden="true" />
-                </div>
-                <div>
-                  <h2 className="text-sm font-semibold uppercase tracking-wide text-muted">
-                    {detail.label}
-                  </h2>
-                  <p className="break-all">{detail.value}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {bio.availableForWork && (
-            <div className="mt-8 rounded-xl border-l-4 border-primary bg-primary/10 p-5">
-              <p className="flex items-center gap-2 font-medium">
-                <span className="relative flex h-3 w-3">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
-                  <span className="relative inline-flex h-3 w-3 rounded-full bg-primary" />
-                </span>
-                Available for freelance work
-              </p>
-              <p className="mt-1 text-sm text-muted">
-                I typically respond within 24 hours
-              </p>
+      <section className="border-b-2 border-border">
+        <dl className={`${shell} grid gap-px bg-border md:grid-cols-3`}>
+          {details.map((detail) => (
+            <div key={detail.label} className="bg-background py-6">
+              <dt className="eyebrow">{detail.label}</dt>
+              <dd className="mt-2 break-all text-lg">{detail.value}</dd>
             </div>
-          )}
-        </motion.section>
+          ))}
+        </dl>
+      </section>
 
-        <motion.section
-          variants={itemVariants}
-          className="rounded-2xl border border-primary/10 bg-surface p-8"
-        >
-          <header className="mb-8">
-            <h2 className="mb-1 text-2xl font-bold text-primary">
-              Hire Me for Your Project
-            </h2>
-            <p className="text-muted">
-              Fill out the form below to discuss your project needs
+      <section className={`${shell} py-14 md:py-20`}>
+        {status === 'sent' ? (
+          <div className="border-2 border-border bg-primary p-10 text-on-primary md:p-16">
+            <h2 className="text-headline font-bold uppercase">Message sent.</h2>
+            <p className="mt-5 max-w-xl text-lg leading-snug">
+              Thanks for reaching out. {bio.name.split(' ')[0]} will review it and
+              get back to you within a day.
             </p>
-          </header>
-
-          <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
-            {fields.map((field) => (
-              <div key={field.name}>
-                <label
-                  htmlFor={field.name}
-                  className="mb-2 flex items-center gap-2 text-sm font-medium"
-                >
-                  <i className={`${field.icon} text-primary`} aria-hidden="true" />
-                  {field.label}
-                </label>
-                <input
-                  id={field.name}
-                  name={field.name}
-                  type={field.type}
-                  required
-                  className="w-full rounded-lg border border-border bg-background px-4 py-3 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
-                />
-              </div>
-            ))}
-
-            <div>
-              <label
-                htmlFor="message"
-                className="mb-2 flex items-center gap-2 text-sm font-medium"
-              >
-                <i className="fa-solid fa-message text-primary" aria-hidden="true" />
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                required
-                className="w-full resize-y rounded-lg border border-border bg-background px-4 py-3 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
-              />
+          </div>
+        ) : (
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="grid gap-10 md:grid-cols-12"
+          >
+            <div className="md:col-span-5">
+              <p className="eyebrow">01 — Brief</p>
+              <h2 className="mt-4 text-headline font-bold uppercase">
+                Tell me
+                <br />
+                what you
+                <br />
+                need<span className="text-primary">.</span>
+              </h2>
             </div>
 
-            {/* The EmailJS template reads {{to_email}} for the recipient. */}
-            <input
-              type="hidden"
-              name="to_email"
-              value={import.meta.env.VITE_CONTACT_TO_EMAIL ?? bio.email}
-            />
+            <div className="space-y-5 md:col-span-7">
+              {fields.map((field) => (
+                <div key={field.name}>
+                  <label htmlFor={field.name} className="eyebrow mb-2 block">
+                    {field.label}
+                  </label>
+                  <input
+                    id={field.name}
+                    name={field.name}
+                    type={field.type}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+              ))}
 
-            <motion.button
-              type="submit"
-              disabled={status === 'sending'}
-              whileHover={{ scale: status === 'sending' ? 1 : 1.03 }}
-              whileTap={{ scale: status === 'sending' ? 1 : 0.97 }}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-on-primary transition-colors hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {status === 'sending' ? (
-                <>
-                  <i className="fa-solid fa-spinner fa-spin" aria-hidden="true" />
-                  Sending...
-                </>
-              ) : (
-                <>
-                  <i className="fa-solid fa-paper-plane" aria-hidden="true" />
-                  Hire Me
-                </>
-              )}
-            </motion.button>
-          </form>
-
-          <div aria-live="polite">
-            {status === 'success' && (
-              <motion.p
-                className="mt-5 flex items-start gap-3 rounded-lg bg-primary/10 p-4 text-primary"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <i className="fa-solid fa-circle-check mt-1" aria-hidden="true" />
-                Thanks for reaching out! I&apos;ll review your project request
-                and get back to you soon.
-              </motion.p>
-            )}
-
-            {status === 'error' && (
-              <motion.p
-                className="mt-5 flex items-start gap-3 rounded-lg bg-red-500/10 p-4 text-red-400"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <i
-                  className="fa-solid fa-circle-exclamation mt-1"
-                  aria-hidden="true"
+              <div>
+                <label htmlFor="message" className="eyebrow mb-2 block">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={6}
+                  required
+                  className={`${inputClass} resize-y`}
                 />
-                {error}
-              </motion.p>
-            )}
-          </div>
-        </motion.section>
-      </div>
-    </motion.div>
+              </div>
+
+              <input
+                type="hidden"
+                name="to_email"
+                value={import.meta.env.VITE_CONTACT_TO_EMAIL ?? bio.email}
+              />
+
+              {status === 'error' && (
+                <p
+                  role="alert"
+                  className="border-2 border-primary px-4 py-3 font-mono text-xs uppercase tracking-[0.15em] text-primary"
+                >
+                  {error}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === 'sending'}
+                className="block-shadow-hover w-full border-2 border-border bg-primary px-7 py-5 font-mono text-xs uppercase tracking-[0.2em] text-on-primary disabled:opacity-60"
+              >
+                {status === 'sending' ? 'Sending…' : 'Send it'}
+              </button>
+            </div>
+          </form>
+        )}
+      </section>
+    </>
   );
 }

@@ -3,36 +3,34 @@
 @tailwind utilities;
 
 /**
- * Theme tokens. Each colour is stored as space-separated RGB channels so
- * Tailwind can apply opacity modifiers to it (`bg-primary/10`). Themes are
- * selected by the `data-theme` attribute on <html>, set by ThemeContext and
- * by the anti-flash script in index.html.
+ * Monochrome with one sharp accent. Colours are space-separated RGB channels
+ * so Tailwind's opacity modifiers work against the active theme.
  *
- * Light is the base; dark overrides. Every pairing here clears WCAG AA for
- * body text against its own background.
+ * Borders are deliberately the full text colour rather than a soft grey —
+ * hard rules are the point of this design, not an oversight.
  */
 @layer base {
   :root,
   [data-theme='light'] {
-    --color-background: 251 247 241; /* warm paper */
-    --color-surface: 255 255 255;
-    --color-border: 228 218 203;
-    --color-primary: 160 85 12; /* burnt amber */
-    --color-secondary: 122 62 8;
-    --color-content: 36 30 24; /* warm ink */
-    --color-muted: 107 95 82;
+    --color-background: 255 255 255;
+    --color-surface: 245 245 245;
+    --color-border: 10 10 10;
+    --color-content: 10 10 10;
+    --color-muted: 90 90 90;
+    --color-primary: 229 35 26;
+    --color-secondary: 179 25 16;
     --color-on-primary: 255 255 255;
   }
 
   [data-theme='dark'] {
-    --color-background: 20 17 15; /* warm charcoal, not blue-black */
-    --color-surface: 30 26 23;
-    --color-border: 52 46 41;
-    --color-primary: 232 163 61; /* lamplight amber */
-    --color-secondary: 209 139 44;
-    --color-content: 242 235 227; /* warm cream */
-    --color-muted: 169 156 144;
-    --color-on-primary: 26 21 18;
+    --color-background: 10 10 10;
+    --color-surface: 22 22 22;
+    --color-border: 245 245 245;
+    --color-content: 245 245 245;
+    --color-muted: 160 160 160;
+    --color-primary: 255 65 54;
+    --color-secondary: 255 111 102;
+    --color-on-primary: 10 10 10;
   }
 
   html {
@@ -41,25 +39,20 @@
 
   body {
     @apply bg-background text-content antialiased;
-    font-family:
-      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-      sans-serif;
-    transition:
-      background-color 0.3s ease,
-      color 0.3s ease;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
   }
 
-  /* Visible focus for keyboard users, in the accent colour of either theme. */
-  :focus-visible {
-    outline: 2px solid rgb(var(--color-primary));
-    outline-offset: 2px;
-  }
-
+  /* Nothing in this design is soft-edged. */
   ::selection {
-    background-color: rgb(var(--color-primary) / 0.25);
+    background-color: rgb(var(--color-primary));
+    color: rgb(var(--color-on-primary));
   }
 
-  /* Respect users who ask for less motion. */
+  :focus-visible {
+    outline: 3px solid rgb(var(--color-primary));
+    outline-offset: 3px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -69,5 +62,27 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+}
+
+@layer components {
+  /* The section label: 01 / PROJECTS */
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-muted;
+  }
+
+  /* Hard offset shadow. Hover slides the element into its own shadow. */
+  .block-shadow {
+    box-shadow: 6px 6px 0 0 rgb(var(--color-border));
+  }
+
+  .block-shadow-hover {
+    @apply transition-[transform,box-shadow] duration-100;
+    box-shadow: 6px 6px 0 0 rgb(var(--color-border));
+  }
+
+  .block-shadow-hover:hover {
+    transform: translate(6px, 6px);
+    box-shadow: 0 0 0 0 rgb(var(--color-border));
   }
 }

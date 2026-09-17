@@ -49,7 +49,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.setAttribute('data-theme', theme);
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', theme === 'dark' ? '#14110f' : '#fbf7f1');
+      ?.setAttribute('content', theme === 'dark' ? '#0a0a0a' : '#ffffff');
   }, [theme]);
 
   // Follow the system while the visitor has not made an explicit choice.

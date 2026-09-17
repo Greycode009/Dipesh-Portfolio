@@ -22,11 +22,29 @@ export default {
         'on-primary': themeColor('on-primary'),
       },
       fontFamily: {
+        sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        // Only the easter-egg room uses this.
         pixel: ['"Press Start 2P"', 'ui-monospace', 'monospace'],
       },
-      boxShadow: {
-        card: '0 10px 20px rgb(0 0 0 / 0.2)',
-        lift: '0 15px 30px rgb(var(--color-primary) / 0.2)',
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        marquee: 'marquee 40s linear infinite',
+      },
+      fontSize: {
+        display: [
+          'clamp(2.75rem, 11vw, 8rem)',
+          { lineHeight: '0.85', letterSpacing: '-0.04em' },
+        ],
+        headline: [
+          'clamp(2rem, 6vw, 4rem)',
+          { lineHeight: '0.9', letterSpacing: '-0.03em' },
+        ],
       },
     },
   },

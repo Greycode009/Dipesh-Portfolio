@@ -3,12 +3,13 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import ScrollToTop from '@/components/ScrollToTop';
 import { ThemeProvider } from '@/context/ThemeContext';
 import PublicLayout from '@/components/PublicLayout';
-import SiteView from '@/game/SiteView';
 import NotFound from '@/pages/NotFound';
 import { routes } from '@/routes';
 
 // The admin area is a separate chunk: public visitors never download it.
 const AdminApp = lazy(() => import('@/pages/admin/AdminApp'));
+// The room is an easter egg now, so it only loads for people who ask for it.
+const Room = lazy(() => import('@/game/Room'));
 
 /**
  * Keeps <title> and the meta description in step during client-side
@@ -52,11 +53,30 @@ export default function App() {
           }
         />
 
+        <Route
+          path="/room"
+          element={
+            <Suspense
+              fallback={
+                <p className="p-8 font-mono text-xs uppercase tracking-[0.2em]">
+                  Loading the studio…
+                </p>
+              }
+            >
+              <Room />
+            </Suspense>
+          }
+        />
+
         {routes.map(({ path, component: Page }) => (
           <Route
             key={path}
             path={path}
-            element={<SiteView Page={Page} />}
+            element={
+              <PublicLayout>
+                <Page />
+              </PublicLayout>
+            }
           />
         ))}
 

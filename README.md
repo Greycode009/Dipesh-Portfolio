@@ -20,14 +20,14 @@ Personal portfolio, being rebuilt as a pixel-game world backed by a CMS.
       styles/     Tailwind entry + theme tokens
       types/      Shapes shared with the API
 
-The site is a pixel room you walk around. The readable pages still exist —
-they are what the prerenderer writes and what anyone without JavaScript gets —
-and a visitor can switch to them at any time.
+The design is brutalist: monochrome with one sharp red accent, hard 2px rules
+instead of soft cards, offset block shadows, oversized uppercase display type
+(Space Grotesk) with monospace labels (JetBrains Mono), and no easing softness.
 
-Sprites are authored in code as grids of palette characters
-(`src/game/sprites.ts`) and rasterised to canvas at startup. There are no image
-assets and nothing to license; swapping in a bought tileset later means
-changing the atlas, not the engine.
+The pixel room lives at `/room` as an easter egg, loaded only when asked for.
+Its sprites are authored in code as grids of palette characters
+(`src/game/sprites.ts`) and rasterised to canvas at startup — there are no
+image assets and nothing to license.
 
 Styling is Tailwind only. Theme colours are CSS custom properties holding
 space-separated RGB channels, so opacity modifiers (`bg-primary/10`) work
@@ -72,5 +72,5 @@ files win.
 1. **Foundations** — Vite + TypeScript, Tailwind-only styling, content extracted, routes prerendered. *(this branch)*
 2. **CMS** — Express + Sequelize + Postgres, admin UI at `/admin`, GitHub
    project import. *(Image upload and migrations still to come.)*
-3. **The Room** — pixel world: arcade cabinets, skill inventory, dialogue, mailbox. *(Done; the town beyond the door is still to come.)*
+3. **The Room** — pixel world at `/room`: arcade cabinets, skill inventory, dialogue, mailbox. *(Done, kept as an easter egg.)*
 4. **Living world** — guestbook and ghost visitors.

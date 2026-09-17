@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { bio } from '@/content/bio';
 import { CANVAS_HEIGHT, CANVAS_WIDTH, RoomGame } from './engine';
 import { spawnFor, type Interactable } from './roomMap';
@@ -12,29 +12,15 @@ import {
   SkillsPanel,
 } from './ui/panels';
 
-interface RoomProps {
-  /** Lets the visitor drop back to the readable pages. */
-  onExit: () => void;
-}
-
-export default function Room({ onExit }: RoomProps) {
+export default function Room() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameRef = useRef<RoomGame | null>(null);
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
 
   const [nearby, setNearby] = useState<Interactable | null>(null);
   const [open, setOpen] = useState<Interactable | null>(null);
 
-  const handleInteract = useCallback(
-    (item: Interactable) => {
-      setOpen(item);
-      if (item.route && item.route !== pathname) {
-        navigate(item.route, { replace: true });
-      }
-    },
-    [navigate, pathname],
-  );
+  // The room no longer drives the URL: it is a side trip, not the site.
+  const handleInteract = useCallback((item: Interactable) => setOpen(item), []);
 
   // The engine keeps whatever callback it was built with, so route it through
   // a ref rather than letting it capture a stale pathname.
@@ -42,6 +28,18 @@ export default function Room({ onExit }: RoomProps) {
   useEffect(() => {
     interactRef.current = handleInteract;
   }, [handleInteract]);
+
+  // The pixel font is only needed here, so it is not in the document head.
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href =
+      'https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap';
+    document.head.appendChild(link);
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -75,24 +73,20 @@ export default function Room({ onExit }: RoomProps) {
     if (game) game.setPaused(open !== null);
   }, [open]);
 
-  const closePanel = useCallback(() => {
-    setOpen(null);
-    if (pathname !== '/') navigate('/', { replace: true });
-  }, [navigate, pathname]);
+  const closePanel = useCallback(() => setOpen(null), []);
 
   return (
     <div className="relative flex min-h-screen flex-col bg-[#0d0a08]">
       <header className="flex items-center justify-between gap-3 px-4 py-3">
-        <p className="font-pixel text-[0.55rem] text-primary sm:text-[0.7rem]">
+        <p className="font-pixel text-[0.55rem] text-[#e8a33d] sm:text-[0.7rem]">
           {bio.name}
         </p>
-        <button
-          type="button"
-          onClick={onExit}
-          className="rounded border-2 border-border px-3 py-1.5 font-pixel text-[0.5rem] text-muted transition-colors hover:border-primary hover:text-primary"
+        <Link
+          to="/"
+          className="border-2 border-[#f2ebe3] px-3 py-1.5 font-pixel text-[0.5rem] text-[#f2ebe3] transition-colors hover:bg-[#f2ebe3] hover:text-[#0d0a08]"
         >
-          READ AS A PAGE
-        </button>
+          BACK TO SITE
+        </Link>
       </header>
 
       <div className="relative flex flex-1 items-center justify-center overflow-hidden px-2 pb-24 sm:pb-6">
