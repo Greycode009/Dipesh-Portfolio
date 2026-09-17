@@ -42,10 +42,13 @@ as `nb-*` classes (`nb-box`, `nb-shadow`, `nb-card`, `nb-btn`, `nb-pill`,
 `nb-press`, `nb-mark`), so the look is defined once rather than repeated as
 long class strings.
 
-The pixel room lives at `/room` as an easter egg, loaded only when asked for.
-Its sprites are authored in code as grids of palette characters
-(`src/game/sprites.ts`) and rasterised to canvas at startup — there are no
-image assets and nothing to license.
+A pixel town lives at `/room` as an easter egg, loaded only when asked for. A
+project's house is built from its row in the projects table, so publishing one
+puts a house on the street. Sprites are authored in code as grids of palette
+characters (`src/game/sprites.ts`) and rasterised to canvas at startup — there
+are no image assets and nothing to license. The map is generated in
+`src/game/townMap.ts` rather than hand-typed, and the camera scrolls a 24x16
+window over 56x40 tiles.
 
 Styling is Tailwind only. Theme colours are CSS custom properties holding
 space-separated RGB channels, so opacity modifiers (`bg-primary/10`) work
@@ -90,5 +93,5 @@ files win.
 1. **Foundations** — Vite + TypeScript, Tailwind-only styling, content extracted, routes prerendered. *(this branch)*
 2. **CMS** — Express + Sequelize + Postgres, admin UI at `/admin`, GitHub
    project import. *(Image upload and migrations still to come.)*
-3. **The Room** — pixel world at `/room`: arcade cabinets, skill inventory, dialogue, mailbox. *(Done, kept as an easter egg.)*
+3. **The Town** — pixel world at `/room`: a house per project, a library, a post office, a park. *(Done, kept as an easter egg.)*
 4. **Living world** — guestbook and ghost visitors.

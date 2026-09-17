@@ -1,42 +1,45 @@
 import {
-  ROOM_HEIGHT,
-  ROOM_WIDTH,
+  MAP_HEIGHT,
+  MAP_WIDTH,
+  VIEW_HEIGHT,
+  VIEW_WIDTH,
+  buildings,
+  groundAt,
   interactableAt,
-  interactables,
   isSolid,
   props,
-  terrainAt,
   type Interactable,
-} from './roomMap';
-import { loadSprites, type Facing, type Sprite } from './sprites';
+} from './townMap';
+import { TILE, loadSprites, type Facing, type Sprite } from './sprites';
 
-const TILE = 16;
-export const CANVAS_WIDTH = ROOM_WIDTH * TILE;
-export const CANVAS_HEIGHT = ROOM_HEIGHT * TILE;
+export const CANVAS_WIDTH = VIEW_WIDTH * TILE;
+export const CANVAS_HEIGHT = VIEW_HEIGHT * TILE;
 
-const WALK_SPEED = 64; // pixels per second
-const FRAME_TIME = 0.16; // seconds per walk frame
+const WALK_SPEED = 62; // pixels per second
+const FRAME_TIME = 0.16;
 
 /** The character's feet, relative to its 16x16 sprite. Only this collides. */
 const FEET = { left: 4, right: 12, top: 11, bottom: 16 };
 
 export interface GameCallbacks {
-  /** Fires when the object the character could interact with changes. */
   onNearbyChange: (item: Interactable | null) => void;
   onInteract: (item: Interactable) => void;
 }
 
-export class RoomGame {
+export class TownGame {
   private readonly context: CanvasRenderingContext2D;
   private readonly sprites = loadSprites();
 
-  private x = 12 * TILE;
-  private y = 7 * TILE;
+  private x = 0;
+  private y = 0;
   private facing: Facing = 'down';
   private animationTime = 0;
   private isMoving = false;
 
-  /** -1, 0 or 1 on each axis. Set by keyboard and by the on-screen pad. */
+  /** Camera position in pixels — top-left of the visible window. */
+  private cameraX = 0;
+  private cameraY = 0;
+
   private axis = { x: 0, y: 0 };
   private readonly heldKeys = new Set<string>();
 
@@ -62,7 +65,6 @@ export class RoomGame {
     window.addEventListener('keydown', this.onKeyDown);
     window.addEventListener('keyup', this.onKeyUp);
     window.addEventListener('blur', this.releaseAll);
-    // Switching tabs mid-stride would otherwise leave the key held.
     document.addEventListener('visibilitychange', this.releaseAll);
     this.lastTime = performance.now();
     this.rafId = requestAnimationFrame(this.tick);
@@ -76,7 +78,6 @@ export class RoomGame {
     cancelAnimationFrame(this.rafId);
   }
 
-  /** Movement stops while a panel is open, but the room keeps rendering. */
   setPaused(paused: boolean) {
     this.paused = paused;
     if (paused) this.releaseAll();
@@ -85,36 +86,33 @@ export class RoomGame {
   spawnAt(tileX: number, tileY: number) {
     this.x = tileX * TILE;
     this.y = tileY * TILE;
+    this.centreCamera();
     this.updateNearby();
   }
 
-  /** On-screen d-pad. */
   setAxis(x: number, y: number) {
     this.axis = { x, y };
   }
 
-  /** Development aid: lets tests read the character's state. */
-  get debugState() {
-    return {
-      tile: this.feetTile,
-      pixel: { x: Math.round(this.x), y: Math.round(this.y) },
-      facing: this.facing,
-      moving: this.isMoving,
-      paused: this.paused,
-      held: [...this.heldKeys],
-      axis: this.axis,
-      nearby: this.nearby?.id ?? null,
-    };
-  }
-
-  /** On-screen action button. */
   pressAction() {
     if (this.nearby) this.callbacks.onInteract(this.nearby);
   }
 
-  // ------------------------------------------------------------- input
+  get debugState() {
+    return {
+      tile: this.feetTile,
+      pixel: { x: Math.round(this.x), y: Math.round(this.y) },
+      camera: { x: Math.round(this.cameraX), y: Math.round(this.cameraY) },
+      facing: this.facing,
+      moving: this.isMoving,
+      paused: this.paused,
+      held: [...this.heldKeys],
+      nearby: this.nearby?.id ?? null,
+    };
+  }
 
-  /** True while the visitor is typing, so the room ignores their keystrokes. */
+  // --------------------------------------------------------------- input
+
   private static isTyping(target: EventTarget | null): boolean {
     const element = target as HTMLElement | null;
     if (!element?.tagName) return false;
@@ -125,16 +123,14 @@ export class RoomGame {
   }
 
   private onKeyDown = (event: KeyboardEvent) => {
-    if (RoomGame.isTyping(event.target)) return;
-
+    if (TownGame.isTyping(event.target)) return;
     const key = event.key.toLowerCase();
 
     if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(key)) {
-      event.preventDefault(); // stop the page scrolling under the room
+      event.preventDefault();
     }
 
     if (key === 'e' || key === 'enter' || key === ' ') {
-      // Auto-repeat would re-open the panel the moment it closed.
       if (!event.repeat && !this.paused) this.pressAction();
       return;
     }
@@ -151,7 +147,7 @@ export class RoomGame {
     this.axis = { x: 0, y: 0 };
   };
 
-  private readAxis(): { x: number; y: number } {
+  private readAxis() {
     const held = this.heldKeys;
     const x =
       (held.has('arrowright') || held.has('d') ? 1 : 0) -
@@ -160,12 +156,12 @@ export class RoomGame {
       (held.has('arrowdown') || held.has('s') ? 1 : 0) -
       (held.has('arrowup') || held.has('w') ? 1 : 0);
 
-    // The on-screen pad wins only when no key is held.
+    // The on-screen pad only applies when no key is held.
     if (x === 0 && y === 0) return this.axis;
     return { x, y };
   }
 
-  // ------------------------------------------------------------- movement
+  // ------------------------------------------------------------ movement
 
   private canStandAt(x: number, y: number): boolean {
     const left = Math.floor((x + FEET.left) / TILE);
@@ -190,15 +186,14 @@ export class RoomGame {
       return;
     }
 
-    // Face the dominant axis, preferring horizontal so diagonals read clearly.
     if (axisX !== 0) this.facing = axisX > 0 ? 'right' : 'left';
     else if (axisY !== 0) this.facing = axisY > 0 ? 'down' : 'up';
 
-    // Normalise diagonals so corner-cutting is not faster.
+    // Normalise diagonals so cutting a corner is not faster.
     const scale = axisX !== 0 && axisY !== 0 ? Math.SQRT1_2 : 1;
     const step = WALK_SPEED * delta * scale;
 
-    // Axes are resolved separately so sliding along a wall still works.
+    // Axes resolve separately, so the character slides along walls.
     const nextX = this.x + axisX * step;
     if (axisX !== 0 && this.canStandAt(nextX, this.y)) this.x = nextX;
 
@@ -224,97 +219,136 @@ export class RoomGame {
       right: { x: x + 1, y },
     }[this.facing];
 
-    const found =
-      interactableAt(ahead.x, ahead.y) ??
-      // Tall objects are entered from below, so also check one further up.
-      (this.facing === 'up' ? interactableAt(ahead.x, ahead.y - 1) : null);
-
+    const found = interactableAt(ahead.x, ahead.y);
     if (found?.id !== this.nearby?.id) {
       this.nearby = found;
       this.callbacks.onNearbyChange(found);
     }
   }
 
-  // ------------------------------------------------------------- rendering
+  // -------------------------------------------------------------- camera
 
-  private drawSprite(sprite: Sprite, x: number, y: number) {
-    this.context.drawImage(sprite.canvas, Math.round(x), Math.round(y));
+  private cameraTarget() {
+    const maxX = MAP_WIDTH * TILE - CANVAS_WIDTH;
+    const maxY = MAP_HEIGHT * TILE - CANVAS_HEIGHT;
+    return {
+      x: Math.max(0, Math.min(maxX, this.x + TILE / 2 - CANVAS_WIDTH / 2)),
+      y: Math.max(0, Math.min(maxY, this.y + TILE / 2 - CANVAS_HEIGHT / 2)),
+    };
+  }
+
+  private centreCamera() {
+    const target = this.cameraTarget();
+    this.cameraX = target.x;
+    this.cameraY = target.y;
+  }
+
+  /** Eases toward the target so the view does not snap on every step. */
+  private followCamera(delta: number) {
+    const target = this.cameraTarget();
+    const ease = 1 - 0.0001 ** delta;
+    this.cameraX += (target.x - this.cameraX) * ease;
+    this.cameraY += (target.y - this.cameraY) * ease;
+  }
+
+  // ------------------------------------------------------------ rendering
+
+  private draw(sprite: Sprite, x: number, y: number) {
+    this.context.drawImage(
+      sprite.canvas,
+      Math.round(x - this.cameraX),
+      Math.round(y - this.cameraY),
+    );
   }
 
   private render() {
-    const { tiles, player } = this.sprites;
+    const { ground, props: propSprites, houses, player } = this.sprites;
 
-    for (let y = 0; y < ROOM_HEIGHT; y += 1) {
-      for (let x = 0; x < ROOM_WIDTH; x += 1) {
-        const kind = terrainAt(x, y);
-        const tile =
-          kind === 'wall'
-            ? tiles.wall
-            : kind === 'wallBase'
-              ? tiles.wallBase
-              : kind === 'rug'
-                ? tiles.rug
-                : tiles.floor;
-        this.drawSprite(tile, x * TILE, y * TILE);
+    // Only the tiles under the camera window, plus one for partial tiles.
+    const firstX = Math.max(0, Math.floor(this.cameraX / TILE));
+    const firstY = Math.max(0, Math.floor(this.cameraY / TILE));
+    const lastX = Math.min(MAP_WIDTH - 1, firstX + VIEW_WIDTH + 1);
+    const lastY = Math.min(MAP_HEIGHT - 1, firstY + VIEW_HEIGHT + 1);
+
+    for (let y = firstY; y <= lastY; y += 1) {
+      for (let x = firstX; x <= lastX; x += 1) {
+        this.draw(ground[groundAt(x, y)], x * TILE, y * TILE);
       }
     }
 
-    // Wall scenery sits behind everything that stands on the floor.
-    for (const prop of props.filter((item) => !item.solid)) {
-      this.drawSprite(
-        tiles[prop.sprite],
-        prop.x * TILE,
-        prop.y * TILE - prop.lift,
-      );
+    // Everything standing on the ground is painted back to front, so the
+    // character can walk behind a house and in front of a fence.
+    const layers: { sortY: number; paint: () => void }[] = [];
+
+    for (const building of buildings) {
+      const parts = houses[building.roof];
+      const doorIndex = Math.floor(building.width / 2);
+      layers.push({
+        sortY: building.y + 2,
+        paint: () => {
+          for (let i = 0; i < building.width; i += 1) {
+            const px = (building.x + i) * TILE;
+            const roof =
+              i === 0
+                ? parts.roofLeft
+                : i === building.width - 1
+                  ? parts.roofRight
+                  : parts.roofMid;
+            this.draw(roof, px, building.y * TILE);
+            this.draw(
+              i % 2 === 1 ? parts.wallWindow : parts.wall,
+              px,
+              (building.y + 1) * TILE,
+            );
+            this.draw(
+              i === doorIndex ? parts.wallDoor : parts.wall,
+              px,
+              (building.y + 2) * TILE,
+            );
+          }
+        },
+      });
     }
 
-    // Everything on the floor is drawn back to front so the character can
-    // walk in front of and behind furniture.
-    const standing: { y: number; draw: () => void }[] = [
-      ...interactables.map((item) => ({
-        y: item.y,
-        draw: () =>
-          this.drawSprite(
-            tiles[item.sprite],
-            item.x * TILE,
-            item.y * TILE - item.lift,
-          ),
-      })),
-      ...props
-        .filter((item) => item.solid)
-        .map((prop) => ({
-          y: prop.y,
-          draw: () =>
-            this.drawSprite(
-              tiles[prop.sprite],
-              prop.x * TILE,
-              prop.y * TILE - prop.lift,
-            ),
-        })),
-      {
-        y: this.feetTile.y,
-        draw: () => {
-          const frame =
-            this.isMoving && Math.floor(this.animationTime / FRAME_TIME) % 2
-              ? 1
-              : 0;
-          this.drawSprite(player[this.facing][frame], this.x, this.y);
+    for (const prop of props) {
+      layers.push({
+        sortY: prop.y,
+        paint: () => {
+          // Trees are two tiles tall: the canopy sits on the tile above.
+          if (prop.name === 'treeBottom') {
+            this.draw(propSprites.treeTop, prop.x * TILE, (prop.y - 1) * TILE);
+          }
+          this.draw(
+            propSprites[prop.name],
+            prop.x * TILE,
+            prop.y * TILE - (prop.lift ?? 0),
+          );
         },
+      });
+    }
+
+    layers.push({
+      sortY: this.feetTile.y,
+      paint: () => {
+        const frame =
+          this.isMoving && Math.floor(this.animationTime / FRAME_TIME) % 2
+            ? 1
+            : 0;
+        this.draw(player[this.facing][frame], this.x, this.y);
       },
-    ];
+    });
 
-    standing.sort((a, b) => a.y - b.y);
-    for (const item of standing) item.draw();
+    layers.sort((a, b) => a.sortY - b.sortY);
+    for (const layer of layers) layer.paint();
 
-    // A soft marker over whatever is in reach.
     if (this.nearby) {
       const bob = Math.sin(performance.now() / 220) * 1.5;
       this.context.fillStyle = '#f7c46b';
       this.context.fillRect(
-        this.nearby.x * TILE + 7,
-        Math.round(this.nearby.y * TILE - this.nearby.lift - 6 + bob),
+        Math.round(this.nearby.x * TILE + 7 - this.cameraX),
+        Math.round(this.nearby.y * TILE - 8 + bob - this.cameraY),
         2,
-        4,
+        5,
       );
     }
   }
@@ -327,6 +361,7 @@ export class RoomGame {
       this.move(delta);
       this.updateNearby();
     }
+    this.followCamera(delta);
     this.render();
 
     this.rafId = requestAnimationFrame(this.tick);

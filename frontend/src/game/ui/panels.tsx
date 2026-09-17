@@ -286,6 +286,32 @@ export function ContactPanel({ onClose }: { onClose: () => void }) {
   );
 }
 
+// ------------------------------------------------------------ town sign
+
+export function SignPanel({ onClose }: { onClose: () => void }) {
+  const houses = projects.filter((project) => project.status === 'published');
+
+  return (
+    <Panel title="Town sign" onClose={onClose}>
+      <p className="mb-4 leading-relaxed">
+        Welcome. Every house on the north street is a project — walk up to a
+        door and press E to look inside.
+      </p>
+      <ul className="mb-5 space-y-1.5">
+        {houses.map((project, index) => (
+          <li key={project.id} className="font-pixel text-[0.5rem] text-muted">
+            {String(index + 1).padStart(2, '0')} · {project.title}
+          </li>
+        ))}
+      </ul>
+      <p className="text-sm leading-relaxed text-muted">
+        The library holds the skills, the post office takes messages, and the
+        house at the east end is where the story is.
+      </p>
+    </Panel>
+  );
+}
+
 // ------------------------------------------------------------ cat
 
 export function CatPanel({ onClose }: { onClose: () => void }) {
