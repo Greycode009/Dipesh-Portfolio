@@ -1,0 +1,33 @@
+# Render blueprint for the API. The frontend is not here: it stays on Vercel.
+#
+# Create it from the Render dashboard with New > Blueprint, pointed at this
+# repository. DATABASE_URL and CORS_ORIGINS are marked sync: false, so Render
+# asks for them instead of reading them from this file — neither belongs in
+# version control.
+services:
+  - type: web
+    name: portfolio-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    # Render pings this after a deploy to decide whether the release is live.
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # The Neon connection string. Set in the dashboard.
+      - key: DATABASE_URL
+        sync: false
+      # Generated once by Render and kept there, so the signing key for admin
+      # sessions never passes through this repository.
+      - key: JWT_SECRET
+        generateValue: true
+      # Every origin allowed to call the API, comma separated. At minimum the
+      # Vercel domain; add a custom domain here too.
+      - key: CORS_ORIGINS
+        sync: false
+      # Optional: raises the GitHub import rate limit from 60/hour to 5000.
+      - key: GITHUB_TOKEN
+        sync: false

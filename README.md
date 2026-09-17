@@ -1,105 +1,97 @@
-# Dipesh Malla - Portfolio Website
+# Dipesh Malla — Portfolio
 
-A modern, responsive portfolio website showcasing my web development skills, projects, and professional journey.
+Personal portfolio, being rebuilt as a pixel-game world backed by a CMS.
 
+## Structure
 
-<h2>🔍 Live Preview</h2>
-<a href="https://dipeshmalla.vercel.app">
-  <img src="https://image.thum.io/get/width/1920/crop/1080/https://dipeshmalla.vercel.app" width="960" height="540" />
-</a>
+    frontend/   React + Vite + TypeScript + Tailwind  → Vercel
+    backend/    Express + Sequelize + PostgreSQL      → Railway/Fly (Phase 2)
 
+### frontend
 
+    src/
+      api/        HTTP seams for dynamic features (contact, later guestbook/presence)
+      game/       The room: sprites, tile map, engine, in-world panels
+      components/ Shared UI
+      content/    Projects, skills, timeline, bio — generated from the CMS in Phase 2
+      context/    React context providers
+      hooks/
+      pages/      One file per route
+      styles/     Tailwind entry + theme tokens
+      types/      Shapes shared with the API
 
+Motion is GSAP with ScrollTrigger (`src/lib/animations.ts`) plus Lenis for
+interpolated scrolling. It runs by default for everyone, including visitors
+whose system asks for reduced motion — a deliberate choice, paired with the
+thing that makes it defensible: a Motion toggle in the footer of every page,
+remembered across visits. Turning it off reverts every animation immediately
+and hands scrolling back to the browser.
 
+Animations do not initialise while the page is hidden. Applying their start
+states in a background tab would hide the content and then freeze, because
+requestAnimationFrame is throttled there.
 
-## 🚀 Features
+The design is neo-brutalist: a warm paper ground, white cards outlined in
+heavy ink with hard offset shadows and no blur, pill-shaped tags, chunky
+uppercase display type (Archivo Black) with monospace labels (JetBrains Mono),
+and one loud accent — electric violet. Dark mode inverts the ink: paper-white
+borders and shadows on near-black.
 
-- **Responsive Design**: Fully responsive across all devices (mobile, tablet, desktop)
-- **Modern UI**: Clean, minimalist design with smooth animations
-- **Interactive Elements**: Animated sections powered by Framer Motion
-- **Project Showcase**: Filterable project gallery with detailed information
-- **Skills Section**: Categorized skill cards highlighting technical expertise
-- **Timeline**: Professional journey showcased in an interactive timeline
-- **Contact Form**: Working contact form with EmailJS integration
-- **Smooth Navigation**: React Router for seamless page transitions
-- **Dark Theme**: Modern dark-themed UI with accent colors
+Shared pieces live in the `@layer components` block of `src/styles/index.css`
+as `nb-*` classes (`nb-box`, `nb-shadow`, `nb-card`, `nb-btn`, `nb-pill`,
+`nb-press`, `nb-mark`), so the look is defined once rather than repeated as
+long class strings.
 
-## 🛠️ Technologies Used
+A pixel town lives at `/room` as an easter egg, loaded only when asked for. A
+project's house is built from its row in the projects table, so publishing one
+puts a house on the street. Sprites are authored in code as grids of palette
+characters (`src/game/sprites.ts`) and rasterised to canvas at startup — there
+are no image assets and nothing to license. The map is generated in
+`src/game/townMap.ts` rather than hand-typed, and the camera scrolls a 24x16
+window over 56x40 tiles.
 
-- **React**: Frontend library for building the user interface
-- **Framer Motion**: Animation library for smooth transitions and effects
-- **React Router**: For seamless navigation between pages
-- **Tailwind CSS**: Utility-first CSS framework for styling
-- **EmailJS**: For handling contact form submissions
-- **Font Awesome**: Icon library for visual elements
+Styling is Tailwind only. Theme colours are CSS custom properties holding
+space-separated RGB channels, so opacity modifiers (`bg-primary/10`) work
+against whichever theme is active. There are two — light and dark, a warm
+amber accent on paper or charcoal — switched via the `data-theme` attribute on
+`<html>`. A visitor with no stored preference follows their operating system,
+and an inline script in `index.html` applies the theme before first paint so
+the prerendered page never flashes the wrong one.
 
-## 📋 Pages
+## Running
 
-- **Home**: Introduction and overview
-- **Projects**: Showcase of development work with filtering capabilities
-- **About**: Personal story, skills, and professional journey
-- **Contact**: Contact form and professional links
+    cd frontend
+    npm install
+    cp .env.example .env.local   # EmailJS credentials for the contact form
+    npm run dev                  # http://localhost:3000
+    npm run sync:content         # pull CMS content into src/content/
+    npm run build      # client build, SSR build, then prerender each route
+    npm run typecheck
 
-## 🔧 Setup & Installation
+Editing content: sign in at `/admin`, make changes, then run
+`npm run sync:content` to regenerate `src/content/*.ts` from the API and
+rebuild. Content ships in the bundle rather than being fetched at runtime, so
+the site stays fast and survives the API being down.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/portfolio-website.git
-   cd portfolio-website
-   ```
+`npm run build` writes one static HTML file per route in `src/routes.ts`
+(`dist/about/index.html`, and so on), each with its own title, description,
+canonical and Open Graph tags. Note that `npm run preview` does *not* serve
+those files — it falls back to `dist/index.html` for every path, so a route
+other than `/` will look wrong locally. Inspect the generated files directly,
+or deploy, to check prerendering.
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+## Deployment
 
-3. **Configure environment variables**
-   - Create a `.env` file in the root directory
-   - Add your EmailJS credentials:
-     ```
-     REACT_APP_EMAILJS_SERVICE_ID=your_service_id
-     REACT_APP_EMAILJS_TEMPLATE_ID=your_template_id
-     REACT_APP_EMAILJS_USER_ID=your_user_id
-     ```
+The Vercel project's **Root Directory** must be set to `frontend`, since the app
+no longer lives at the repository root. `frontend/vercel.json` supplies the SPA
+rewrite that client-side routing needs — as a fallback only, since Vercel
+checks the filesystem before applying rewrites, so the prerendered per-route
+files win.
 
-4. **Run the development server**
-   ```bash
-   npm start
-   ```
+## Roadmap
 
-5. **Build for production**
-   ```bash
-   npm run build
-   ```
-
-## 📱 Mobile Responsiveness
-
-The portfolio is fully responsive with:
-- Dynamic layout adjustments for different screen sizes
-- Mobile-friendly navigation with a toggle sidebar
-- Touch-friendly interactive elements
-- Optimized images and assets for faster loading on mobile devices
-
-## 🎨 Customization
-
-You can easily customize this portfolio by:
-- Modifying the content in respective component files
-- Adjusting the color scheme in the Tailwind configuration
-- Adding your own projects to the projects data
-- Updating skills and timeline information in the About page
-
-## 🚀 Deployment
-
-The site can be deployed to various platforms:
-- GitHub Pages
-- Netlify
-- Vercel
-- Any static site hosting service
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-Designed and developed by Dipesh Malla © 2023
+1. **Foundations** — Vite + TypeScript, Tailwind-only styling, content extracted, routes prerendered. *(this branch)*
+2. **CMS** — Express + Sequelize + Postgres, admin UI at `/admin`, GitHub
+   project import. *(Image upload and migrations still to come.)*
+3. **The Town** — pixel world at `/room`: a house per project, a library, a post office, a park. *(Done, kept as an easter egg.)*
+4. **Living world** — public wall and anonymous live chat done; ghost visitors still to come.

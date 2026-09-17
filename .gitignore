@@ -1,28 +1,30 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
-/node_modules
-/.pnp
+node_modules/
+.pnp
 .pnp.js
 
-# testing
-/coverage
+# builds
+dist/
+build/
 
-# production
-/build
-
-# misc
-.DS_Store
+# env
+.env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*.local
 
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-.vercel
+# editors / os
+.DS_Store
+.vscode/
+.idea/
 
-# Local Netlify folder
+# hosting
+.vercel
 .netlify
+
+# local dev database
+*.sqlite
