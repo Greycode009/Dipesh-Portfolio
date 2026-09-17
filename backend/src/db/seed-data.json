@@ -1,0 +1,394 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "slug": "portfolio-website",
+      "title": "Portfolio Website",
+      "description": "A modern and responsive portfolio website built with React. Features include dark/light theme, smooth animations, and a contact form.",
+      "technologies": [
+        "React",
+        "Tailwind CSS",
+        "Framer Motion",
+        "EmailJS"
+      ],
+      "image": "https://i.ibb.co/ZpRvMYyv/Screenshot-2025-04-24-183655.png",
+      "githubUrl": "https://github.com/Greycode009/Dipesh-Portfolio",
+      "liveUrl": "https://dipeshmalla.vercel.app/",
+      "featured": true,
+      "category": "frontend",
+      "date": "2025-04-22",
+      "sortOrder": 1,
+      "status": "published",
+      "worldX": 4,
+      "worldY": 3,
+      "sprite": "cabinet-purple"
+    },
+    {
+      "id": 2,
+      "slug": "task-master-pro",
+      "title": "Task Master Pro",
+      "description": "The project is a Todo App, which likely allows users to manage tasks by adding, filtering, and marking them as complete or incomplete. It is structured as a modern web application with reusable components and a focus on modularity.",
+      "technologies": [
+        "React",
+        "Tailwind CSS",
+        "Framer Motion",
+        "TypeScript",
+        "Vite"
+      ],
+      "image": "https://i.postimg.cc/PJL4KfWY/Screenshot-2025-05-03-110938.png",
+      "githubUrl": "https://github.com/Greycode009/Todo-App",
+      "liveUrl": "https://mytasktodo.vercel.app",
+      "featured": false,
+      "category": "frontend",
+      "date": "2025-05-03",
+      "sortOrder": 2,
+      "status": "published",
+      "worldX": 7,
+      "worldY": 3,
+      "sprite": "cabinet-blue"
+    },
+    {
+      "id": 3,
+      "slug": "anime-watchlist",
+      "title": "Anime Watchlist",
+      "description": "Anime Watchlist is a responsive web and Android application that helps users track, rate, and organize anime. Users can add series to their collection, assign ratings on a 0-10 scale, organize anime into tier rankings, and track their watch status. The app features both light and dark themes, and stores data locally with an optimized Android version that significantly reduces app size.",
+      "technologies": [
+        "React 19",
+        "TailwindCSS 3.3",
+        "Framer Motion 12",
+        "Jikan API",
+        "URL Object API",
+        "LocalStorage"
+      ],
+      "image": "https://i.postimg.cc/rw1rMpxy/Screenshot-2025-05-05-022741.png",
+      "githubUrl": "https://github.com/Greycode009/Anime-Watchlist",
+      "liveUrl": "https://animewatchlists.vercel.app",
+      "featured": true,
+      "category": "frontend",
+      "date": "2025-05-05",
+      "sortOrder": 3,
+      "status": "published",
+      "worldX": 10,
+      "worldY": 3,
+      "sprite": "cabinet-pink"
+    },
+    {
+      "id": 4,
+      "slug": "school-website",
+      "title": "School Website",
+      "description": "An informational school website showcasing the school's mission, programs, admissions, academic calendar, faculty profiles, photo gallery, news & events, and contact information. Built as a fast, accessible, mobile-first static site ready for deployment.",
+      "technologies": [
+        "React",
+        "Tailwind CSS",
+        "React Router",
+        "Framer Motion",
+        "Vercel"
+      ],
+      "image": "https://i.postimg.cc/gkSxZPjQ/Screenshot-2026-02-05-172049.png",
+      "githubUrl": "https://github.com/Greycode009/School-Website",
+      "liveUrl": "https://myschool-dashboard.vercel.app/",
+      "featured": false,
+      "category": "frontend",
+      "date": "2026-01-20",
+      "sortOrder": 4,
+      "status": "published",
+      "worldX": 13,
+      "worldY": 3,
+      "sprite": "cabinet-green"
+    },
+    {
+      "id": 5,
+      "slug": "admin-dashboard",
+      "title": "Admin Dashboard",
+      "description": "A comprehensive admin dashboard for managing student fee collections and payments. Features real-time statistics, monthly collection analytics, payment status tracking, and a detailed transaction history. Includes interactive charts for data visualization and payment management.",
+      "technologies": [
+        "React",
+        "Tailwind CSS",
+        "Recharts",
+        "React Router"
+      ],
+      "image": "https://i.postimg.cc/BbGMGK2L/Screenshot-2026-02-05-175307.png",
+      "githubUrl": "https://github.com/Greycode009/Admin-Dashboard",
+      "liveUrl": "https://myadmindash.vercel.app/",
+      "featured": false,
+      "category": "frontend",
+      "date": "2025-12-25",
+      "sortOrder": 5,
+      "status": "published",
+      "worldX": 16,
+      "worldY": 3,
+      "sprite": "cabinet-amber"
+    },
+    {
+      "id": 6,
+      "slug": "draggable-file-cards",
+      "title": "Draggable File Cards UI",
+      "description": "An interactive draggable card interface built with React, Tailwind CSS, and Framer Motion. Each card represents a file with dynamic tag colors, smooth drag animations, and responsive layout. The project focuses on modern UI interactions, reusable components, and physics-based motion effects.",
+      "technologies": [
+        "React",
+        "Tailwind CSS",
+        "Framer Motion",
+        "React Icons"
+      ],
+      "image": "https://i.postimg.cc/bwv1VKw8/Screenshot-2026-02-08-231652.png",
+      "githubUrl": "https://github.com/Greycode009/Docs-card",
+      "liveUrl": "https://docscard.vercel.app/",
+      "featured": false,
+      "category": "frontend",
+      "date": "2026-02-08",
+      "sortOrder": 6,
+      "status": "published",
+      "worldX": 19,
+      "worldY": 3,
+      "sprite": "cabinet-red"
+    }
+  ],
+  "skills": [
+    {
+      "id": 1,
+      "name": "React",
+      "icon": "fab fa-react",
+      "description": "Building interactive UIs with modern React features including hooks, context API, and custom components. Expert in React ecosystem.",
+      "category": "frontend",
+      "proficiency": 5,
+      "itemSprite": "item-react",
+      "sortOrder": 1
+    },
+    {
+      "id": 2,
+      "name": "JavaScript",
+      "icon": "fab fa-js-square",
+      "description": "Creating dynamic web experiences with ES6+ features, asynchronous programming, and modern JavaScript patterns and best practices.",
+      "category": "frontend",
+      "proficiency": 5,
+      "itemSprite": "item-javascript",
+      "sortOrder": 2
+    },
+    {
+      "id": 3,
+      "name": "HTML5 & CSS3",
+      "icon": "fab fa-html5",
+      "description": "Crafting semantic markup and responsive designs with modern CSS techniques including Grid, Flexbox, and CSS animations.",
+      "category": "frontend",
+      "proficiency": 5,
+      "itemSprite": "item-html",
+      "sortOrder": 3
+    },
+    {
+      "id": 4,
+      "name": "Tailwind CSS",
+      "icon": "fas fa-wind",
+      "description": "Creating beautiful, responsive designs with utility-first CSS framework. Experienced in custom configuration and component design.",
+      "category": "frontend",
+      "proficiency": 5,
+      "itemSprite": "item-tailwind",
+      "sortOrder": 4
+    },
+    {
+      "id": 5,
+      "name": "UI/UX Design",
+      "icon": "fas fa-palette",
+      "description": "Designing intuitive interfaces focused on accessibility and user experience. Skilled in wireframing, prototyping, and user testing.",
+      "category": "frontend",
+      "proficiency": 3,
+      "itemSprite": "item-palette",
+      "sortOrder": 5
+    },
+    {
+      "id": 6,
+      "name": "Git & GitHub",
+      "icon": "fab fa-git-alt",
+      "description": "Version control and collaborative development with Git and GitHub. Experienced with branching strategies, pull requests, and team workflows.",
+      "category": "development",
+      "proficiency": 4,
+      "itemSprite": "item-git",
+      "sortOrder": 6
+    },
+    {
+      "id": 7,
+      "name": "Node.js",
+      "icon": "fab fa-node-js",
+      "description": "Building scalable server-side applications with Node.js. Proficient in Express.js for RESTful APIs and backend services.",
+      "category": "backend",
+      "proficiency": 4,
+      "itemSprite": "item-node",
+      "sortOrder": 7
+    },
+    {
+      "id": 8,
+      "name": "JWT",
+      "icon": "fas fa-key",
+      "description": "Implementing secure token-based authentication with JWT. Experienced in auth flows, token refresh, and secure API access control.",
+      "category": "authentication",
+      "proficiency": 4,
+      "itemSprite": "item-key",
+      "sortOrder": 8
+    },
+    {
+      "id": 9,
+      "name": "bcrypt",
+      "icon": "fas fa-lock",
+      "description": "Securing user credentials using bcrypt hashing. Skilled in password storage, verification, and best practices for authentication security.",
+      "category": "authentication",
+      "proficiency": 4,
+      "itemSprite": "item-lock",
+      "sortOrder": 9
+    },
+    {
+      "id": 10,
+      "name": "FastAPI",
+      "icon": "fab fa-python",
+      "description": "Developing high-performance Python APIs with FastAPI. Skilled in async endpoints, dependency injection, and automatic OpenAPI documentation.",
+      "category": "backend",
+      "proficiency": 4,
+      "itemSprite": "item-fastapi",
+      "sortOrder": 10
+    },
+    {
+      "id": 11,
+      "name": "SQLAlchemy",
+      "icon": "fab fa-python",
+      "description": "Designing ORM-driven Python data models with SQLAlchemy. Experienced in database schema design, relationships, and query optimization.",
+      "category": "backend",
+      "proficiency": 3,
+      "itemSprite": "item-sqlalchemy",
+      "sortOrder": 11
+    },
+    {
+      "id": 12,
+      "name": "Sequelize ORM",
+      "icon": "fas fa-database",
+      "description": "Expertise in database modeling and management using Sequelize ORM with Node.js. Proficient in relationships, migrations, and queries.",
+      "category": "backend",
+      "proficiency": 4,
+      "itemSprite": "item-sequelize",
+      "sortOrder": 12
+    },
+    {
+      "id": 13,
+      "name": "PostgreSQL",
+      "icon": "fas fa-database",
+      "description": "Advanced database design and management with PostgreSQL. Experienced in complex queries, optimizations, and data modeling.",
+      "category": "database",
+      "proficiency": 4,
+      "itemSprite": "item-postgres",
+      "sortOrder": 13
+    }
+  ],
+  "timeline": [
+    {
+      "id": 1,
+      "year": "2025",
+      "title": "Full Stack Developer",
+      "description": "Started working on more complex full-stack applications and AI integrations.",
+      "highlight": true,
+      "sortOrder": 1
+    },
+    {
+      "id": 2,
+      "year": "2024",
+      "title": "Frontend Specialist",
+      "description": "Specialized in React and modern frontend frameworks.",
+      "highlight": true,
+      "sortOrder": 2
+    },
+    {
+      "id": 3,
+      "year": "2023",
+      "title": "Web Development Journey",
+      "description": "Began learning web development through online courses and personal projects.",
+      "highlight": true,
+      "sortOrder": 3
+    },
+    {
+      "id": 4,
+      "year": "2022",
+      "title": "Programming Foundations",
+      "description": "Started exploring the world of programming and computer science.",
+      "highlight": true,
+      "sortOrder": 4
+    }
+  ],
+  "socials": [
+    {
+      "id": 1,
+      "label": "GitHub",
+      "url": "https://github.com/Greycode009",
+      "icon": "github",
+      "sortOrder": 1
+    },
+    {
+      "id": 2,
+      "label": "LinkedIn",
+      "url": "https://t.co/OPtsS9LjDQ",
+      "icon": "linkedin",
+      "sortOrder": 2
+    },
+    {
+      "id": 3,
+      "label": "Twitter/X",
+      "url": "https://x.com/dipeshmalla29",
+      "icon": "x",
+      "sortOrder": 3
+    }
+  ],
+  "expertise": [
+    {
+      "id": 1,
+      "title": "Frontend Development",
+      "description": "Creating responsive and interactive user interfaces with React, HTML, CSS, and JavaScript.",
+      "icon": "fas fa-code",
+      "technologies": [
+        "React",
+        "JavaScript",
+        "CSS3"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": 2,
+      "title": "Backend Development",
+      "description": "Building robust server-side applications and APIs using Node.js and modern backend technologies.",
+      "icon": "fab fa-node-js",
+      "technologies": [
+        "Node.js",
+        "Express.js",
+        "PostgreSQL"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": 3,
+      "title": "Responsive Web Design",
+      "description": "Building websites that work seamlessly across all devices, from desktop to mobile.",
+      "icon": "fas fa-mobile-alt",
+      "technologies": [
+        "Media Queries",
+        "Flexbox",
+        "Grid"
+      ],
+      "sortOrder": 3
+    }
+  ],
+  "bio": {
+    "name": "Dipesh Malla",
+    "headline": "Full Stack Developer",
+    "roles": [
+      "Full Stack Developer",
+      "React Developer",
+      "FastAPI Developer"
+    ],
+    "story": [
+      "Hi, I'm Dipesh Malla, a full-stack developer from Nepal. I specialize in building modern web applications using React on the frontend and FastAPI on the backend. My passion lies in creating scalable and efficient solutions that deliver exceptional user experiences.",
+      "With 2 years of experience in web development, I've evolved from frontend development with React and JavaScript to mastering full-stack development. I work extensively with FastAPI, SQLAlchemy, and PostgreSQL to build robust backend systems. I'm particularly passionate about creating clean, maintainable code and implementing efficient database solutions that power seamless user experiences."
+    ],
+    "quote": "When I'm not coding, you'll find me contributing to open-source, helping peers learn, or exploring the latest in web development technologies. I believe in lifelong learning, mentorship, and giving back to the tech community.",
+    "avatarUrl": "https://i.ibb.co/prB36m9q/logo.png",
+    "portraitUrl": "https://i.postimg.cc/Pq4BzmS1/bio-logo.png",
+    "location": "Nepalgunj, Nepal",
+    "email": "dipeshmalla000@gmail.com",
+    "phone": "+977 9869705507",
+    "availableForWork": true,
+    "homeIntro": "I specialize in building modern web applications with React and Node.js, focusing on scalable solutions and exceptional user experiences."
+  }
+}

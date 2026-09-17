@@ -1,18 +1,83 @@
 # backend
 
-Express + Sequelize + PostgreSQL CMS for the portfolio. Scaffolded in Phase 2.
+Express + Sequelize + PostgreSQL CMS for the portfolio. No Docker.
 
-Layout will be feature-based — each feature owns its routes, controller,
-service, model and validation:
+## Structure
+
+Feature-based — each feature owns its model, validation, routes and any
+service logic:
 
     src/
+      config/        env parsing, Sequelize instance
+      shared/
+        crud/        createCrudRouter — the REST surface every content type reuses
+        errors/      AppError
+        middleware/  authenticate, validate, errorHandler, asyncHandler
       features/
+        auth/        login, /me, change-password
         projects/
         skills/
         timeline/
-        bio/
-        guestbook/
-        auth/
-      shared/
-      app.js
-      server.js
+        socials/
+        expertise/
+        bio/         singleton, so no :id in its routes
+        guestbook/   public writes, admin moderation
+      db/            models registry, sync, seed
+      app.ts         express app
+      server.ts      entry point
+
+## Database
+
+PostgreSQL in production (Neon). With `DATABASE_URL` unset, it falls back to a
+local SQLite file so the API runs without provisioning anything. Models
+therefore stick to types both dialects support — arrays are `JSON` columns, not
+Postgres `ARRAY`.
+
+Schema is created with `sequelize.sync()` while it is still moving. Migrations
+come once it settles; do not point `sync({ alter: true })` at production data.
+
+## Running
+
+    cd backend
+    npm install
+    cp .env.example .env    # set JWT_SECRET and ADMIN_PASSWORD
+    npm run db:seed         # seeds content + creates the admin user
+    npm run dev             # http://localhost:4000
+
+    npm run build && npm start   # compiled
+    npm run typecheck
+
+`scripts/generate-seed.ts` regenerates `src/db/seed-data.json` from the
+frontend's content modules. It was the one-time bridge from hardcoded content;
+after seeding, the database is the source of truth.
+
+## API
+
+Reads are public, writes need `Authorization: Bearer <token>`. Anonymous
+callers see only published projects and approved guestbook entries; an admin
+token reveals drafts.
+
+| Method | Path | Auth |
+|---|---|---|
+| POST | `/api/auth/login` | – (rate limited, 10 per 15 min) |
+| GET | `/api/auth/me` | admin |
+| POST | `/api/auth/change-password` | admin |
+| GET | `/api/{projects,skills,timeline,socials,expertise}` | – |
+| GET | `/api/{...}/:id` | – |
+| POST | `/api/{...}` | admin |
+| PATCH | `/api/{...}/:id` | admin |
+| DELETE | `/api/{...}/:id` | admin |
+| POST | `/api/{...}/reorder` | admin — body `{ ids: [3,1,2] }` |
+| GET | `/api/bio` | – |
+| PATCH | `/api/bio` | admin |
+| GET | `/api/guestbook` | – (approved only) |
+| POST | `/api/guestbook` | – (rate limited, 3 per hour) |
+| PATCH | `/api/guestbook/:id` | admin — `{ approved: bool }` |
+| DELETE | `/api/guestbook/:id` | admin |
+| GET | `/health` | – |
+
+## Deployment
+
+Railway or Fly, not a free tier that sleeps — Phase 4's ghost visitors need a
+persistent WebSocket, and a cold start would stall them. Set `DATABASE_URL`,
+`JWT_SECRET`, `CORS_ORIGINS` and `NODE_ENV=production`.
