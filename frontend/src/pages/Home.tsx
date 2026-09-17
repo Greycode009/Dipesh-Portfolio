@@ -118,7 +118,10 @@ export default function Home() {
 
         <div className="md:col-span-5">
           <div
-            className="nb-box nb-shadow-lg rotate-2 overflow-hidden bg-surface"
+            /* Capped from md up: at full column width the 4:5 portrait was
+               739px tall on a 900px screen, pushing everything else out of the
+               first view. Mobile is left alone — it scrolls anyway. */
+            className="nb-box nb-shadow-lg rotate-2 overflow-hidden bg-surface md:ml-auto md:max-w-[22rem] xl:max-w-[26rem]"
             data-hero-portrait
           >
             <img
