@@ -7,23 +7,13 @@ import {
   type ReactNode,
 } from 'react';
 
-export const THEMES = ['dark', 'light', 'purple', 'blue'] as const;
+export const THEMES = ['light', 'dark'] as const;
 export type ThemeName = (typeof THEMES)[number];
-
-export const themeOptions: {
-  name: ThemeName;
-  icon: string;
-  label: string;
-}[] = [
-  { name: 'dark', icon: '🌚', label: 'Dark' },
-  { name: 'light', icon: '☀️', label: 'Light' },
-  { name: 'purple', icon: '😈', label: 'Purple' },
-  { name: 'blue', icon: '🥶', label: 'Blue' },
-];
 
 interface ThemeContextValue {
   theme: ThemeName;
   setTheme: (theme: ThemeName) => void;
+  toggleTheme: () => void;
 }
 
 export const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -34,33 +24,69 @@ function isThemeName(value: unknown): value is ThemeName {
   return THEMES.includes(value as ThemeName);
 }
 
-function readStoredTheme(): ThemeName {
+function systemTheme(): ThemeName {
+  return typeof window !== 'undefined' &&
+    window.matchMedia?.('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
+}
+
+/** A stored choice wins; otherwise follow the operating system. */
+function initialTheme(): ThemeName {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (isThemeName(stored)) return stored;
   } catch {
-    // Private browsing or blocked storage — fall through to the default.
+    // Blocked storage — fall through to the system preference.
   }
-  return 'dark';
+  return systemTheme();
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeName>(readStoredTheme);
+  const [theme, setThemeState] = useState<ThemeName>(initialTheme);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    try {
-      localStorage.setItem(STORAGE_KEY, theme);
-    } catch {
-      // Not being able to remember the choice is not worth breaking over.
-    }
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', theme === 'dark' ? '#14110f' : '#fbf7f1');
   }, [theme]);
 
-  const setTheme = useCallback((next: ThemeName) => {
-    if (isThemeName(next)) setThemeState(next);
+  // Follow the system while the visitor has not made an explicit choice.
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const onChange = () => {
+      try {
+        if (localStorage.getItem(STORAGE_KEY)) return;
+      } catch {
+        // Cannot tell whether a choice was stored; following along is fine.
+      }
+      setThemeState(media.matches ? 'dark' : 'light');
+    };
+
+    media.addEventListener('change', onChange);
+    return () => media.removeEventListener('change', onChange);
   }, []);
 
-  const value = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
+  const setTheme = useCallback((next: ThemeName) => {
+    if (!isThemeName(next)) return;
+    setThemeState(next);
+    try {
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      // The choice still applies for this session.
+    }
+  }, []);
+
+  const toggleTheme = useCallback(
+    () => setTheme(theme === 'dark' ? 'light' : 'dark'),
+    [theme, setTheme],
+  );
+
+  const value = useMemo(
+    () => ({ theme, setTheme, toggleTheme }),
+    [theme, setTheme, toggleTheme],
+  );
 
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

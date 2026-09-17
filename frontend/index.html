@@ -1,12 +1,37 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/logo192.png" />
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#121212" />
+    <meta name="theme-color" content="#fbf7f1" />
+
+    <!--
+      Applies the theme before first paint. Without this a visitor who prefers
+      dark sees a flash of the light prerendered page, and vice versa.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var theme =
+            stored === 'light' || stored === 'dark'
+              ? stored
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+          document.documentElement.setAttribute('data-theme', theme);
+          if (theme === 'dark') {
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute('content', '#14110f');
+          }
+        } catch (e) {
+          /* Storage blocked: the light default in CSS still applies. */
+        }
+      })();
+    </script>
     <meta
       name="description"
       content="Dipesh Malla - Full Stack Developer building modern web applications with React and Node.js."

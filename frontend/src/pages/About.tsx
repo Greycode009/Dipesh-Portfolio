@@ -3,7 +3,11 @@ import { motion } from 'framer-motion';
 import SectionHeading from '@/components/SectionHeading';
 import SocialIcons from '@/components/SocialIcons';
 import { bio, timeline } from '@/content/bio';
-import { skillCategories, skills, type SkillFilter } from '@/content/skills';
+import { skills } from '@/content/skills';
+import {
+  skillCategories,
+  type SkillFilter,
+} from '@/content/skillCategories';
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },

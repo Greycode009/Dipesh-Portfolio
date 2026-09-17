@@ -5,52 +5,34 @@
 /**
  * Theme tokens. Each colour is stored as space-separated RGB channels so
  * Tailwind can apply opacity modifiers to it (`bg-primary/10`). Themes are
- * selected by the `data-theme` attribute on <html>, set by ThemeContext.
+ * selected by the `data-theme` attribute on <html>, set by ThemeContext and
+ * by the anti-flash script in index.html.
+ *
+ * Light is the base; dark overrides. Every pairing here clears WCAG AA for
+ * body text against its own background.
  */
 @layer base {
   :root,
-  [data-theme='dark'] {
-    --color-background: 18 18 18;
-    --color-surface: 31 31 31;
-    --color-border: 51 51 51;
-    --color-primary: 187 134 252;
-    --color-secondary: 157 78 221;
-    --color-content: 255 255 255;
-    --color-muted: 187 187 187;
-    --color-on-primary: 18 18 18;
-  }
-
   [data-theme='light'] {
-    --color-background: 246 238 247;
+    --color-background: 251 247 241; /* warm paper */
     --color-surface: 255 255 255;
-    --color-border: 222 226 230;
-    --color-primary: 98 0 238;
-    --color-secondary: 3 218 198;
-    --color-content: 33 37 41;
-    --color-muted: 108 117 125;
+    --color-border: 228 218 203;
+    --color-primary: 160 85 12; /* burnt amber */
+    --color-secondary: 122 62 8;
+    --color-content: 36 30 24; /* warm ink */
+    --color-muted: 107 95 82;
     --color-on-primary: 255 255 255;
   }
 
-  [data-theme='purple'] {
-    --color-background: 45 27 105;
-    --color-surface: 61 42 125;
-    --color-border: 74 52 128;
-    --color-primary: 233 166 255;
-    --color-secondary: 157 78 221;
-    --color-content: 255 255 255;
-    --color-muted: 204 204 204;
-    --color-on-primary: 18 18 18;
-  }
-
-  [data-theme='blue'] {
-    --color-background: 22 33 62;
-    --color-surface: 15 52 96;
-    --color-border: 26 59 95;
-    --color-primary: 0 180 216;
-    --color-secondary: 21 71 132;
-    --color-content: 255 255 255;
-    --color-muted: 204 204 204;
-    --color-on-primary: 18 18 18;
+  [data-theme='dark'] {
+    --color-background: 20 17 15; /* warm charcoal, not blue-black */
+    --color-surface: 30 26 23;
+    --color-border: 52 46 41;
+    --color-primary: 232 163 61; /* lamplight amber */
+    --color-secondary: 209 139 44;
+    --color-content: 242 235 227; /* warm cream */
+    --color-muted: 169 156 144;
+    --color-on-primary: 26 21 18;
   }
 
   html {
@@ -63,8 +45,18 @@
       -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
       sans-serif;
     transition:
-      background-color 0.4s ease,
-      color 0.4s ease;
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  /* Visible focus for keyboard users, in the accent colour of either theme. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--color-primary));
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: rgb(var(--color-primary) / 0.25);
   }
 
   /* Respect users who ask for less motion. */

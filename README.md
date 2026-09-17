@@ -21,8 +21,11 @@ Personal portfolio, being rebuilt as a pixel-game world backed by a CMS.
 
 Styling is Tailwind only. Theme colours are CSS custom properties holding
 space-separated RGB channels, so opacity modifiers (`bg-primary/10`) work
-against whichever of the four themes is active. Themes switch via the
-`data-theme` attribute on `<html>`.
+against whichever theme is active. There are two — light and dark, a warm
+amber accent on paper or charcoal — switched via the `data-theme` attribute on
+`<html>`. A visitor with no stored preference follows their operating system,
+and an inline script in `index.html` applies the theme before first paint so
+the prerendered page never flashes the wrong one.
 
 ## Running
 
@@ -30,8 +33,14 @@ against whichever of the four themes is active. Themes switch via the
     npm install
     cp .env.example .env.local   # EmailJS credentials for the contact form
     npm run dev                  # http://localhost:3000
+    npm run sync:content         # pull CMS content into src/content/
     npm run build      # client build, SSR build, then prerender each route
     npm run typecheck
+
+Editing content: sign in at `/admin`, make changes, then run
+`npm run sync:content` to regenerate `src/content/*.ts` from the API and
+rebuild. Content ships in the bundle rather than being fetched at runtime, so
+the site stays fast and survives the API being down.
 
 `npm run build` writes one static HTML file per route in `src/routes.ts`
 (`dist/about/index.html`, and so on), each with its own title, description,
@@ -51,6 +60,7 @@ files win.
 ## Roadmap
 
 1. **Foundations** — Vite + TypeScript, Tailwind-only styling, content extracted, routes prerendered. *(this branch)*
-2. **CMS** — Express + Sequelize + Postgres, admin UI, GitHub project import.
+2. **CMS** — Express + Sequelize + Postgres, admin UI at `/admin`. *(GitHub
+   import and image upload still to come.)*
 3. **The Room** — Phaser pixel world: arcade cabinets, skill inventory, dialogue, mailbox.
 4. **Living world** — guestbook and ghost visitors.

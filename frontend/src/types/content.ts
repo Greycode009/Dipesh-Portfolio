@@ -72,6 +72,8 @@ export interface Bio {
   roles: string[];
   /** Rendered as separate paragraphs. */
   story: string[];
+  /** Lead paragraph on the home page. */
+  homeIntro: string;
   quote: string;
   avatarUrl: string;
   portraitUrl: string;
