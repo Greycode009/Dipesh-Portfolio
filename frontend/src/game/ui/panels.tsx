@@ -20,11 +20,17 @@ export function ProjectPanel({
 
   return (
     <Panel title={project.title} onClose={onClose}>
-      <img
-        src={project.image}
-        alt={`${project.title} screenshot`}
-        className="mb-4 w-full rounded border-2 border-border object-cover"
-      />
+      {project.image ? (
+        <img
+          src={project.image}
+          alt={`${project.title} screenshot`}
+          className="mb-4 w-full rounded border-2 border-border object-cover"
+        />
+      ) : (
+        <p className="mb-4 rounded border-2 border-border bg-background p-4 font-pixel text-[0.5rem] leading-relaxed text-muted">
+          NO SCREENSHOT — THIS ONE LIVES IN THE TERMINAL
+        </p>
+      )}
       <p className="mb-4 leading-relaxed text-muted">{project.description}</p>
 
       <div className="mb-5 flex flex-wrap gap-2">
@@ -39,14 +45,16 @@ export function ProjectPanel({
       </div>
 
       <div className="flex flex-wrap gap-3">
-        <a
-          href={project.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded border-2 border-[#241c17] bg-primary px-4 py-2 font-pixel text-[0.55rem] text-on-primary transition-transform hover:-translate-y-0.5"
-        >
-          PLAY DEMO
-        </a>
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded border-2 border-[#241c17] bg-primary px-4 py-2 font-pixel text-[0.55rem] text-on-primary transition-transform hover:-translate-y-0.5"
+          >
+            PLAY DEMO
+          </a>
+        )}
         <a
           href={project.githubUrl}
           target="_blank"

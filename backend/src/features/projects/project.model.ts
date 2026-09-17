@@ -16,9 +16,14 @@ export class Project extends Model<
   declare title: string;
   declare description: string;
   declare technologies: string[];
-  declare image: string;
+  /** Optional: a backend or CLI project usually has nothing to screenshot. */
+  declare image: CreationOptional<string | null>;
   declare githubUrl: string;
-  declare liveUrl: string;
+  /** Optional: not everything has somewhere to click through to. */
+  declare liveUrl: CreationOptional<string | null>;
+  declare type: CreationOptional<
+    'frontend' | 'backend' | 'fullstack' | 'mobile' | 'other'
+  >;
   declare featured: CreationOptional<boolean>;
   declare category: string;
   declare date: string;
@@ -50,9 +55,14 @@ Project.init(
       allowNull: false,
       defaultValue: [],
     },
-    image: { type: DataTypes.STRING(1024), allowNull: false },
+    image: { type: DataTypes.STRING(1024), allowNull: true },
     githubUrl: { type: DataTypes.STRING(1024), allowNull: false },
-    liveUrl: { type: DataTypes.STRING(1024), allowNull: false },
+    liveUrl: { type: DataTypes.STRING(1024), allowNull: true },
+    type: {
+      type: DataTypes.ENUM('frontend', 'backend', 'fullstack', 'mobile', 'other'),
+      allowNull: false,
+      defaultValue: 'frontend',
+    },
     featured: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

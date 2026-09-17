@@ -37,8 +37,8 @@ const serialize = (value) => JSON.stringify(value, null, 2);
 
 const PROJECT_KEYS = [
   'id', 'slug', 'title', 'description', 'technologies', 'image',
-  'githubUrl', 'liveUrl', 'featured', 'category', 'date', 'sortOrder',
-  'status', 'worldX', 'worldY', 'sprite',
+  'githubUrl', 'liveUrl', 'featured', 'type', 'category', 'date',
+  'sortOrder', 'status', 'worldX', 'worldY', 'sprite',
 ];
 
 const SKILL_KEYS = [

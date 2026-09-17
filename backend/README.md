@@ -95,6 +95,15 @@ message as though it were live.
 `GITHUB_TOKEN` is optional; without it GitHub allows 60 requests an hour, with
 it 5000. A classic token with no scopes is enough for public repositories.
 
+## Project types
+
+A project has a `type` — frontend, backend, fullstack, mobile or other — and
+both `image` and `liveUrl` are optional. A backend project usually has neither:
+nothing to screenshot and nowhere to click. The site renders those cards with a
+code-block stand-in and a single "read the source" button rather than a broken
+image and a dead link. The GitHub importer suggests the type from the repo's
+language, name and topics.
+
 ## Deployment
 
 Railway or Fly, not a free tier that sleeps — Phase 4's ghost visitors need a

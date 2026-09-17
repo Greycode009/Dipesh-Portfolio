@@ -16,6 +16,17 @@ export type SkillCategory =
 
 export type ContentStatus = 'draft' | 'published';
 
+/**
+ * What kind of thing a project is. Drives what its card can show — a backend
+ * or CLI project usually has no live demo and nothing to screenshot.
+ */
+export type ProjectType =
+  | 'frontend'
+  | 'backend'
+  | 'fullstack'
+  | 'mobile'
+  | 'other';
+
 /** 1 = touched it, 5 = could teach it. Becomes item rarity in the game. */
 export type Proficiency = 1 | 2 | 3 | 4 | 5;
 
@@ -33,10 +44,13 @@ export interface Project extends WorldPlacement {
   title: string;
   description: string;
   technologies: string[];
-  image: string;
+  /** Null when there is nothing to show — a backend project, typically. */
+  image: string | null;
   githubUrl: string;
-  liveUrl: string;
+  /** Null when there is nowhere to click through to. */
+  liveUrl: string | null;
   featured: boolean;
+  type: ProjectType;
   category: string;
   /** ISO date, YYYY-MM-DD. */
   date: string;

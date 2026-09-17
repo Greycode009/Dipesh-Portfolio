@@ -138,6 +138,8 @@ export async function previewProjectFromRepo(reference: string) {
       githubUrl: repo.html_url,
       liveUrl: repo.homepage ?? '',
       featured: false,
+      // The guess feeds both: `type` drives the card, `category` is legacy.
+      type: guessCategory(repo.language, repo.name, repo.topics ?? []),
       category: guessCategory(repo.language, repo.name, repo.topics ?? []),
       date: repo.created_at.slice(0, 10),
       status: 'draft' as const,
