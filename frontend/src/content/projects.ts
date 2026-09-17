@@ -94,7 +94,7 @@ export const projects: Project[] = [
       "Vercel"
     ],
     "image": "https://i.postimg.cc/gkSxZPjQ/Screenshot-2026-02-05-172049.png",
-    "githubUrl": "https://github.com/Greycode009/School",
+    "githubUrl": "https://github.com/Greycode009/School-Website",
     "liveUrl": "https://myschool-dashboard.vercel.app/",
     "featured": false,
     "type": "frontend",
@@ -153,29 +153,5 @@ export const projects: Project[] = [
     "worldX": 19,
     "worldY": 3,
     "sprite": "cabinet-red"
-  },
-  {
-    "id": 7,
-    "slug": "e-commerce-api",
-    "title": "E Commerce API",
-    "description": "A REST API for an online store: products, carts, orders and authentication. There is no interface to click; the endpoints are the product.",
-    "technologies": [
-      "Node.js",
-      "Express",
-      "PostgreSQL",
-      "JWT"
-    ],
-    "image": null,
-    "githubUrl": "https://github.com/Greycode009/E-commerce-API",
-    "liveUrl": null,
-    "featured": false,
-    "type": "backend",
-    "category": "backend",
-    "date": "2026-08-25",
-    "sortOrder": 7,
-    "status": "published",
-    "worldX": 0,
-    "worldY": 0,
-    "sprite": "cabinet-default"
   }
 ];

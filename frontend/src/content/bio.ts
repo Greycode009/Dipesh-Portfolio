@@ -15,7 +15,7 @@ export const bio: Bio = {
   ],
   "story": [
     "Hi, I'm Dipesh Malla, a full-stack developer from Nepal. I specialize in building modern web applications using React on the frontend and FastAPI on the backend. My passion lies in creating scalable and efficient solutions that deliver exceptional user experiences.",
-    "With 3 years of experience in web development, I've evolved from frontend development with React and JavaScript to mastering full-stack development. I work extensively with FastAPI, SQLAlchemy, and PostgreSQL to build robust backend systems. I'm particularly passionate about creating clean, maintainable code and implementing efficient database solutions that power seamless user experiences."
+    "With 2 years of experience in web development, I've evolved from frontend development with React and JavaScript to mastering full-stack development. I work extensively with FastAPI, SQLAlchemy, and PostgreSQL to build robust backend systems. I'm particularly passionate about creating clean, maintainable code and implementing efficient database solutions that power seamless user experiences."
   ],
   "homeIntro": "I specialize in building modern web applications with React and Node.js, focusing on scalable solutions and exceptional user experiences.",
   "quote": "When I'm not coding, you'll find me contributing to open-source, helping peers learn, or exploring the latest in web development technologies. I believe in lifelong learning, mentorship, and giving back to the tech community.",

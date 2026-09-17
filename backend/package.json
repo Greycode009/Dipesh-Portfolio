@@ -8,7 +8,8 @@
     "start": "node dist/server.js",
     "typecheck": "tsc --noEmit",
     "db:sync": "tsx src/db/sync.ts",
-    "db:seed": "tsx src/db/seed.ts"
+    "db:seed": "tsx src/db/seed.ts",
+    "db:ping": "tsx src/db/ping.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -28,8 +28,16 @@ service logic:
 
 ## Database
 
-PostgreSQL in production (Neon). With `DATABASE_URL` unset, it falls back to a
-local SQLite file so the API runs without provisioning anything. Models
+PostgreSQL (Neon). With `DATABASE_URL` unset it falls back to a local SQLite
+file, so the API still runs without provisioning anything.
+
+TLS is enabled for any database that is not on this machine, rather than being
+tied to `NODE_ENV` — connecting to Neon from a laptop needs it just as much as
+production does.
+
+    npm run db:ping    # what am I actually connected to?
+    npm run db:sync    # create or alter tables to match the models
+    npm run db:seed    # content + the admin user, idempotent Models
 therefore stick to types both dialects support — arrays are `JSON` columns, not
 Postgres `ARRAY`.
 
