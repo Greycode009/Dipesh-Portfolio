@@ -15,22 +15,39 @@ export default function Home() {
     const items = root.querySelectorAll('[data-hero-item]');
     const portrait = root.querySelector('[data-hero-portrait]');
 
-    // Headline lines sit in overflow-hidden blocks, so sliding them up reads
-    // as the type being uncovered rather than fading in.
+    /*
+     * fromTo, not from. `from` takes the element's *current* value as its
+     * destination, so if a previous run left an inline style behind — a
+     * killed timeline, a motion toggle, React's double-mount in development —
+     * the next run animates to that stale value and the hero stays hidden.
+     * Spelling out both ends makes the result independent of what the DOM
+     * happens to be holding.
+     *
+     * The headline lines sit in overflow-hidden blocks, so sliding them up
+     * reads as the type being uncovered rather than fading in.
+     */
     if (lines.length) {
-      timeline.from(lines, { yPercent: 115, duration: 0.85, stagger: 0.08 });
+      timeline.fromTo(
+        lines,
+        { yPercent: 115 },
+        { yPercent: 0, duration: 0.85, stagger: 0.08 },
+      );
     }
     if (items.length) {
-      timeline.from(
+      timeline.fromTo(
         items,
-        { opacity: 0, y: 24, duration: 0.6, stagger: 0.07 },
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.07 },
         '-=0.5',
       );
     }
     if (portrait) {
-      timeline.from(
+      // rotate ends at 2deg to match the `rotate-2` class: GSAP replaces the
+      // whole transform, so Tailwind's rotation has to be restated here.
+      timeline.fromTo(
         portrait,
-        { opacity: 0, scale: 0.94, rotate: -4, duration: 0.7 },
+        { opacity: 0, scale: 0.94, rotate: -4 },
+        { opacity: 1, scale: 1, rotate: 2, duration: 0.7 },
         '-=0.6',
       );
     }
@@ -38,10 +55,10 @@ export default function Home() {
     const track = root.querySelector<HTMLElement>('[data-marquee]');
     const stopMarquee = track ? infiniteMarquee(track) : undefined;
 
-    return () => {
-      timeline.kill();
-      stopMarquee?.();
-    };
+    // No timeline.kill() here: the gsap.context this runs inside reverts
+    // everything it created, restoring the inline styles. Killing first would
+    // freeze them instead, leaving them for the next run to inherit.
+    return () => stopMarquee?.();
   });
 
   const featured = projects
