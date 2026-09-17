@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { bio, timeline } from '@/content/bio';
+import { bio } from '@/content/bio';
 import { skills } from '@/content/skills';
 import { skillCategories, type SkillFilter } from '@/content/skillCategories';
 import { usePageAnimations } from '@/hooks/usePageAnimations';
@@ -96,33 +96,6 @@ export default function About() {
             </article>
           ))}
         </div>
-      </section>
-
-      {/* --------------------------------------------------------- timeline */}
-      <section className={`${shell} pb-14 md:pb-20`}>
-        <p className="eyebrow" data-reveal>
-          02 — How it went
-        </p>
-
-        <ol className="mt-8 space-y-5">
-          {timeline.map((entry) => (
-            <li key={entry.id} data-reveal>
-              <div className="nb-card flex flex-wrap items-start gap-5 p-6">
-                <span className="nb-box flex shrink-0 items-center bg-primary px-3 py-1.5 font-display text-base text-on-primary">
-                  {entry.year}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <h3 className="font-display text-lg uppercase leading-tight">
-                    {entry.title}
-                  </h3>
-                  <p className="mt-2 font-medium leading-snug text-muted">
-                    {entry.description}
-                  </p>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ol>
       </section>
 
       <section className={`${shell} pb-16 md:pb-24`}>
