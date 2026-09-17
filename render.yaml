@@ -10,7 +10,11 @@ services:
     runtime: node
     plan: free
     rootDir: backend
-    buildCommand: npm ci && npm run build
+    # --include=dev is not optional: NODE_ENV=production is set below and
+    # applies to the build too, which otherwise makes npm skip
+    # devDependencies — and typescript and tsc-alias live there, so the
+    # build would fail with "tsc: not found".
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: npm start
     # Render pings this after a deploy to decide whether the release is live.
     healthCheckPath: /health

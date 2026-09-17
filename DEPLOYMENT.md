@@ -28,7 +28,20 @@ including your local `backend/.env`.
 it rather than you filling in a form.
 
 1. Render dashboard → **New → Blueprint** → pick this repository, branch
-   `main`.
+   `main`. The blueprint fills in the settings below; they are listed in case
+   you create the service by hand instead.
+
+   | Setting | Value |
+   | --- | --- |
+   | Root Directory | `backend` |
+   | Build Command | `npm ci --include=dev && npm run build` |
+   | Start Command | `npm start` |
+   | Health Check Path | `/health` |
+
+   `--include=dev` is load-bearing. `NODE_ENV=production` applies during the
+   build as well as at runtime, and npm then skips devDependencies — where
+   `typescript` and `tsc-alias` live. Without it the build fails with
+   `tsc: not found`.
 2. Render reads `render.yaml` and asks for the values it will not read from
    version control:
 
